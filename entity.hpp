@@ -10,7 +10,7 @@ class Entity
    private:
       int id;
       int x, y, w, h;
-      SDL_Texture *texture;
+      std::vector<SDL_Texture*> stillFrames;
    public:
       inline virtual int get_id() { return id; }; const
       inline virtual void set_id(int i) { id = i; }
@@ -29,4 +29,17 @@ class Entity
       inline virtual void move_left(int s) { set_x(get_x() - s); }
       inline virtual void move_up(int s) { set_y(get_y() + s); }     
       inline virtual void move_down(int s) { set_y(get_y() - s); }
+
+      virtual void set_stillFrame(int n, SDL_Texture*);
+      inline virtual SDL_Texture* get_stillFrame(int n) { return stillFrames.at(n); }
 };
+
+void Entity::set_stillFrame(int n, SDL_Texture* t)
+{
+   if (n >= this->stillFrames.size() || n < 0)
+   {
+      std::cout << "stillFrames: argument is out of bounds\n";
+      exit(1);
+   }
+   this->stillframes.at(n) = t;
+}

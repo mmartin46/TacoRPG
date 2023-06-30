@@ -7,7 +7,7 @@ class Player : public Entity
    private:
       int id;
       int x, y, w, h;
-      SDL_Texture *texture;
+      std::vector<SDL_Texture*> frames;
    public:
       Player();
       Player(int x, int y);
