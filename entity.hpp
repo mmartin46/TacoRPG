@@ -10,6 +10,7 @@ class Entity
    private:
       int id;
       int x, y, w, h;
+      SDL_Texture *texture;
    public:
       inline virtual int get_id() { return id; }; const
       inline virtual void set_id(int i) { id = i; }
