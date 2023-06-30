@@ -41,5 +41,5 @@ void Entity::set_stillFrame(int n, SDL_Texture* t)
       std::cout << "stillFrames: argument is out of bounds\n";
       exit(1);
    }
-   this->stillframes.at(n) = t;
+   this->stillFrames.at(n) = t;
 }
