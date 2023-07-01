@@ -3,24 +3,6 @@
 #include "player.hpp"
 #include "game.hpp"
 
-
-namespace BitSet
-{
-   uint8_t get_bit(const int &value, int pos) 
-   {
-      return (value >> pos) & 1U;
-   }
-
-   void set_bit(int &value, int pos)
-   {
-      value |= (1 << pos);
-   }
-   void reset_bit(int &value, int pos)
-   {
-      value &= ~(1 << pos);
-   }
-}
-
 int main(int argc, char **argv)
 {
    GameState game;

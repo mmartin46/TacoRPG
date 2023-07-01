@@ -92,12 +92,12 @@ int GameState::events(SDL_Window *window)
             {
                SDL_DestroyWindow(window);
                window = NULL;
-               done = 1;
+               bitset::set_bit(done, 0);
             }
          }
          break;
          case SDL_QUIT:
-            done = 1;
+               bitset::set_bit(done, 0);
          break;
       }
    }
