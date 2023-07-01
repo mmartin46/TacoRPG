@@ -8,6 +8,7 @@ class GameState
       std::shared_ptr<Player> player;
       SDL_Renderer *renderer;
       int time;
+      std::pair<int, int> scroll;
    public:
       GameState();
       std::shared_ptr<Player> get_player() { return player; }
@@ -19,6 +20,12 @@ class GameState
       inline int get_time() { return time; };
       inline void set_time(int t) { time = t; }
       inline void inc_time() { set_time(get_time() + 1); }
+
+      inline void set_scrollX(int n) { scroll.first = n; }
+      inline void set_scrollY(int n) { scroll.second = n; }
+      inline int get_scrollX() { return scroll.first; }
+      inline int get_scrollY() { return scroll.second; }
+
       inline SDL_Renderer *get_renderer() { return renderer; }
       inline void set_renderer(SDL_Renderer *rend) { renderer = rend; }
 };
@@ -45,6 +52,10 @@ void GameState::load()
 }
 
 
+void GameState::animate()
+{
+}
+
 void GameState::render()
 {
    SDL_SetRenderDrawColor(this->get_renderer(), 20, 20, 20, 255);
@@ -52,7 +63,7 @@ void GameState::render()
    SDL_RenderClear(this->get_renderer());
 
    // Player Rect
-   SDL_Rect prect = { this->get_player()->get_x(), this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
+   SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollX() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(0), NULL, &prect);
 
    SDL_RenderPresent(this->get_renderer());
@@ -62,6 +73,8 @@ GameState::GameState()
 {
    set_time(0);
    player = std::make_shared<Player>();
+   set_scrollX(0);
+   set_scrollY(0);
 }
 
 

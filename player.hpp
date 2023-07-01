@@ -7,14 +7,10 @@ class Player : public Entity
    private:
       int id;
       int x, y, w, h;
-      int facingLeft;
       std::vector<SDL_Texture*> stillFrames;
    public:
       Player();
       Player(int x, int y);
-      
-      inline void set_facingLeft(int f) { facingLeft = f; }
-      inline int get_facingLeft() { return facingLeft; }
 };
 
 Player::Player()
