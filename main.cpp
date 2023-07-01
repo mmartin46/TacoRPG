@@ -20,16 +20,21 @@ int main(int argc, char **argv)
                            0);
 
    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+   game.set_renderer(renderer);
    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
    SDL_RenderSetLogicalSize(renderer, 400, 400);
+
+   game.load();
 
    int done = 0;
    while (!done)
    {
       done = game.events(window);
 
+      game.render();
 
       std::this_thread::sleep_for(std::chrono::milliseconds(10));
+      game.inc_time();
    }
 
    SDL_DestroyWindow(window);

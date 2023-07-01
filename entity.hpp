@@ -12,6 +12,7 @@ class Entity
       int x, y, w, h;
       std::vector<SDL_Texture*> stillFrames;
    public:
+      Entity();
       inline virtual int get_id() { return id; }; const
       inline virtual void set_id(int i) { id = i; }
 
@@ -27,12 +28,17 @@ class Entity
 
       inline virtual void move_right(int s) { set_x(get_x() + s); }     
       inline virtual void move_left(int s) { set_x(get_x() - s); }
-      inline virtual void move_up(int s) { set_y(get_y() + s); }     
-      inline virtual void move_down(int s) { set_y(get_y() - s); }
+      inline virtual void move_up(int s) { set_y(get_y() - s); }     
+      inline virtual void move_down(int s) { set_y(get_y() + s); }
 
       virtual void set_stillFrame(int n, SDL_Texture*);
       inline virtual SDL_Texture* get_stillFrame(int n) { return stillFrames.at(n); }
 };
+
+Entity::Entity()
+{
+   stillFrames = std::vector<SDL_Texture*>(1);
+}
 
 void Entity::set_stillFrame(int n, SDL_Texture* t)
 {
