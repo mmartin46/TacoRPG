@@ -112,13 +112,14 @@ void GameState::init_tiles()
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
-   std::cout << this->get_scrollX();
-   this->set_scrollX(-plyr->get_x() + WINDOW_HEIGHT / 2);
-   this->set_scrollY(-plyr->get_y() + WINDOW_WIDTH / 2);
+
+   this->set_scrollX(-plyr->get_x() + WINDOW_WIDTH / 2);
+   this->set_scrollY(-plyr->get_y() + WINDOW_HEIGHT / 2);
    if (this->get_scrollX() > 0)
    {
       this->set_scrollX(0);
    }
+
 }
 
 void GameState::render()
@@ -135,7 +136,7 @@ void GameState::render()
          switch (tileMap.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION : {
-               SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_y()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_w()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_h()) };
+               SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &blockRect);
             }
          }
@@ -143,7 +144,7 @@ void GameState::render()
    }
 
    // Player Rect
-   SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollX() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
+   SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollY() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(0), NULL, &prect);
 
    SDL_RenderPresent(this->get_renderer());
@@ -190,19 +191,18 @@ int GameState::events(SDL_Window *window)
    const Uint8 *state = SDL_GetKeyboardState(NULL);
    if (state[SDL_SCANCODE_UP])
    {
-      this->get_player()->move_up(1);
+      this->get_player()->move_up(2);
    }
    else if (state[SDL_SCANCODE_LEFT])
    {
-      this->get_player()->move_left(1);
-   }
+      this->get_player()->move_left(2);   }
    else if (state[SDL_SCANCODE_RIGHT])
    {
-      this->get_player()->move_right(1);
+      this->get_player()->move_right(2);
    }
    else if (state[SDL_SCANCODE_DOWN])
    {
-      this->get_player()->move_down(1);
+      this->get_player()->move_down(2);
    }
 
    std::cout << this->get_player()->get_x() << " " << this->get_player()->get_y() << "\n";

@@ -1,4 +1,5 @@
 #pragma once
+#include "constants.hpp"
 #include "utilities.cpp"
 #include "entity.hpp"
 
@@ -15,8 +16,8 @@ class Player : public Entity
 
 Player::Player()
 {
-   this->set_x(0);
-   this->set_y(0);
+   this->set_x((WINDOW_WIDTH / 2)-PLAYER_WIDTH);
+   this->set_y((WINDOW_HEIGHT / 2)-PLAYER_HEIGHT);
    stillFrames = vector<SDL_Texture*>(1);
 }
 
