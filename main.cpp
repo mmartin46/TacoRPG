@@ -30,6 +30,7 @@ int main(int argc, char **argv)
    {
       done = game.events(window);
 
+      game.collisions();
       game.animate();
       game.render();
 
