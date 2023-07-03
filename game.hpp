@@ -14,11 +14,15 @@ class GameState
       pair<int, int> scroll;
       Matrix<int> tileMap;
       Matrix<Block> blocks;
-      shared_ptr<Block> block;
+      SDL_Texture* block;
    public:
       GameState();
+      virtual ~GameState();
+
       std::shared_ptr<Player> get_player() { return player; }
-      std::shared_ptr<Block> get_block() { return block; }
+      
+      inline void set_block(SDL_Texture *b) { block = b; }
+      inline SDL_Texture* get_block() { return block; }
       void load();
       void render();
       void animate();
@@ -72,6 +76,8 @@ void GameState::load()
    }
    // this->get_block()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    // SDL_FreeSurface(surface);
+   this->set_block(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
 }
 
 void GameState::init_tiles()
@@ -197,3 +203,8 @@ int GameState::events(SDL_Window *window)
    return done;
 }
 
+GameState::~GameState()
+{
+   SDL_DestroyTexture(this->get_block());
+   SDL_DestroyTexture(this->get_player()->get_stillFrame(0));
+}
