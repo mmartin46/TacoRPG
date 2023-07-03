@@ -75,7 +75,7 @@ void GameState::load()
       exit(1);
    }
 
-   this->set_block(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   this->set_block_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 }
 
@@ -111,6 +111,13 @@ void GameState::init_tiles()
 
 void GameState::animate()
 {
+   shared_ptr<Player> plyr = this->get_player();
+   // this->set_scrollX(-plyr->get_x() + WINDOW_WIDTH / 2);
+   // this->set_scrollY(-plyr->get_y() + WINDOW_HEIGHT / 2);
+   // if (this->get_scrollX() > 0)
+   // {
+   //    this->set_scrollX(0);
+   // }
 }
 
 void GameState::render()
@@ -204,6 +211,6 @@ int GameState::events(SDL_Window *window)
 
 GameState::~GameState()
 {
-   SDL_DestroyTexture(this->get_block());
+   SDL_DestroyTexture(this->get_block_texture());
    SDL_DestroyTexture(this->get_player()->get_stillFrame(0));
 }
