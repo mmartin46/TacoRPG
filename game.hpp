@@ -74,8 +74,7 @@ void GameState::load()
       SDL_Quit();
       exit(1);
    }
-   // this->get_block()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   // SDL_FreeSurface(surface);
+
    this->set_block(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 }
@@ -128,8 +127,8 @@ void GameState::render()
          switch (tileMap.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION : {
-               //SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_y()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_w()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_h()) };
-
+               SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_y()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_w()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_h()) };
+               SDL_RenderCopy(this->get_renderer(), this->get_block(), NULL, &blockRect);
             }
          }
       }
