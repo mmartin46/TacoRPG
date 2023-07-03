@@ -9,13 +9,16 @@ class GameState
       SDL_Renderer *renderer;
       int time;
       std::pair<int, int> scroll;
+      std::vector<std::vector<int> > tileMap;
    public:
       GameState();
       std::shared_ptr<Player> get_player() { return player; }
       void load();
       void render();
       void animate();
-      int events(SDL_Window *window);
+      int events(SDL_Window *);
+
+      void init_blocks();
 
       inline int get_time() { return time; };
       inline void set_time(int t) { time = t; }
@@ -29,6 +32,9 @@ class GameState
       inline SDL_Renderer *get_renderer() { return renderer; }
       inline void set_renderer(SDL_Renderer *rend) { renderer = rend; }
 };
+
+
+
 
 void GameState::load()
 {
@@ -49,6 +55,21 @@ void GameState::load()
 
    this->get_player()->set_h(PLAYER_HEIGHT);
    this->get_player()->set_w(PLAYER_WIDTH);
+   
+   path = "sprites\\block.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);
+   }
+
+}
+
+void GameState::init_blocks()
+{
+
 }
 
 
@@ -73,6 +94,7 @@ GameState::GameState()
 {
    set_time(0);
    player = std::make_shared<Player>();
+   player->set_id(0);
    set_scrollX(0);
    set_scrollY(0);
 }
