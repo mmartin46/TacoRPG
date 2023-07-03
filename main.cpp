@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 
    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-   window = SDL_CreateWindow("Explorer",
+   window = SDL_CreateWindow("RPG Game",
                            SDL_WINDOWPOS_UNDEFINED,
                            SDL_WINDOWPOS_UNDEFINED,
                            400,
