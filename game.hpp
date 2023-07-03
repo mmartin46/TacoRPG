@@ -14,9 +14,11 @@ class GameState
       pair<int, int> scroll;
       Matrix<int> tileMap;
       Matrix<Block> blocks;
+      shared_ptr<Block> block;
    public:
       GameState();
       std::shared_ptr<Player> get_player() { return player; }
+      std::shared_ptr<Block> get_block() { return block; }
       void load();
       void render();
       void animate();
@@ -68,21 +70,22 @@ void GameState::load()
       SDL_Quit();
       exit(1);
    }
-
+   // this->get_block()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   // SDL_FreeSurface(surface);
 }
 
 void GameState::init_tiles()
 {
    int x, y;
-   for (x = 0; x < 100; ++x)
+   for (x = 0; x < 28; ++x)
    {
       for (y = 0; y < 100; ++y)
       {
-         tileMap.at(x).at(y);
+         tileMap.at(x).at(y) = world_map::worldMap[x][y];
       }
    }
 
-   for (x = 0; x < 100; ++x)
+   for (x = 0; x < 28; ++x)
    {
       for (y = 0; y < 100; ++y)
       {
@@ -111,6 +114,21 @@ void GameState::render()
 
    SDL_RenderClear(this->get_renderer());
 
+   int x, y;
+   for (x = 0; x < 28; ++x)
+   {
+      for (y = 0; y < 100; ++y)
+      {
+         switch (tileMap.at(x).at(y))
+         {
+            case world_map::BLOCK_COLLISION : {
+               //SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_y()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_w()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_h()) };
+
+            }
+         }
+      }
+   }
+
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollX() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(0), NULL, &prect);
@@ -122,10 +140,14 @@ GameState::GameState()
 {
    set_time(0);
    player = std::make_shared<Player>();
+   tileMap = Matrix<int> (28, vector<int>(100));
+   blocks = Matrix<Block> (28, vector<Block>(100));
    player->set_id(0);
    set_scrollX(0);
    set_scrollY(0);
+   init_tiles();
 }
+
 
 
 int GameState::events(SDL_Window *window)
