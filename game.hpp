@@ -21,8 +21,8 @@ class GameState
 
       std::shared_ptr<Player> get_player() { return player; }
       
-      inline void set_block(SDL_Texture *b) { block = b; }
-      inline SDL_Texture* get_block() { return block; }
+      inline void set_block_texture(SDL_Texture *b) { block = b; }
+      inline SDL_Texture* get_block_texture() { return block; }
       void load();
       void render();
       void animate();
@@ -128,7 +128,7 @@ void GameState::render()
          {
             case world_map::BLOCK_COLLISION : {
                SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_y()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_w()), static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_h()) };
-               SDL_RenderCopy(this->get_renderer(), this->get_block(), NULL, &blockRect);
+               SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &blockRect);
             }
          }
       }
