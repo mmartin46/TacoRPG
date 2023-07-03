@@ -112,12 +112,13 @@ void GameState::init_tiles()
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
-   // this->set_scrollX(-plyr->get_x() + WINDOW_WIDTH / 2);
-   // this->set_scrollY(-plyr->get_y() + WINDOW_HEIGHT / 2);
-   // if (this->get_scrollX() > 0)
-   // {
-   //    this->set_scrollX(0);
-   // }
+   std::cout << this->get_scrollX();
+   this->set_scrollX(-plyr->get_x() + WINDOW_HEIGHT / 2);
+   this->set_scrollY(-plyr->get_y() + WINDOW_WIDTH / 2);
+   if (this->get_scrollX() > 0)
+   {
+      this->set_scrollX(0);
+   }
 }
 
 void GameState::render()
