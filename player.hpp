@@ -7,7 +7,7 @@ class Player : public Entity
    private:
       int id;
       int x, y, w, h;
-      std::vector<SDL_Texture*> stillFrames;
+      vector<SDL_Texture*> stillFrames;
    public:
       Player();
       Player(int x, int y);
@@ -17,7 +17,7 @@ Player::Player()
 {
    this->set_x(0);
    this->set_y(0);
-   stillFrames = std::vector<SDL_Texture*>(1);
+   stillFrames = vector<SDL_Texture*>(1);
 }
 
 Player::Player(int x, int y)
