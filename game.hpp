@@ -31,8 +31,7 @@ class GameState
       void animate();
       void collisions();
 
-      template <typename T>
-      int collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H);
+      int collision_in_map(Entity *plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H);
 
       int events(SDL_Window *);
 
@@ -51,9 +50,62 @@ class GameState
       inline void set_renderer(SDL_Renderer *rend) { renderer = rend; }
 };
 
+int GameState::collision_in_map(Entity *plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H);
+{
+   int touched = 0;
+   float pw = P_W, ph = P_H;
+   float px = plyr->get_x(), py = plyr->get_y();
+   float bx = blocks.at(i).at(j).get_x(), by = blocks.at(i).at(j).get_y(), bw = blocks.at(i).at(j).get_w(), bh = blocks.at(i).at(j).get_h();
+
+   if (px+pw/2 > bx && px+pw/2 < bx+bw)
+   {
+      // Head Bump
+      if (px < by+bh && py>by && plyr->get_dy() < 0)
+      {
+         // Correct Y
+         plyr->set_y(by+bh);
+         py = by+bh;
+         touched = 1;
+      }
+   }
+   if (px+pw > bx && px<bx+bw)
+   {
+      if (py+ph > by && py < by && plyr->get_dy() > 0)
+      {
+         plyr->set_y(by-ph);
+         py = by-ph;
+         touched = 2;
+      }
+   }
+   if (py+ph > by && py < by+bh)
+   {
+      // Rubbing against right edge
+      if (px < bx+bw && px+pw > bx+bw && plyr->get_dx() < 0)
+      {
+         // Correct X
+         plyr->set_x(bx+bw);
+         px = bx+bw;
+         touched = 3;
+      }
+      else if (px+pw > bx && px < bx && plyr->get_dx() > 0)
+      {
+         plyr->set_x(bx-pw);
+         px = bx-pw;
+         touched = 4;
+      }
+   }
+   return touched;
+}
+
 void GameState::collisions()
 {
-
+   for (int x = 0; x < row_count; ++x)
+   {
+      for (int y = 0; y < col_count; ++y)
+      {
+         collision_in_map(this->get_player(), this->blocks, i, j, PLAYER_WIDTH, PLAYER_HEIGHT);
+      }
+   }
 }
 
 
