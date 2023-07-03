@@ -66,7 +66,15 @@ class Map
 Map::Map(const char *f)
 {
    this->file_name = f;
+   if (f == NULL)
+   {
+      std::cout << "Map(): File Not Found!";
+      SDL_Quit();
+      exit(1);
+   }
+
    dimensions = this->calculateMapSize(file_name, ',');
+   std::cout << dimensions.first << " " << dimensions.second << std::endl;
 }
 
 

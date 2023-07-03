@@ -8,6 +8,9 @@
 class GameState
 {
    private:
+      int row_count;
+      int col_count;
+
       shared_ptr<Player> player;
       SDL_Renderer *renderer;
       int time;
@@ -82,17 +85,17 @@ void GameState::load()
 void GameState::init_tiles()
 {
    int x, y;
-   for (x = 0; x < 28; ++x)
+   for (x = 0; x < row_count; ++x)
    {
-      for (y = 0; y < 100; ++y)
+      for (y = 0; y < col_count; ++y)
       {
          tileMap.at(x).at(y) = world_map::worldMap[x][y];
       }
    }
 
-   for (x = 0; x < 28; ++x)
+   for (x = 0; x < row_count; ++x)
    {
-      for (y = 0; y < 100; ++y)
+      for (y = 0; y < col_count; ++y)
       {
          switch (tileMap.at(x).at(y))
          {
@@ -129,9 +132,9 @@ void GameState::render()
    SDL_RenderClear(this->get_renderer());
 
    int x, y;
-   for (x = 0; x < 28; ++x)
+   for (x = 0; x < row_count; ++x)
    {
-      for (y = 0; y < 100; ++y)
+      for (y = 0; y < col_count; ++y)
       {
          switch (tileMap.at(x).at(y))
          {
@@ -154,8 +157,16 @@ GameState::GameState()
 {
    set_time(0);
    player = std::make_shared<Player>();
-   tileMap = Matrix<int> (28, vector<int>(100));
-   blocks = Matrix<Block> (28, vector<Block>(100));
+
+
+   Map dim("files\\test.txt");
+   row_count = dim.getRowCount();
+   col_count = dim.getColumnCount();
+
+
+   tileMap = Matrix<int> (row_count, vector<int>(col_count));
+   blocks = Matrix<Block> (row_count, vector<Block>(col_count));
+
    player->set_id(0);
    set_scrollX(0);
    set_scrollY(0);
@@ -188,6 +199,7 @@ int GameState::events(SDL_Window *window)
       }
    }
 
+   // Player Movement
    const Uint8 *state = SDL_GetKeyboardState(NULL);
    if (state[SDL_SCANCODE_UP])
    {
@@ -204,9 +216,7 @@ int GameState::events(SDL_Window *window)
    {
       this->get_player()->move_down(2);
    }
-
-   std::cout << this->get_player()->get_x() << " " << this->get_player()->get_y() << "\n";
-
+   
    return done;
 }
 
