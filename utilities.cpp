@@ -9,6 +9,10 @@
 #include <chrono>
 #include <vector>
 
+template <typename T>
+using Matrix = std::vector<std::vector<T> >;
+using std::pair;
+using std::shared_ptr;
 
 namespace bitset
 {

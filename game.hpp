@@ -1,15 +1,19 @@
 #include "utilities.cpp"
 #include "constants.hpp"
 #include "player.hpp"
+#include "block.hpp"
+
+
 
 class GameState
 {
    private:
-      std::shared_ptr<Player> player;
+      shared_ptr<Player> player;
       SDL_Renderer *renderer;
       int time;
-      std::pair<int, int> scroll;
-      std::vector<std::vector<int> > tileMap;
+      pair<int, int> scroll;
+      Matrix<int> tileMap;
+      Matrix<Block> blocks;
    public:
       GameState();
       std::shared_ptr<Player> get_player() { return player; }
@@ -18,7 +22,7 @@ class GameState
       void animate();
       int events(SDL_Window *);
 
-      void init_blocks();
+      void init_tiles();
 
       inline int get_time() { return time; };
       inline void set_time(int t) { time = t; }
@@ -67,8 +71,32 @@ void GameState::load()
 
 }
 
-void GameState::init_blocks()
+void GameState::init_tiles()
 {
+   int x, y;
+   for (x = 0; x < 100; ++x)
+   {
+      for (y = 0; y < 100; ++y)
+      {
+         tileMap.at(x).at(y);
+      }
+   }
+
+   for (x = 0; x < 100; ++x)
+   {
+      for (y = 0; y < 100; ++y)
+      {
+         switch (tileMap.at(x).at(y))
+         {
+            case world_map::BLOCK_COLLISION:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;               
+         }
+      }
+   }
 
 }
 
