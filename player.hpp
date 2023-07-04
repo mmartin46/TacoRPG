@@ -46,7 +46,7 @@ Player::Player()
 {
    this->set_x((SCREEN_WIDTH / 2)-PLAYER_WIDTH);
    this->set_y((SCREEN_HEIGHT / 2)-PLAYER_HEIGHT);
-   stillFrames = vector<SDL_Texture*>(12);
+   stillFrames = vector<SDL_Texture*>(16);
    direction = 8;
 }
 

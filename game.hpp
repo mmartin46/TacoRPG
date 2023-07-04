@@ -118,7 +118,7 @@ void GameState::load()
    using std::to_string;
 
 
-   for (int i = 0; i < 11; ++i)
+   for (int i = 0; i < 16; ++i)
    {
       std::string wPath = "sprites\\player\\walking" + to_string(i) + ".png";
       surface = IMG_Load(wPath.c_str());
@@ -184,8 +184,26 @@ void GameState::animate()
 
    std::cout << plyr->get_frame() << std::endl;
 
-
-   if ((plyr->is_movingLeft() || plyr->is_movingRight()) && (this->get_time() % 20 < 20))
+   if ((plyr->is_movingLeft()) && (this->get_time() % 20 < 20))
+   {
+      if ((this->get_time() % 20) < 5)
+      {
+         plyr->set_frame(12);
+      }
+      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+      {
+         plyr->set_frame(13);
+      }
+      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      {
+         plyr->set_frame(14);
+      }
+      else if ((this->get_time() % 20) >= 15)
+      {
+         plyr->set_frame(15);
+      }
+   }
+   if ((plyr->is_movingRight()) && (this->get_time() % 20 < 20))
    {
       if ((this->get_time() % 20) < 5)
       {

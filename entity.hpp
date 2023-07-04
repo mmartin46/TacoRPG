@@ -41,7 +41,7 @@ class Entity
 
 Entity::Entity()
 {
-   stillFrames = std::vector<SDL_Texture*>(12);
+   stillFrames = std::vector<SDL_Texture*>(16);
 }
 
 void Entity::set_stillFrame(int n, SDL_Texture* t)
