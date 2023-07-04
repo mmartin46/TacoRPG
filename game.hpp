@@ -117,7 +117,7 @@ void GameState::load()
    std::string req, err;
    using std::to_string;
 
-   const char *path = "sprites\\right\\right_anim.png";
+   const char *path = "sprites\\player\\walking0.png";
    surface = IMG_Load(path);
    if (surface == NULL)
    {
