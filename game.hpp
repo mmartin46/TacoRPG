@@ -271,7 +271,7 @@ void GameState::animate()
 
 void GameState::render()
 {
-   SDL_SetRenderDrawColor(this->get_renderer(), 20, 20, 20, 255);
+   SDL_SetRenderDrawColor(this->get_renderer(), 120, 120, 120, 255);
 
    SDL_RenderClear(this->get_renderer());
 
@@ -350,21 +350,25 @@ int GameState::events(SDL_Window *window)
    {
       this->get_player()->set_movingUp();
       this->get_player()->move_up(2);
+      this->get_player()->set_dy(-2);
    }
    else if (state[SDL_SCANCODE_LEFT])
    {
       this->get_player()->set_movingLeft();
       this->get_player()->move_left(2);   
+      this->get_player()->set_dx(-2);
    }
    else if (state[SDL_SCANCODE_RIGHT])
    {
       this->get_player()->set_movingRight();
       this->get_player()->move_right(2);
+      this->get_player()->set_dx(2);
    }
    else if (state[SDL_SCANCODE_DOWN])
    {
       this->get_player()->set_movingDown();
       this->get_player()->move_down(2);
+      this->get_player()->set_dy(2);
    }
    return done;
 }

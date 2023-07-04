@@ -54,6 +54,8 @@ Player::Player(int x, int y)
 {
    this->set_x(x);
    this->set_y(y);
+   this->set_dy(0);
+   this->set_dx(0);
 }
 
 void Player::set_movingLeft() 
