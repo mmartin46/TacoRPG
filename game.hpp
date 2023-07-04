@@ -241,7 +241,7 @@ void GameState::animate()
          plyr->set_frame(7);
       }
    }
-   if (plyr->is_movingUp() && (this->get_time() % 15 < 15))
+   if (plyr->is_movingUp() && (this->get_time() % 20 < 20))
    {
       if ((this->get_time() % 20) < 5)
       {
@@ -254,6 +254,10 @@ void GameState::animate()
       else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
       {
          plyr->set_frame(10);
+      }
+      else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+      {
+         plyr->set_frame(11);
       }
    }
 
