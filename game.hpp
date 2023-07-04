@@ -260,7 +260,6 @@ int GameState::events(SDL_Window *window)
       }
    }
 
-   std::cout << this->get_player()->getDirection() << std::endl;
 
    // Player Movement
    const Uint8 *state = SDL_GetKeyboardState(NULL);

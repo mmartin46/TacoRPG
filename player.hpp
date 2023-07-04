@@ -3,6 +3,14 @@
 #include "utilities.cpp"
 #include "entity.hpp"
 
+enum whichBit {
+   LEFT_BIT = 0,
+   RIGHT_BIT = 1,
+   DOWN_BIT = 2,
+   UP_BIT = 3
+};
+
+
 class Player : public Entity
 {
    private:
@@ -51,37 +59,37 @@ Player::Player(int x, int y)
 void Player::set_movingLeft() 
 {
    direction = 0;
-   bitset::set_bit(direction, 3); 
+   bitset::set_bit(direction, LEFT_BIT); 
 }
 void Player::set_movingRight() 
 {
    direction = 0;
-   bitset::set_bit(direction, 2); 
+   bitset::set_bit(direction, RIGHT_BIT); 
 }
 void Player::set_movingDown() 
 {
    direction = 0;
-   bitset::set_bit(direction, 1); 
+   bitset::set_bit(direction, DOWN_BIT); 
 }
 void Player::set_movingUp() 
 {
    direction = 0;    
-   bitset::set_bit(direction, 0); 
+   bitset::set_bit(direction, UP_BIT); 
 }
 
 bool Player::is_movingLeft()
 {
-   return bitset::get_bit(getDirection(), 3);
+   return bitset::get_bit(getDirection(), LEFT_BIT);
 }
 bool Player::is_movingRight()
 {
-   return bitset::get_bit(getDirection(), 2);
+   return bitset::get_bit(getDirection(), RIGHT_BIT);
 }
 bool Player::is_movingDown()
 {
-   return bitset::get_bit(getDirection(), 1);
+   return bitset::get_bit(getDirection(), DOWN_BIT);
 }
 bool Player::is_movingUp()
 {
-   return bitset::get_bit(getDirection(), 0);
+   return bitset::get_bit(getDirection(), UP_BIT);
 }
