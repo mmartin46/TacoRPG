@@ -9,6 +9,7 @@ class Entity
 {
    private:
       int id;
+      int frame;
       int x, y, w, h;
       std::vector<SDL_Texture*> stillFrames;
    public:
@@ -31,20 +32,23 @@ class Entity
       inline virtual void move_up(int s) { set_y(get_y() - s); }     
       inline virtual void move_down(int s) { set_y(get_y() + s); }
 
+      inline int get_frame() { return frame; }
+      inline void set_frame(int f) { frame = f; }
+
       virtual void set_stillFrame(int n, SDL_Texture*);
       inline virtual SDL_Texture* get_stillFrame(int n) { return stillFrames.at(n); }
 };
 
 Entity::Entity()
 {
-   stillFrames = std::vector<SDL_Texture*>(1);
+   stillFrames = std::vector<SDL_Texture*>(12);
 }
 
 void Entity::set_stillFrame(int n, SDL_Texture* t)
 {
    if (n >= this->stillFrames.size() || n < 0)
    {
-      std::cout << "stillFrames: argument is out of bounds\n";
+      std::cout << "stillFrames: argument " << n << " is out of bounds\n";
       exit(1);
    }
    this->stillFrames.at(n) = t;

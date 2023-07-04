@@ -117,21 +117,25 @@ void GameState::load()
    std::string req, err;
    using std::to_string;
 
-   const char *path = "sprites\\player\\walking0.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
+
+   for (int i = 0; i < 11; ++i)
    {
-      printf("load: No texture");
-      SDL_Quit();
-      exit(1);
+      std::string wPath = "sprites\\player\\walking" + to_string(i) + ".png";
+      surface = IMG_Load(wPath.c_str());
+      if (surface == NULL)
+      {
+         printf("load: No texture");
+         SDL_Quit();
+         exit(1);
+      }
+      this->get_player()->set_stillFrame(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
    }
-   this->get_player()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
    this->get_player()->set_h(PLAYER_HEIGHT);
    this->get_player()->set_w(PLAYER_WIDTH);
    
-   path = "sprites\\block.png";
+   const char *path = "sprites\\block.png";
    surface = IMG_Load(path);
    if (surface == NULL)
    {
@@ -178,6 +182,63 @@ void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
 
+   std::cout << plyr->get_frame() << std::endl;
+
+
+   if ((plyr->is_movingLeft() || plyr->is_movingRight()) && (this->get_time() % 20 < 20))
+   {
+      if ((this->get_time() % 20) < 5)
+      {
+         plyr->set_frame(0);
+      }
+      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+      {
+         plyr->set_frame(1);
+      }
+      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      {
+         plyr->set_frame(2);
+      }
+      else if ((this->get_time() % 20) >= 15)
+      {
+         plyr->set_frame(3);
+      }
+   }
+   if (plyr->is_movingDown() && (this->get_time() % 20 < 20))
+   {
+      if ((this->get_time() % 20) < 5)
+      {
+         plyr->set_frame(4);
+      }
+      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+      {
+         plyr->set_frame(5);
+      }
+      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      {
+         plyr->set_frame(6);
+      }
+      else if ((this->get_time() % 20) >= 15)
+      {
+         plyr->set_frame(7);
+      }
+   }
+   if (plyr->is_movingUp() && (this->get_time() % 15 < 15))
+   {
+      if ((this->get_time() % 20) < 5)
+      {
+         plyr->set_frame(8);
+      }
+      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+      {
+         plyr->set_frame(9);
+      }
+      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      {
+         plyr->set_frame(10);
+      }
+   }
+
    this->set_scrollX(-plyr->get_x() + SCREEN_WIDTH / 2);
    this->set_scrollY(-plyr->get_y() + SCREEN_HEIGHT / 2);
    if (this->get_scrollX() > 0)
@@ -209,7 +270,7 @@ void GameState::render()
 
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollY() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(0), NULL, &prect);
+   SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(this->get_player()->get_frame()), NULL, &prect);
 
    SDL_RenderPresent(this->get_renderer());
 }
