@@ -117,7 +117,7 @@ void GameState::load()
    std::string req, err;
    using std::to_string;
 
-   const char *path = "sprites\\player.png";
+   const char *path = "sprites\\right\\right_anim.png";
    surface = IMG_Load(path);
    if (surface == NULL)
    {
@@ -178,8 +178,8 @@ void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
 
-   this->set_scrollX(-plyr->get_x() + WINDOW_WIDTH / 2);
-   this->set_scrollY(-plyr->get_y() + WINDOW_HEIGHT / 2);
+   this->set_scrollX(-plyr->get_x() + SCREEN_WIDTH / 2);
+   this->set_scrollY(-plyr->get_y() + SCREEN_HEIGHT / 2);
    if (this->get_scrollX() > 0)
    {
       this->set_scrollX(0);
@@ -260,21 +260,28 @@ int GameState::events(SDL_Window *window)
       }
    }
 
+   std::cout << this->get_player()->getDirection() << std::endl;
+
    // Player Movement
    const Uint8 *state = SDL_GetKeyboardState(NULL);
    if (state[SDL_SCANCODE_UP])
    {
+      this->get_player()->set_movingUp();
       this->get_player()->move_up(2);
    }
    else if (state[SDL_SCANCODE_LEFT])
    {
-      this->get_player()->move_left(2);   }
+      this->get_player()->set_movingLeft();
+      this->get_player()->move_left(2);   
+   }
    else if (state[SDL_SCANCODE_RIGHT])
    {
+      this->get_player()->set_movingRight();
       this->get_player()->move_right(2);
    }
    else if (state[SDL_SCANCODE_DOWN])
    {
+      this->get_player()->set_movingDown();
       this->get_player()->move_down(2);
    }
    return done;

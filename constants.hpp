@@ -1,11 +1,15 @@
 #pragma once
-#define WINDOW_WIDTH 400
-#define WINDOW_HEIGHT 400
 
 #define PLAYER_WIDTH 20
 #define PLAYER_HEIGHT 20
 #define BLOCK_WIDTH 20
 #define BLOCK_HEIGHT 20
+
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+
+#define SCREEN_WIDTH 420
+#define SCREEN_HEIGHT 236
 
 
 namespace world_map {
