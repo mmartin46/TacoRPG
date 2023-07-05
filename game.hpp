@@ -204,6 +204,7 @@ void GameState::animate()
 
    if (plyr->getDirection() == 0)
    {
+      // If the player isn't moving.
       if (plyr->get_last_state() == MOVED_LEFT)
       {
          plyr->set_frame(12);
@@ -223,8 +224,7 @@ void GameState::animate()
    }
    else
    {
-
-
+      // Movement Animation
       if ((plyr->is_movingLeft()) && (this->get_time() % 20 < 20))
       {
          if ((this->get_time() % 20) < 5)
