@@ -182,82 +182,117 @@ void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
 
-   std::cout << plyr->get_frame() << std::endl;
 
-   if ((plyr->is_movingLeft()) && (this->get_time() % 20 < 20))
+   // if (!plyr->get_last_coordinates()->empty())
+   // {
+   //    if (plyr->get_last_coordinates()->at(0).first == plyr->get_x())
+   //    {
+   //       if (plyr->get_last_coordinates()->at(0).second == plyr->get_y())
+   //       {
+   //          plyr->set_frame(0);
+   //       }
+   //    }
+   // }
+
+
+   if (plyr->getDirection() == 0)
    {
-      if ((this->get_time() % 20) < 5)
-      {
-         plyr->set_frame(12);
-      }
-      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-      {
-         plyr->set_frame(13);
-      }
-      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-      {
-         plyr->set_frame(14);
-      }
-      else if ((this->get_time() % 20) >= 15)
-      {
-         plyr->set_frame(15);
-      }
-   }
-   if ((plyr->is_movingRight()) && (this->get_time() % 20 < 20))
-   {
-      if ((this->get_time() % 20) < 5)
+      if (plyr->get_last_state() == LEFT_BIT)
       {
          plyr->set_frame(0);
       }
-      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+      if (plyr->get_last_state() == RIGHT_BIT)
       {
-         plyr->set_frame(1);
+         plyr->set_frame(12);
       }
-      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-      {
-         plyr->set_frame(2);
-      }
-      else if ((this->get_time() % 20) >= 15)
-      {
-         plyr->set_frame(3);
-      }
-   }
-   if (plyr->is_movingDown() && (this->get_time() % 20 < 20))
-   {
-      if ((this->get_time() % 20) < 5)
-      {
-         plyr->set_frame(4);
-      }
-      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-      {
-         plyr->set_frame(5);
-      }
-      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      if (plyr->get_last_state() == DOWN_BIT)
       {
          plyr->set_frame(6);
       }
-      else if ((this->get_time() % 20) >= 15)
-      {
-         plyr->set_frame(7);
-      }
-   }
-   if (plyr->is_movingUp() && (this->get_time() % 20 < 20))
-   {
-      if ((this->get_time() % 20) < 5)
+      if (plyr->get_last_state() == UP_BIT)
       {
          plyr->set_frame(8);
       }
-      else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+   }
+   else
+   {
+
+
+      if ((plyr->is_movingLeft()) && (this->get_time() % 20 < 20))
       {
-         plyr->set_frame(9);
+         if ((this->get_time() % 20) < 5)
+         {
+            plyr->set_frame(12);
+         }
+         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+         {
+            plyr->set_frame(13);
+         }
+         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+         {
+            plyr->set_frame(14);
+         }
+         else if ((this->get_time() % 20) >= 15)
+         {
+            plyr->set_frame(15);
+         }
       }
-      else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+      if ((plyr->is_movingRight()) && (this->get_time() % 20 < 20))
       {
-         plyr->set_frame(10);
+         if ((this->get_time() % 20) < 5)
+         {
+            plyr->set_frame(0);
+         }
+         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+         {
+            plyr->set_frame(1);
+         }
+         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+         {
+            plyr->set_frame(2);
+         }
+         else if ((this->get_time() % 20) >= 15)
+         {
+            plyr->set_frame(3);
+         }
       }
-      else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+      if (plyr->is_movingDown() && (this->get_time() % 20 < 20))
       {
-         plyr->set_frame(11);
+         if ((this->get_time() % 20) < 5)
+         {
+            plyr->set_frame(4);
+         }
+         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+         {
+            plyr->set_frame(5);
+         }
+         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+         {
+            plyr->set_frame(6);
+         }
+         else if ((this->get_time() % 20) >= 15)
+         {
+            plyr->set_frame(7);
+         }
+      }
+      if (plyr->is_movingUp() && (this->get_time() % 20 < 20))
+      {
+         if ((this->get_time() % 20) < 5)
+         {
+            plyr->set_frame(8);
+         }
+         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
+         {
+            plyr->set_frame(9);
+         }
+         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
+         {
+            plyr->set_frame(10);
+         }
+         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         {
+            plyr->set_frame(11);
+         }
       }
    }
 
@@ -267,6 +302,7 @@ void GameState::animate()
    {
       this->set_scrollX(0);
    }
+
 }
 
 void GameState::render()
@@ -349,26 +385,34 @@ int GameState::events(SDL_Window *window)
    if (state[SDL_SCANCODE_UP])
    {
       this->get_player()->set_movingUp();
+      this->get_player()->set_last_state(this->get_player()->getDirection());
       this->get_player()->move_up(2);
       this->get_player()->set_dy(-2);
    }
    else if (state[SDL_SCANCODE_LEFT])
    {
       this->get_player()->set_movingLeft();
+      this->get_player()->set_last_state(this->get_player()->getDirection());
       this->get_player()->move_left(2);   
       this->get_player()->set_dx(-2);
    }
    else if (state[SDL_SCANCODE_RIGHT])
    {
       this->get_player()->set_movingRight();
+      this->get_player()->set_last_state(this->get_player()->getDirection());
       this->get_player()->move_right(2);
       this->get_player()->set_dx(2);
    }
    else if (state[SDL_SCANCODE_DOWN])
    {
       this->get_player()->set_movingDown();
+      this->get_player()->set_last_state(this->get_player()->getDirection());
       this->get_player()->move_down(2);
       this->get_player()->set_dy(2);
+   }
+   else
+   {
+      this->get_player()->setDirection(0);
    }
    return done;
 }

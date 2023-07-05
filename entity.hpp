@@ -13,6 +13,7 @@ class Entity
       int x, y, w, h;
       int dy, dx;
       std::vector<SDL_Texture*> stillFrames;
+      int last_state;
    public:
       Entity();
       inline virtual int get_id() { return id; }; const
@@ -23,8 +24,6 @@ class Entity
       inline virtual int get_y() { return y; } const
       inline virtual void set_y(int val) { y = val; }
 
-      inline virtual int get_dx() { return dx; } const
-      inline virtual int get_dy() { return dy; } const
 
       inline virtual void set_dx(int d) { dx = d; }
       inline virtual void set_dy(int d) { dy = d; }
@@ -34,7 +33,9 @@ class Entity
       inline virtual int get_h() { return h; } const
       inline virtual void set_h(int val) { h = val; }
 
-      inline virtual void slow_movement() { dx *= 0.8; dy *= 0.8; };
+      inline virtual int get_last_state() { return last_state; }
+      inline virtual void set_last_state(int n) { last_state = n; }
+
 
       inline virtual void move_right(int s) { set_x(get_x() + s); }     
       inline virtual void move_left(int s) { set_x(get_x() - s); }
