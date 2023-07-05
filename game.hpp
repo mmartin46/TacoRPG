@@ -3,7 +3,14 @@
 #include "player.hpp"
 #include "block.hpp"
 
-
+// What was the last movement
+// the player made?
+enum state {
+   MOVED_LEFT = 1,
+   MOVED_RIGHT = 2,
+   MOVED_UP = 4,
+   MOVED_DOWN = 8
+};
 
 class GameState
 {
@@ -193,23 +200,23 @@ void GameState::animate()
    //       }
    //    }
    // }
-
+   std::cout << plyr->get_last_state() << std::endl;
 
    if (plyr->getDirection() == 0)
    {
-      if (plyr->get_last_state() == LEFT_BIT)
-      {
-         plyr->set_frame(0);
-      }
-      if (plyr->get_last_state() == RIGHT_BIT)
+      if (plyr->get_last_state() == MOVED_LEFT)
       {
          plyr->set_frame(12);
       }
-      if (plyr->get_last_state() == DOWN_BIT)
+      if (plyr->get_last_state() == MOVED_RIGHT)
       {
-         plyr->set_frame(6);
+         plyr->set_frame(0);
       }
-      if (plyr->get_last_state() == UP_BIT)
+      if (plyr->get_last_state() == MOVED_UP)
+      {
+         plyr->set_frame(4);
+      }
+      if (plyr->get_last_state() == MOVED_DOWN)
       {
          plyr->set_frame(8);
       }
