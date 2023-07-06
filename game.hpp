@@ -190,18 +190,6 @@ void GameState::animate()
    shared_ptr<Player> plyr = this->get_player();
 
 
-   // if (!plyr->get_last_coordinates()->empty())
-   // {
-   //    if (plyr->get_last_coordinates()->at(0).first == plyr->get_x())
-   //    {
-   //       if (plyr->get_last_coordinates()->at(0).second == plyr->get_y())
-   //       {
-   //          plyr->set_frame(0);
-   //       }
-   //    }
-   // }
-   std::cout << plyr->get_last_state() << std::endl;
-
    if (plyr->getDirection() == 0)
    {
       // If the player isn't moving.
