@@ -50,6 +50,8 @@ Player::Player()
    direction = 8;
 }
 
+
+
 Player::Player(int x, int y)
 {
    this->set_x(x);

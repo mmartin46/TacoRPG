@@ -2,6 +2,7 @@
 #include "constants.hpp"
 #include "player.hpp"
 #include "block.hpp"
+#include "attack.hpp"
 
 // What was the last movement
 // the player made?
@@ -25,14 +26,20 @@ class GameState
       Matrix<int> tileMap;
       Matrix<Block> blocks;
       SDL_Texture* block;
+
+      shared_ptr<Attack> player_attack;
    public:
       GameState();
       virtual ~GameState();
 
       std::shared_ptr<Player> get_player() { return player; }
-      
+      std::shared_ptr<Attack> get_player_attack() { return player_attack; }
+
       inline void set_block_texture(SDL_Texture *b) { block = b; }
       inline SDL_Texture* get_block_texture() { return block; }
+
+      
+
       void load();
       void render();
       void animate();
@@ -153,6 +160,16 @@ void GameState::load()
 
    this->set_block_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
+
+   path = "sprites\\attack\\attack.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);
+   }
+
 }
 
 void GameState::init_tiles()

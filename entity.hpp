@@ -16,6 +16,7 @@ class Entity
       int last_state;
    public:
       Entity();
+      virtual ~Entity();
       inline virtual int get_id() { return id; }; const
       inline virtual void set_id(int i) { id = i; }
 
@@ -52,6 +53,14 @@ class Entity
 Entity::Entity()
 {
    stillFrames = std::vector<SDL_Texture*>(16);
+}
+
+Entity::~Entity()
+{
+   for (auto &f : stillFrames)
+   {
+      SDL_DestroyTexture(f);
+   }
 }
 
 void Entity::set_stillFrame(int n, SDL_Texture* t)
