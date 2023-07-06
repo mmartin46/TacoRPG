@@ -330,11 +330,32 @@ void GameState::animate()
    auto t1 = std::async(std::launch::async, &GameState::run_scroller, this, sX, sY);
    t1.wait();
 
-   std::cout << plyr->getDirection() << std::endl;
+   if (atk->get_shotStatus() == CAN_SHOOT)
+   {
+      atk->setDirection(*plyr);
+      std::cout << atk->getDirection() << std::endl;
+   }
    
    if (atk->get_shotStatus() == CANT_SHOOT)
    {
-      atk->set_x(atk->get_x() + 3);
+      switch (atk->getDirection())
+      {
+         case MOVED_RIGHT:
+            atk->set_x(atk->get_x() + 3);
+            break;
+         case MOVED_LEFT:
+            atk->set_x(atk->get_x() - 3);
+            break;
+         case MOVED_UP:
+            atk->set_y(atk->get_y() + 3);
+            break;
+         case MOVED_DOWN:
+            atk->set_y(atk->get_y() - 3);
+            break;
+         default:
+            atk->set_x(atk->get_x() + 3);
+      
+      }
    }
 }
 
@@ -370,15 +391,15 @@ void GameState::render()
       }
    }
 
+   // Player Attack Rect
+   SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &parect);
 
 
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollY() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(this->get_player()->get_frame()), NULL, &prect);
 
-   // Player Attack Rect
-   SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &parect);
 
 
    SDL_RenderPresent(this->get_renderer());

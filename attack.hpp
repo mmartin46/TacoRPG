@@ -18,6 +18,7 @@ class Attack : public Entity
       int dy, dx;
       int shotStatus;
       int dir;
+      int pframe;
       std::vector<SDL_Texture*> stillFrames;
       int last_state;
    public:
@@ -27,8 +28,11 @@ class Attack : public Entity
       void reset_position(Entity &);
       void run_shotMovement(Player &);
 
-      inline void setDirection(int n) { dir = n; };
+      void setDirection(Player &e);
       inline int getDirection() { return dir; } const
+
+      inline int getPlayerFrame() { return pframe; } const
+
       inline void set_shotStatus(int n) { shotStatus = n; }
       inline int get_shotStatus() { return shotStatus; } 
 };
@@ -48,6 +52,11 @@ void Attack::reset_position(Entity &e)
    set_y(e.get_y());
 }
 
+void Attack::setDirection(Player &e) 
+{ 
+   dir = e.getDirection(); 
+   frame = e.get_frame();
+};
 
 
 void Attack::run_shotMovement(Player &e)
