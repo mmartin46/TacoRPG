@@ -427,6 +427,11 @@ int GameState::events(SDL_Window *window)
    // Player Movement
    const Uint8 *state = SDL_GetKeyboardState(NULL);
 
+   if (state[SDL_SCANCODE_SPACE])
+   {
+      this->get_player_attack()->set_x(this->get_player()->get_x() + 10);
+   }
+
    if (state[SDL_SCANCODE_UP])
    {
       this->get_player()->up_movement(2);
@@ -442,10 +447,6 @@ int GameState::events(SDL_Window *window)
    else if (state[SDL_SCANCODE_DOWN])
    {
       this->get_player()->down_movement(2);
-   }
-   else if (state[SDL_SCANCODE_SPACE])
-   {
-      this->get_player_attack()->set_x(this->get_player()->get_x() + 10);
    }
    else
    {
