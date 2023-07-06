@@ -4,14 +4,7 @@
 #include "block.hpp"
 #include "attack.hpp"
 
-// What was the last movement
-// the player made?
-enum state {
-   MOVED_LEFT = 1,
-   MOVED_RIGHT = 2,
-   MOVED_UP = 4,
-   MOVED_DOWN = 8
-};
+
 
 class GameState
 {
@@ -131,7 +124,7 @@ void GameState::collisions()
                        PLAYER_ATTACK_WIDTH,
                        this->blocks.at(x).at(y).get_h()))
          {
-            this->get_player_attack()->set_shotStatus(0);
+            this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->get_player());
          }
 
@@ -225,6 +218,7 @@ void GameState::init_tiles()
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
+   shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
 
@@ -335,6 +329,13 @@ void GameState::animate()
 
    auto t1 = std::async(std::launch::async, &GameState::run_scroller, this, sX, sY);
    t1.wait();
+
+   std::cout << plyr->getDirection() << std::endl;
+   
+   if (atk->get_shotStatus() == CANT_SHOOT)
+   {
+      atk->set_x(atk->get_x() + 3);
+   }
 }
 
 void GameState::run_scroller(int x, int y)
@@ -442,8 +443,8 @@ int GameState::events(SDL_Window *window)
 
    if (state[SDL_SCANCODE_SPACE])
    {
-      this->get_player_attack()->set_shotStatus(1);
-      this->get_player_attack()->set_x(this->get_player()->get_x() + 10);
+      this->get_player_attack()->set_shotStatus(CANT_SHOOT);
+      this->get_player_attack()->run_shotMovement(*this->get_player());
    }
 
    if (state[SDL_SCANCODE_UP])

@@ -22,6 +22,15 @@ using std::pair;
 using std::shared_ptr;
 using std::vector;
 
+// What was the last movement
+// the player made?
+enum state {
+   MOVED_LEFT = 1,
+   MOVED_RIGHT = 2,
+   MOVED_UP = 4,
+   MOVED_DOWN = 8
+};
+
 // Utilies bit operations to save of space.
 namespace bitset
 {
