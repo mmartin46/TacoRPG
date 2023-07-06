@@ -122,6 +122,19 @@ void GameState::collisions()
    {
       for (int y = 0; y < col_count; ++y)
       {
+         if (collide2d(this->get_player_attack()->get_x(),
+                       this->blocks.at(x).at(y).get_x(),
+                       this->get_player_attack()->get_y(),
+                       this->blocks.at(x).at(y).get_y(),
+                       PLAYER_ATTACK_HEIGHT,
+                       this->blocks.at(x).at(y).get_w(),
+                       PLAYER_ATTACK_WIDTH,
+                       this->blocks.at(x).at(y).get_h()))
+         {
+            this->get_player_attack()->set_shotStatus(0);
+            this->get_player_attack()->reset_position(*this->get_player());
+         }
+
          collision_in_map(*this->get_player(), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
       }
    }

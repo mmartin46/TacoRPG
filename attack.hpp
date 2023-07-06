@@ -18,16 +18,23 @@ class Attack : public Entity
       Attack();
       Attack(Entity &);
 
+      void reset_position(Entity &);
       inline void set_shotStatus(int n) { shotStatus = n; }
       inline int get_shotStatus() { return shotStatus; }
 };
 
 Attack::Attack()
 {
-   shotStatus = 0;
+   set_shotStatus(0);
    stillFrames = std::vector<SDL_Texture*>(1);
    this->set_w(PLAYER_ATTACK_WIDTH);
    this->set_h(PLAYER_ATTACK_HEIGHT);   
+}
+
+void Attack::reset_position(Entity &e)
+{
+   set_x(e.get_x());
+   set_y(e.get_y());
 }
 
 Attack::Attack(Entity &p)
