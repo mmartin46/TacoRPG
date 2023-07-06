@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <utility>
 #include <algorithm>
+#include <future>
 
 template <typename T>
 using Matrix = std::vector<std::vector<T> >;

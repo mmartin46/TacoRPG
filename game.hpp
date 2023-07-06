@@ -208,6 +208,7 @@ void GameState::init_tiles()
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
+   int sX, sY;
 
 
    if (plyr->getDirection() == 0)
@@ -311,12 +312,17 @@ void GameState::animate()
       }
    }
 
-   this->run_scroller(-plyr->get_x() + SCREEN_WIDTH / 2,
-                     -plyr->get_y() + SCREEN_HEIGHT / 2);
+   sX = -plyr->get_x() + SCREEN_WIDTH / 2;
+   sY = -plyr->get_y() + SCREEN_HEIGHT / 2;
+
+
+   auto t1 = std::async(std::launch::async, &GameState::run_scroller, this, sX, sY);
+   t1.wait();
 }
 
 void GameState::run_scroller(int x, int y)
 { 
+   std::this_thread::sleep_for(std::chrono::microseconds(1));
    this->set_scrollX(x);
    this->set_scrollY(y);
    if (this->get_scrollX() > 0)
