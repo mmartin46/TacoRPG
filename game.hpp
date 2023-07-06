@@ -442,6 +442,7 @@ int GameState::events(SDL_Window *window)
 
    if (state[SDL_SCANCODE_SPACE])
    {
+      this->get_player_attack()->set_shotStatus(1);
       this->get_player_attack()->set_x(this->get_player()->get_x() + 10);
    }
 
