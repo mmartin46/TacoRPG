@@ -47,7 +47,7 @@ class GameState
 
       
 
-      template <typename T>
+      template <typename T> 
       int collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H);
 
       int events(SDL_Window *);
@@ -172,6 +172,10 @@ void GameState::load()
       SDL_Quit();
       exit(1);
    }
+
+   
+   this->get_player_attack()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
 
 }
 
@@ -352,9 +356,16 @@ void GameState::render()
       }
    }
 
+
+
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollY() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(this->get_player()->get_frame()), NULL, &prect);
+
+   // Player Attack Rect
+   SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &parect);
+
 
    SDL_RenderPresent(this->get_renderer());
 }
@@ -363,6 +374,7 @@ GameState::GameState()
 {
    set_time(0);
    player = std::make_shared<Player>();
+   player_attack = std::make_shared<Attack>(*player);
 
 
    Map dim("files\\test.txt");
@@ -405,6 +417,12 @@ int GameState::events(SDL_Window *window)
       }
    }
 
+   if (!this->get_player_attack()->get_shotStatus())
+   {
+      this->get_player_attack()->set_x(this->get_player()->get_x());
+      this->get_player_attack()->set_y(this->get_player()->get_y());
+   }
+
 
    // Player Movement
    const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -424,6 +442,10 @@ int GameState::events(SDL_Window *window)
    else if (state[SDL_SCANCODE_DOWN])
    {
       this->get_player()->down_movement(2);
+   }
+   else if (state[SDL_SCANCODE_SPACE])
+   {
+      this->get_player_attack()->set_x(this->get_player()->get_x() + 10);
    }
    else
    {

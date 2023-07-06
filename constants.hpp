@@ -11,6 +11,8 @@
 #define SCREEN_WIDTH 420
 #define SCREEN_HEIGHT 236
 
+#define PLAYER_ATTACK_WIDTH 20
+#define PLAYER_ATTACK_HEIGHT 20
 
 namespace world_map {
    enum collisions {
