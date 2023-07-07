@@ -395,8 +395,6 @@ GameState::GameState()
    init_tiles();
 }
 
-
-
 int GameState::events(SDL_Window *window)
 {
    SDL_Event event;
