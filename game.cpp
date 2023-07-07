@@ -1,4 +1,10 @@
 #include "game.hpp"
+
+enum id {
+   PLAYER_1 = 0
+};
+
+
 template <typename T>
 int GameState::collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H)
 {
@@ -63,10 +69,10 @@ void GameState::collisions()
                        this->blocks.at(x).at(y).get_h()))
          {
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
-            this->get_player_attack()->reset_position(*this->get_player());
+            this->get_player_attack()->reset_position(*this->entities.at(PLAYER_1));
          }
 
-         collision_in_map(*this->get_player(), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+         collision_in_map(*this->entities.at(PLAYER_1), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
       }
    }
 }
@@ -89,12 +95,12 @@ void GameState::load()
          SDL_Quit();
          exit(1);
       }
-      this->get_player()->set_stillFrame(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      this->entities.at(PLAYER_1)->set_stillFrame(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
 
-   this->get_player()->set_h(PLAYER_HEIGHT);
-   this->get_player()->set_w(PLAYER_WIDTH);
+   this->entities.at(PLAYER_1)->set_h(PLAYER_HEIGHT);
+   this->entities.at(PLAYER_1)->set_w(PLAYER_WIDTH);
    
    const char *path = "sprites\\block.png";
    surface = IMG_Load(path);
@@ -155,7 +161,7 @@ void GameState::init_tiles()
 
 void GameState::animate()
 {
-   shared_ptr<Player> plyr = this->get_player();
+   shared_ptr<Player> plyr = this->entities.at(PLAYER_1);
    shared_ptr<Attack> atk = std::move(this->get_player_attack());
    int sX, sY;
 
@@ -358,8 +364,8 @@ void GameState::render()
 
 
    // Player Rect
-   SDL_Rect prect = { this->get_scrollX() + this->get_player()->get_x(), this->get_scrollY() + this->get_player()->get_y(), this->get_player()->get_h(), this->get_player()->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_player()->get_stillFrame(this->get_player()->get_frame()), NULL, &prect);
+   SDL_Rect prect = { this->get_scrollX() + this->entities.at(PLAYER_1)->get_x(), this->get_scrollY() + this->entities.at(PLAYER_1)->get_y(), this->entities.at(PLAYER_1)->get_h(), this->entities.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->entities.at(PLAYER_1)->get_stillFrame(this->entities.at(PLAYER_1)->get_frame()), NULL, &prect);
 
 
 
@@ -371,6 +377,8 @@ GameState::GameState()
    set_time(0);
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
+
+   entities.push_back(player);
 
 
    Map dim("files\\test.txt");
@@ -415,8 +423,8 @@ int GameState::events(SDL_Window *window)
 
    if (!this->get_player_attack()->get_shotStatus())
    {
-      this->get_player_attack()->set_x(this->get_player()->get_x());
-      this->get_player_attack()->set_y(this->get_player()->get_y());
+      this->get_player_attack()->set_x(this->entities.at(PLAYER_1)->get_x());
+      this->get_player_attack()->set_y(this->entities.at(PLAYER_1)->get_y());
    }
 
 
@@ -426,28 +434,28 @@ int GameState::events(SDL_Window *window)
    if (state[SDL_SCANCODE_SPACE])
    {
       this->get_player_attack()->set_shotStatus(CANT_SHOOT);
-      this->get_player_attack()->run_shotMovement(*this->get_player());
+      this->get_player_attack()->run_shotMovement(*this->entities.at(PLAYER_1));
    }
 
    if (state[SDL_SCANCODE_UP])
    {
-      this->get_player()->up_movement(2);
+      this->entities.at(PLAYER_1)->up_movement(2);
    }
    else if (state[SDL_SCANCODE_LEFT])
    {
-      this->get_player()->left_movement(2);
+      this->entities.at(PLAYER_1)->left_movement(2);
    }
    else if (state[SDL_SCANCODE_RIGHT])
    {
-      this->get_player()->right_movement(2);
+      this->entities.at(PLAYER_1)->right_movement(2);
    }
    else if (state[SDL_SCANCODE_DOWN])
    {
-      this->get_player()->down_movement(2);
+      this->entities.at(PLAYER_1)->down_movement(2);
    }
    else
    {
-      this->get_player()->setDirection(0);
+      this->entities.at(PLAYER_1)->setDirection(0);
    }
    return done;
 }
@@ -455,5 +463,5 @@ int GameState::events(SDL_Window *window)
 GameState::~GameState()
 {
    SDL_DestroyTexture(this->get_block_texture());
-   SDL_DestroyTexture(this->get_player()->get_stillFrame(0));
+   SDL_DestroyTexture(this->entities.at(PLAYER_1)->get_stillFrame(0));
 }
