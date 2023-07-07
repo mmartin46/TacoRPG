@@ -218,7 +218,7 @@ void GameState::init_tiles()
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->get_player();
-   shared_ptr<Attack> atk = this->get_player_attack();
+   shared_ptr<Attack> atk = std::move(this->get_player_attack());
    int sX, sY;
 
 
@@ -323,6 +323,9 @@ void GameState::animate()
       }
    }
 
+
+
+
    sX = -plyr->get_x() + SCREEN_WIDTH / 2;
    sY = -plyr->get_y() + SCREEN_HEIGHT / 2;
 
@@ -333,30 +336,50 @@ void GameState::animate()
    if (atk->get_shotStatus() == CAN_SHOOT)
    {
       atk->setDirection(*plyr);
-      std::cout << atk->getDirection() << std::endl;
+      atk->setPlayerFrame(plyr->get_frame());
    }
    
    if (atk->get_shotStatus() == CANT_SHOOT)
    {
-      switch (atk->getDirection())
+      if (atk->getDirection() != 0)
+      {  
+         switch (atk->getDirection())
+         {
+            case MOVED_RIGHT:
+               atk->set_x(atk->get_x() + 3);
+               break;
+            case MOVED_LEFT:
+               atk->set_x(atk->get_x() - 3);
+               break;
+            case MOVED_UP:
+               atk->set_y(atk->get_y() + 3);
+               break;
+            case MOVED_DOWN:
+               atk->set_y(atk->get_y() - 3);
+               break;
+         }
+      }
+      else
       {
-         case MOVED_RIGHT:
+         if (atk->getPlayerFrame() <= 3)
+         {
             atk->set_x(atk->get_x() + 3);
-            break;
-         case MOVED_LEFT:
-            atk->set_x(atk->get_x() - 3);
-            break;
-         case MOVED_UP:
+         }
+         else if ((atk->getPlayerFrame() > 3) && (atk->getPlayerFrame() <= 7))
+         {
             atk->set_y(atk->get_y() + 3);
-            break;
-         case MOVED_DOWN:
+         }
+         else if ((atk->getPlayerFrame() > 7) && (atk->getPlayerFrame() <= 11))
+         {
             atk->set_y(atk->get_y() - 3);
-            break;
-         default:
-            atk->set_x(atk->get_x() + 3);
-      
+         }
+         else if ((atk->getPlayerFrame() > 11) && (atk->getPlayerFrame() < 15))
+         {
+            atk->set_x(atk->get_x() - 3);
+         }
       }
    }
+
 }
 
 void GameState::run_scroller(int x, int y)

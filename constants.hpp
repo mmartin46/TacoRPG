@@ -14,6 +14,9 @@
 #define PLAYER_ATTACK_WIDTH 20
 #define PLAYER_ATTACK_HEIGHT 20
 
+#define ENEMY_WIDTH 20
+#define ENEMY_HEIGHT 20
+
 namespace world_map {
    enum collisions {
       NO_COLLISION = 0,

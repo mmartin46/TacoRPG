@@ -15,6 +15,8 @@
 #include <utility>
 #include <algorithm>
 #include <future>
+#include <dirent.h>
+#include <sys/types.h>
 
 template <typename T>
 using Matrix = std::vector<std::vector<T> >;
@@ -52,4 +54,29 @@ namespace bitset
 int collide2d(float x1, float x2, float y1, float y2, float ht1, float wt1, float wt2, float ht2)
 {
    return (!((x1 > (x2+wt2)) || (x2 > (x1+wt1)) || (y1 > (y2+ht2)) || (y2 > (y1+ht1))));
+}
+
+
+
+// Counts the # of files within the directory
+int getDirectorySize(const char *directName)
+{
+   DIR *dirPtr;
+   int fileCount = 0;
+   struct dirent *ep;
+   dirPtr = opendir(directName);
+
+   if (dirPtr == NULL)
+   {
+      perror("getDirectorySize() : No such directory found.\n");
+   }
+   else
+   {
+      while (ep = readdir(dirPtr))
+      {
+         ++fileCount;
+      }
+      static_cast<void>(closedir(dirPtr));
+   }
+   return fileCount;
 }

@@ -31,6 +31,7 @@ class Attack : public Entity
       void setDirection(Player &e);
       inline int getDirection() { return dir; } const
 
+      inline void setPlayerFrame(int n) { pframe = n; }
       inline int getPlayerFrame() { return pframe; } const
 
       inline void set_shotStatus(int n) { shotStatus = n; }
@@ -55,7 +56,6 @@ void Attack::reset_position(Entity &e)
 void Attack::setDirection(Player &e) 
 { 
    dir = e.getDirection(); 
-   frame = e.get_frame();
 };
 
 

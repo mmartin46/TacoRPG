@@ -16,7 +16,7 @@ class Player : public Entity
    private:
       int id;
       int x, y, w, h;
-
+      int frame;
       /* Left - 1000
       *  Right - 0100
       *  Down - 0010
@@ -64,6 +64,8 @@ Player::Player(int x, int y)
    this->set_y(y);
    this->set_dy(0);
    this->set_dx(0);
+   stillFrames = vector<SDL_Texture*>(getDirectorySize("sprites\\player"));
+   direction = 8;
 }
 
 void Player::set_movingLeft() 

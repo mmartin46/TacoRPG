@@ -43,8 +43,8 @@ class Entity
       inline virtual void move_up(int s) { set_y(get_y() - s); }     
       inline virtual void move_down(int s) { set_y(get_y() + s); }
 
-      inline int get_frame() { return frame; }
-      inline void set_frame(int f) { frame = f; }
+      inline virtual int get_frame() { return frame; }
+      inline virtual void set_frame(int f) { frame = f; }
 
       virtual void set_stillFrame(int n, SDL_Texture*);
       inline virtual SDL_Texture* get_stillFrame(int n) { return stillFrames.at(n); }
