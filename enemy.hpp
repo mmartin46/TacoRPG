@@ -24,4 +24,3 @@ Enemy::Enemy(int x, int y)
    stillFrames = vector<SDL_Texture*>(getDirectorySize("sprites\\enemy"));
    direction = 8;
 };
-
