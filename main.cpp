@@ -1,6 +1,7 @@
 // John 3:5
 #include "utilities.cpp"
 #include "player.hpp"
+#include "player.cpp"
 #include "game.hpp"
 
 int main(int argc, char **argv)
