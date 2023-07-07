@@ -23,12 +23,12 @@ class GameState
       SDL_Texture* block;
 
       shared_ptr<Attack> player_attack;
-      vector<shared_ptr<Player> > entities;
+      vector<shared_ptr<Entity> > entities;
    public:
       GameState();
       virtual ~GameState();
 
-      vector<shared_ptr<Player> > get_entities() { return entities; }
+      vector<shared_ptr<Entity> > get_entities() { return entities; }
       shared_ptr<Player> get_player() { return player; }
       shared_ptr<Attack> get_player_attack() { return player_attack; }
 
