@@ -44,6 +44,7 @@ Enemy::Enemy(int x, int y)
    direction = 8;
 };
 
+
 void Enemy::movement(Player &p)
 {
    // Heuristic
@@ -52,6 +53,7 @@ void Enemy::movement(Player &p)
    h.p1_y = this->get_y();
    h.p2_x = p.get_x();
    h.p2_y = p.get_y();
+
 
    // Evaluating all states
    std::unordered_map<std::string, double> states;
@@ -66,4 +68,41 @@ void Enemy::movement(Player &p)
 
    std::pair<std::string, double> heuristic = *std::min_element(states.begin(), states.end(), comp());
    std::cout << heuristic.first << " " << heuristic.second << std::endl;
+
+
+
+   // if (heuristic.first == "LEFT")
+   // {
+   //    this->move_left(2);
+   // }
+   // else if (heuristic.first == "RIGHT")
+   // {
+   //    this->move_right(2);
+   // }
+   // else if (heuristic.first == "DOWN")
+   // {
+   //    this->move_down(2);
+   // } 
+   // else if (heuristic.first == "UP")
+   // {
+   //    this->move_up(2);
+   // }
+   // else if (heuristic.first == "UP_LEFT")
+   // {
+   //    this->move_left(2);
+   //    this->move_up(2);
+   // }
+   // else if (heuristic.first == "UP_RIGHT")
+   // {
+   //    this->move_right(2);
+   //    this->move_up(2);
+   // }
+   // else if (heuristic.first == "DOWN_RIGHT")
+   // {
+   //    this->move_right(2);
+   //    this->move_down(2);
+   // }
+
+
+
 }

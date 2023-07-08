@@ -129,6 +129,20 @@ void GameState::load()
    this->get_player_attack()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
+   path = "sprites\\enemy\\enemy.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+
+   for (int i = 0; i < this->enemies.size(); ++i)
+   {
+      enemies.at(i).set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
+   }
 }
 
 void GameState::init_tiles()
