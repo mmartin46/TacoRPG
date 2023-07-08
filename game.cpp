@@ -181,7 +181,10 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
-   enemies.at(0).movement(*plyr);
+   for (auto &enemy : enemies)
+   {
+      enemy.movement(*plyr);
+   }
 
    if (plyr->getDirection() == 0)
    {
@@ -392,7 +395,7 @@ void GameState::render()
                  this->get_scrollY() + this->enemies.at(i).get_y(),
                  this->enemies.at(i).get_h(),
                  this->enemies.at(i).get_w() };
-      SDL_RenderCopy(this->get_renderer(), /* FINISH THIS*/ );
+      SDL_RenderCopy(this->get_renderer(), this->enemies.at(i).get_stillFrame(0), NULL, &enRect);
    }
 
    SDL_RenderPresent(this->get_renderer());

@@ -16,6 +16,7 @@
 
 #define ENEMY_WIDTH 20
 #define ENEMY_HEIGHT 20
+#define ENEMY_SPEED 1
 
 #define PLAYER_1_AMMO 10
 

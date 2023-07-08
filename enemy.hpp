@@ -57,51 +57,50 @@ void Enemy::movement(Player &p)
 
    // Evaluating all states
    std::unordered_map<std::string, double> states;
-   states["RIGHT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y, h.p2_y);
-   states["LEFT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y, h.p2_y);
-   states["UP"] = get_distances(h.p1_x, h.p2_x, h.p1_y + 10, h.p2_y);
-   states["DOWN"] = get_distances(h.p1_x, h.p2_x, h.p1_y - 10, h.p2_y);
-   states["UP_LEFT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y + 10, h.p2_y);
-   states["UP_RIGHT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y + 10, h.p2_y);
-   states["DOWN_LEFT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y - 10, h.p2_y);
-   states["DOWN_RIGHT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
+   states["LEFT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y, h.p2_y);
+   states["RIGHT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y, h.p2_y);
+   states["DOWN"] = get_distances(h.p1_x, h.p2_x, h.p1_y + 10, h.p2_y);
+   states["UP"] = get_distances(h.p1_x, h.p2_x, h.p1_y - 10, h.p2_y);
+   states["DOWN_RIGHT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y + 10, h.p2_y);
+   states["DOWN_LEFT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
+   states["UP_RIGHT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y - 10, h.p2_y);
+   states["UP_LEFT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
 
    std::pair<std::string, double> heuristic = *std::min_element(states.begin(), states.end(), comp());
    std::cout << heuristic.first << " " << heuristic.second << std::endl;
 
 
-
-   // if (heuristic.first == "LEFT")
-   // {
-   //    this->move_left(2);
-   // }
-   // else if (heuristic.first == "RIGHT")
-   // {
-   //    this->move_right(2);
-   // }
-   // else if (heuristic.first == "DOWN")
-   // {
-   //    this->move_down(2);
-   // } 
-   // else if (heuristic.first == "UP")
-   // {
-   //    this->move_up(2);
-   // }
-   // else if (heuristic.first == "UP_LEFT")
-   // {
-   //    this->move_left(2);
-   //    this->move_up(2);
-   // }
-   // else if (heuristic.first == "UP_RIGHT")
-   // {
-   //    this->move_right(2);
-   //    this->move_up(2);
-   // }
-   // else if (heuristic.first == "DOWN_RIGHT")
-   // {
-   //    this->move_right(2);
-   //    this->move_down(2);
-   // }
+   if (heuristic.first == "LEFT")
+   {
+      this->move_left(ENEMY_SPEED);
+   }
+   else if (heuristic.first == "RIGHT")
+   {
+      this->move_right(ENEMY_SPEED);
+   }
+   else if (heuristic.first == "DOWN")
+   {
+      this->move_down(ENEMY_SPEED);
+   } 
+   else if (heuristic.first == "UP")
+   {
+      this->move_up(ENEMY_SPEED);
+   }
+   else if (heuristic.first == "UP_LEFT")
+   {
+      this->move_left(ENEMY_SPEED);
+      this->move_up(ENEMY_SPEED);
+   }
+   else if (heuristic.first == "UP_RIGHT")
+   {
+      this->move_right(ENEMY_SPEED);
+      this->move_up(ENEMY_SPEED);
+   }
+   else if (heuristic.first == "DOWN_RIGHT")
+   {
+      this->move_right(ENEMY_SPEED);
+      this->move_down(ENEMY_SPEED);
+   }
 
 
 
