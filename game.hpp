@@ -29,6 +29,8 @@ class GameState
       vector<shared_ptr<Player> > all_players;
       vector<Enemy> enemies;
 
+      Matrix<Entity> ground;
+
       vector<shared_ptr<Attack> > all_player_attacks;
    public:
       GameState();
@@ -44,7 +46,8 @@ class GameState
       inline void set_block_texture(SDL_Texture *b) { block = b; }
       inline SDL_Texture* get_block_texture() { return block; }
 
-      
+      inline void set_ground_texture(SDL_Texture *b) { block = b; }
+      inline SDL_Texture* get_ground_texture() { return block; }      
 
       void load();
       void render();

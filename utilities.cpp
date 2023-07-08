@@ -106,3 +106,21 @@ V mapMin(std::unordered_map<K, V> &mp)
    }
    return min_elem;
 }
+
+// Finds the distance between
+// two points.
+typedef struct {
+   int p1_x;
+   int p1_y;
+   int p2_x;
+   int p2_y;
+} Distance;
+
+struct comp
+{
+   template <typename T>
+   bool operator() (const T&lhs, const T&rhs)
+   {
+      return lhs.second < rhs.second;
+   }
+};

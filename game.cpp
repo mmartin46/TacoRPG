@@ -58,6 +58,9 @@ int GameState::collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, in
 
 void GameState::collisions()
 {
+
+   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
+
    for (int x = 0; x < row_count; ++x)
    {
       for (int y = 0; y < col_count; ++y)
@@ -74,6 +77,13 @@ void GameState::collisions()
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
+
+         // Enemy Collision
+         for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
+         {
+            collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+         }
+
 
          collision_in_map(*this->all_players.at(PLAYER_1), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
       }
@@ -143,6 +153,18 @@ void GameState::load()
       enemies.at(i).set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
+
+   path = "sprites\\groundblock.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
 }
 
 void GameState::init_tiles()
@@ -152,7 +174,7 @@ void GameState::init_tiles()
    {
       for (y = 0; y < col_count; ++y)
       {
-         tileMap.at(x).at(y) = world_map::worldMap[x][y];
+         tileMap.at(x).at(y) = world_map::map[x][y];
       }
    }
 
@@ -167,6 +189,12 @@ void GameState::init_tiles()
                blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                blocks.at(x).at(y).set_w(BLOCK_WIDTH);
                blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;       
+            case world_map::GROUND_COLLISION:
+               ground.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               ground.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               ground.at(x).at(y).set_w(BLOCK_WIDTH);
+               ground.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;               
          }
       }
@@ -374,6 +402,10 @@ void GameState::render()
                SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &blockRect);
             }
+            case world_map::GROUND_COLLISION : {
+               SDL_Rect groundRect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &groundRect);
+            }
          }
       }
    }
@@ -387,15 +419,16 @@ void GameState::render()
    SDL_Rect prect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &prect);
 
-
+   // Enemies
+   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
    SDL_Rect enRect;
-   for (int i = 0; i < this->enemies.size(); ++i)
+   for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
    {
-      enRect = { this->get_scrollX() + this->enemies.at(i).get_x(), 
-                 this->get_scrollY() + this->enemies.at(i).get_y(),
-                 this->enemies.at(i).get_h(),
-                 this->enemies.at(i).get_w() };
-      SDL_RenderCopy(this->get_renderer(), this->enemies.at(i).get_stillFrame(0), NULL, &enRect);
+      enRect = { this->get_scrollX() + en_ptr->get_x(), 
+                 this->get_scrollY() + en_ptr->get_y(),
+                 en_ptr->get_h(),
+                 en_ptr->get_w() };
+      SDL_RenderCopy(this->get_renderer(), en_ptr->get_stillFrame(0), NULL, &enRect);
    }
 
    SDL_RenderPresent(this->get_renderer());
@@ -423,6 +456,7 @@ GameState::GameState()
 
    tileMap = Matrix<int> (row_count, vector<int>(col_count));
    blocks = Matrix<Block> (row_count, vector<Block>(col_count));
+   ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
