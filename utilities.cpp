@@ -7,16 +7,19 @@
 #include <memory>
 #include <thread>
 #include <chrono>
+#include <math.h>
 #include <vector>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <stdlib.h>
 #include <utility>
+#include <unordered_map>
 #include <algorithm>
 #include <future>
 #include <dirent.h>
 #include <sys/types.h>
+using std::unordered_map;
 
 template <typename T>
 using Matrix = std::vector<std::vector<T> >;
@@ -79,4 +82,27 @@ int getDirectorySize(const char *directName)
       static_cast<void>(closedir(dirPtr));
    }
    return fileCount;
+}
+
+
+double get_distances(double x_1, double x_2, double y_1, double y_2)
+{
+    double val = sqrt(pow(x_1 - x_2, 2) + pow(y_1 - y_2, 2));
+    return val;
+}
+
+
+template <class K, class V>
+V mapMin(std::unordered_map<K, V> &mp)
+{
+   V min_elem = 0;
+   typename std::unordered_map<K, V>::pointer ptr, end = mp.data() + mp.size();
+   for (ptr = mp.data(); ptr < end; ++ptr)
+   {
+      if (min_elem > ptr->second)
+      {  
+         min_elem = ptr->second;
+      }
+   }
+   return min_elem;
 }
