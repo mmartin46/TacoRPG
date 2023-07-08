@@ -385,6 +385,15 @@ void GameState::render()
    SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &prect);
 
 
+   SDL_Rect enRect;
+   for (int i = 0; i < this->enemies.size(); ++i)
+   {
+      enRect = { this->get_scrollX() + this->enemies.at(i).get_x(), 
+                 this->get_scrollY() + this->enemies.at(i).get_y(),
+                 this->enemies.at(i).get_h(),
+                 this->enemies.at(i).get_w() };
+      SDL_RenderCopy(this->get_renderer(), /* FINISH THIS*/ );
+   }
 
    SDL_RenderPresent(this->get_renderer());
 }
