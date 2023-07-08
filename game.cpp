@@ -7,6 +7,7 @@ enum id {
 
 
 
+
 template <typename T>
 int GameState::collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H)
 {
@@ -165,6 +166,8 @@ void GameState::animate()
    shared_ptr<Player> plyr = this->all_players.at(PLAYER_1);
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
+
+   enemies.at(0).movement(*plyr);
 
    if (plyr->getDirection() == 0)
    {
@@ -379,6 +382,12 @@ GameState::GameState()
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
    all_players.push_back(player);
+
+   for (int i = 0; i < 1; ++i)
+   {
+      Enemy e(100, 100);
+      enemies.push_back(e);
+   }
 
 
    Map dim("files\\test.txt");

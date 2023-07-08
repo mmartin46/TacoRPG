@@ -5,6 +5,7 @@
 #include "block.hpp"
 #include "attack.hpp"
 #include "attack.cpp"
+#include "enemy.hpp"
 
 
 
@@ -26,6 +27,7 @@ class GameState
 
       vector<shared_ptr<Attack> > player_attacks;
       vector<shared_ptr<Player> > all_players;
+      vector<Enemy> enemies;
 
       vector<shared_ptr<Attack> > all_player_attacks;
    public:
