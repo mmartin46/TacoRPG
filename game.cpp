@@ -409,6 +409,7 @@ void GameState::render()
          }
       }
    }
+   
 
    // Player Attack Rect
    SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
