@@ -53,8 +53,7 @@ void Enemy::movement(Player &p)
    h.p2_x = p.get_x();
    h.p2_y = p.get_y();
 
-   double heuristic =  get_distances(h.p1_x, h.p2_x, h.p1_y, h.p2_y);
-
+   // Evaluating all states
    std::unordered_map<std::string, double> states;
    states["RIGHT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y, h.p2_y);
    states["LEFT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y, h.p2_y);
@@ -65,8 +64,6 @@ void Enemy::movement(Player &p)
    states["DOWN_LEFT"] = get_distances(h.p1_x + 10, h.p2_x, h.p1_y - 10, h.p2_y);
    states["DOWN_RIGHT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
 
-   std::pair<std::string, double> minPair = *std::min_element(states.begin(), states.end(), comp());
-   double min = minPair.second;
-
-   std::cout << minPair.first << " " << minPair.second << std::endl;
+   std::pair<std::string, double> heuristic = *std::min_element(states.begin(), states.end(), comp());
+   std::cout << heuristic.first << " " << heuristic.second << std::endl;
 }
