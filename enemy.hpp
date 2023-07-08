@@ -66,6 +66,6 @@ void Enemy::movement(Player &p)
    states["DOWN_LEFT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
 
 
-   std::min_element(states.begin(), states.end(), comp());
-   
+   std::pair<std::string, double> minPair = *std::min_element(states.begin(), states.end(), comp());
+   double min = minPair.second;
 }
