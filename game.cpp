@@ -392,6 +392,9 @@ void GameState::render()
    SDL_RenderClear(this->get_renderer());
 
    int x, y;
+
+
+
    for (x = 0; x < row_count; ++x)
    {
       for (y = 0; y < col_count; ++y)
@@ -450,7 +453,7 @@ GameState::GameState()
    }
 
 
-   Map dim("files\\test.txt");
+   Map dim("files\\try_this.txt");
    row_count = dim.getRowCount();
    col_count = dim.getColumnCount();
 

@@ -84,6 +84,11 @@ void Enemy::movement(Player &p)
       this->move_right(ENEMY_SPEED);
       this->move_down(ENEMY_SPEED);
    }
+   else if (heuristic.first == "DOWN_LEFT")
+   {
+      this->move_left(ENEMY_SPEED);
+      this->move_down(ENEMY_SPEED);
+   }
 
 
 

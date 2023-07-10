@@ -21,7 +21,9 @@ class GameState
       pair<int, int> scroll;
       Matrix<int> tileMap;
       Matrix<Block> blocks;
-      SDL_Texture* block;
+      SDL_Texture* block_text;
+      SDL_Texture* ground_text;
+
 
       shared_ptr<Attack> player_attack;
 
@@ -43,11 +45,11 @@ class GameState
       vector<shared_ptr<Attack> >* get_all_player_attacks() { return &all_player_attacks; }
 
 
-      inline void set_block_texture(SDL_Texture *b) { block = b; }
-      inline SDL_Texture* get_block_texture() { return block; }
+      inline void set_block_texture(SDL_Texture *b) { block_text = b; }
+      inline SDL_Texture* get_block_texture() { return block_text; }
 
-      inline void set_ground_texture(SDL_Texture *b) { block = b; }
-      inline SDL_Texture* get_ground_texture() { return block; }      
+      inline void set_ground_texture(SDL_Texture *g) { ground_text = g; }
+      inline SDL_Texture* get_ground_texture() { return ground_text; }      
 
       void load();
       void render();
