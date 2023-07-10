@@ -17,6 +17,7 @@ class Player : public Entity
       int id;
       int x, y, w, h;
       int frame;
+      int time;
       /* Left - 1000
       *  Right - 0100
       *  Down - 0010
@@ -24,6 +25,8 @@ class Player : public Entity
       */
       int direction;
       vector<SDL_Texture*> stillFrames;
+      inline void set_time(int t){ time = t; }
+      inline int get_time() { return time; }
    public:
       Player();
       Player(int x, int y);
@@ -31,6 +34,8 @@ class Player : public Entity
       bool is_movingRight();
       bool is_movingDown();
       bool is_movingUp();
+
+
 
       void set_movingLeft();
       void set_movingRight();
@@ -44,4 +49,6 @@ class Player : public Entity
       void down_movement(const int &);
       void left_movement(const int &);
       void right_movement(const int &);
+
+      void animation(int);
 };
