@@ -209,7 +209,7 @@ void GameState::load()
          SDL_Quit();
          exit(1);
       }
-      this->set_water_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      this->set_water_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
 
@@ -340,6 +340,10 @@ void GameState::render()
             case world_map::GROUND_COLLISION : {
                SDL_Rect groundRect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &groundRect);
+            }
+            case world_map::WATER_COLLISION : {
+               SDL_Rect waterRect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &waterRect);
             }
          }
       }
