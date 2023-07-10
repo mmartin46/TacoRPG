@@ -75,6 +75,7 @@ class GameState
       void render();
       void animate();
       void collisions();
+      void waterCollisionAnimation(shared_ptr<Player> p, int row, int col);
 
       
 

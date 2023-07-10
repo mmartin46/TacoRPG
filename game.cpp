@@ -286,6 +286,42 @@ void GameState::init_tiles()
 }
 
 
+void Player::waterCollisionAnimation(shared_ptr<Player> p, int row, int col)
+{
+   if (collide2d(plyr->get_x(),
+                 this->water.at(row).at(col).get_x(),
+                 plyr->get_y(),
+                 this->water.at(row).at(col).get_y(),
+                 PLAYER_HEIGHT,
+                 this->water.at(row).at(col).get_w(),
+                 PLAYER_WIDTH,
+                 this->water.at(row).at(col).get_h()))
+   {
+      std::cout << "COLLIDE";
+      if ((this->get_time() % 13) < 3.75)
+      {
+         set_waterWalkFrame(0);
+      }
+      else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
+      {
+         set_waterWalkFrame(1);
+      }
+      else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
+      {
+         set_waterWalkFrame(2);
+      }
+      else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
+      {
+         set_waterWalkFrame(3);
+      } 
+      else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
+      {
+         set_waterWalkFrame(4);
+      }
+   }
+}
+
+
 void GameState::animate()
 {
    shared_ptr<Player> plyr = this->all_players.at(PLAYER_1);
@@ -322,37 +358,7 @@ void GameState::animate()
          }
 
 
-         if (collide2d(plyr->get_x(),
-                       this->water.at(row).at(col).get_x(),
-                       plyr->get_y(),
-                       this->water.at(row).at(col).get_y(),
-                       PLAYER_HEIGHT,
-                       this->water.at(row).at(col).get_w(),
-                       PLAYER_WIDTH,
-                       this->water.at(row).at(col).get_h()))
-         {
-            std::cout << "COLLIDE";
-            if ((this->get_time() % 13) < 3.75)
-            {
-               set_waterWalkFrame(0);
-            }
-            else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
-            {
-               set_waterWalkFrame(1);
-            }
-            else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
-            {
-               set_waterWalkFrame(2);
-            }
-            else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
-            {
-               set_waterWalkFrame(3);
-            } 
-            else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
-            {
-               set_waterWalkFrame(4);
-            }
-         }
+         waterCollisionAnimation(plyr, row, col);
 
          // else
          // {
