@@ -24,6 +24,7 @@ class GameState
       Matrix<Block> blocks;
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
+      SDL_Texture* enemy_text;
 
 
       shared_ptr<Attack> player_attack;
@@ -44,6 +45,10 @@ class GameState
       shared_ptr<Attack> get_player_attack() { return player_attack; }
 
       vector<shared_ptr<Attack> >* get_all_player_attacks() { return &all_player_attacks; }
+
+
+      inline void set_enemy_texture(SDL_Texture *e) { enemy_text = e; }
+      inline SDL_Texture* get_enemy_texture() { return enemy_text; }
 
 
       inline void set_block_texture(SDL_Texture *b) { block_text = b; }

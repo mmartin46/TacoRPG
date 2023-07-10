@@ -13,11 +13,11 @@ GameState::GameState()
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 2; ++i)
+   for (int i = 0; i < 10; ++i)
    {
       try
       {
-         enemies.push_back(*(std::make_shared<Enemy>(i, i)));
+         enemies.push_back(*(std::make_shared<Enemy>(i * i + 500, i * i + 70)));
       }
       catch (const std::exception &e)
       {
@@ -182,12 +182,9 @@ void GameState::load()
       SDL_Quit();
       exit(1);      
    }
+   this->set_enemy_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
 
-   for (int i = 0; i < this->enemies.size(); ++i)
-   {
-      enemies.at(i).set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-      SDL_FreeSurface(surface);
-   }
 
    path = "sprites\\groundblock.png";
    surface = IMG_Load(path);
@@ -424,7 +421,7 @@ void GameState::render()
                  this->get_scrollY() + en_ptr->get_y(),
                  en_ptr->get_h(),
                  en_ptr->get_w() };
-      SDL_RenderCopy(this->get_renderer(), en_ptr->get_stillFrame(0), NULL, &enRect);
+      SDL_RenderCopy(this->get_renderer(), get_enemy_texture(), NULL, &enRect);
    }
 
    SDL_RenderPresent(this->get_renderer());
