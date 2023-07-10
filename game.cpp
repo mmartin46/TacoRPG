@@ -13,7 +13,8 @@ GameState::GameState()
    player_attack = std::make_shared<Attack>(*player);
    all_players.push_back(player);
 
-   for (int i = 0; i < 10; ++i)
+   enemies.reserve(10);
+   for (int i = 0; i < 1; ++i)
    {
       try
       {
@@ -244,10 +245,13 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
-   for (auto &enemy : enemies)
+
+   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
+   for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
    {
-      enemy.movement(*plyr);
+      en_ptr->movement(*plyr);
    }
+
 
    if (plyr->getDirection() == 0)
    {
@@ -360,68 +364,7 @@ void GameState::animate()
    auto t1 = std::async(std::launch::async, &GameState::run_scroller, this, sX, sY);
    t1.wait();
 
-   if (atk->get_shotStatus() == CAN_SHOOT)
-   {
-      atk->setDirection(*plyr);
-      atk->setPlayerFrame(plyr->get_frame());
-   }
-   
-   if (atk->get_shotStatus() == CANT_SHOOT)
-   {
-      if (atk->getDirection() != 0)
-      {  
-         switch (atk->getDirection())
-         {
-            case MOVED_RIGHT:
-               atk->set_x(atk->get_x() + 3);
-               break;
-            case MOVED_LEFT:
-               atk->set_x(atk->get_x() - 3);
-               break;
-            case MOVED_UP:
-               atk->set_y(atk->get_y() + 3);
-               break;
-            case MOVED_DOWN:
-               atk->set_y(atk->get_y() - 3);
-               break;
-         }
-      }
-      else
-      {
-         if (atk->getPlayerFrame() <= 3)
-         {
-            atk->set_x(atk->get_x() + 3);
-         }
-         else if ((atk->getPlayerFrame() > 3) && (atk->getPlayerFrame() <= 7))
-         {
-            atk->set_y(atk->get_y() + 3);
-         }
-         else if ((atk->getPlayerFrame() > 7) && (atk->getPlayerFrame() <= 11))
-         {
-            atk->set_y(atk->get_y() - 3);
-         }
-         else if ((atk->getPlayerFrame() > 11) && (atk->getPlayerFrame() < 15))
-         {
-            atk->set_x(atk->get_x() - 3);
-         }
-      }
-   }
-
-   Distance d;
-   d.p1_x = plyr->get_x();
-   d.p1_y = plyr->get_y();
-   d.p2_x = atk->get_x();
-   d.p2_y = atk->get_y();
-
-   double distance = get_distances(d.p1_x, d.p2_x, d.p1_y, d.p2_y);
-
-   if (abs(distance) > 500)
-   {
-      atk->set_shotStatus(CAN_SHOOT);
-   }
-
-   std::cout << atk->get_x() << " " << atk->get_y() << std::endl;
-
+   atk->run_shotMovement(*plyr);
 }
 
 void GameState::run_scroller(int x, int y)
@@ -491,6 +434,7 @@ void GameState::render()
 
 int GameState::events(SDL_Window *window)
 {
+
    SDL_Event event;
    int done = 0;
    while (SDL_PollEvent(&event))
