@@ -5,6 +5,41 @@ enum id {
    PLAYER_1 = 0
 };
 
+GameState::GameState()
+{
+
+   set_time(0);
+   player = std::make_shared<Player>();
+   player_attack = std::make_shared<Attack>(*player);
+   all_players.push_back(player);
+
+   for (int i = 0; i < 10; ++i)
+   {
+      try
+      {
+         enemies.push_back(*(std::make_shared<Enemy>(i, i)));
+      }
+      catch (const std::exception &e)
+      {
+         std::cout << e.what() << std::endl;
+      }
+   }
+
+
+   Map dim("files\\try_this.txt");
+   row_count = dim.getRowCount();
+   col_count = dim.getColumnCount();
+
+
+   tileMap = Matrix<int> (row_count, vector<int>(col_count));
+   blocks = Matrix<Block> (row_count, vector<Block>(col_count));
+   ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
+
+   player->set_id(PLAYER_1);
+   set_scrollX(0);
+   set_scrollY(0);
+   init_tiles();
+}
 
 
 
@@ -98,7 +133,7 @@ void GameState::load()
    using std::to_string;
 
 
-   for (int i = 0; i < 16; ++i)
+   for (int i = 0; i < ENTITY_FRAMES; ++i)
    {
       std::string wPath = "sprites\\player\\walking" + to_string(i) + ".png";
       surface = IMG_Load(wPath.c_str());
@@ -372,6 +407,21 @@ void GameState::animate()
       }
    }
 
+   Distance d;
+   d.p1_x = plyr->get_x();
+   d.p1_y = plyr->get_y();
+   d.p2_x = atk->get_x();
+   d.p2_y = atk->get_y();
+
+   double distance = get_distances(d.p1_x, d.p2_x, d.p1_y, d.p2_y);
+
+   if (abs(distance) > 500)
+   {
+      atk->set_shotStatus(CAN_SHOOT);
+   }
+
+   std::cout << atk->get_x() << " " << atk->get_y() << std::endl;
+
 }
 
 void GameState::run_scroller(int x, int y)
@@ -438,35 +488,6 @@ void GameState::render()
    SDL_RenderPresent(this->get_renderer());
 }
 
-GameState::GameState()
-{
-
-   set_time(0);
-   player = std::make_shared<Player>();
-   player_attack = std::make_shared<Attack>(*player);
-   all_players.push_back(player);
-
-   for (int i = 0; i < 1; ++i)
-   {
-      Enemy e(100, 100);
-      enemies.push_back(e);
-   }
-
-
-   Map dim("files\\try_this.txt");
-   row_count = dim.getRowCount();
-   col_count = dim.getColumnCount();
-
-
-   tileMap = Matrix<int> (row_count, vector<int>(col_count));
-   blocks = Matrix<Block> (row_count, vector<Block>(col_count));
-   ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
-
-   player->set_id(PLAYER_1);
-   set_scrollX(0);
-   set_scrollY(0);
-   init_tiles();
-}
 
 int GameState::events(SDL_Window *window)
 {
@@ -533,6 +554,13 @@ int GameState::events(SDL_Window *window)
 
 GameState::~GameState()
 {
+   int index;
    SDL_DestroyTexture(this->get_block_texture());
-   SDL_DestroyTexture(this->all_players.at(PLAYER_1)->get_stillFrame(0));
+
+   for (index = 0; index < ENTITY_FRAMES; ++index)
+   {
+      SDL_DestroyTexture(this->all_players.at(PLAYER_1)->get_stillFrame(index));
+   }
+
+   enemies.clear();
 }

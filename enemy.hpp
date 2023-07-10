@@ -50,7 +50,7 @@ void Enemy::movement(Player &p)
    states["UP_LEFT"] = get_distances(h.p1_x - 10, h.p2_x, h.p1_y - 10, h.p2_y);
 
    std::pair<std::string, double> heuristic = *std::min_element(states.begin(), states.end(), comp());
-   std::cout << heuristic.first << " " << heuristic.second << std::endl;
+   // std::cout << heuristic.first << " " << heuristic.second << std::endl;
 
 
    if (heuristic.first == "LEFT")

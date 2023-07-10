@@ -52,7 +52,7 @@ class Entity
 
 Entity::Entity()
 {
-   stillFrames = std::vector<SDL_Texture*>(16);
+   stillFrames = std::vector<SDL_Texture*>(ENTITY_FRAMES);
 }
 
 Entity::~Entity()
