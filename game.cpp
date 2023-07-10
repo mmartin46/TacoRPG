@@ -416,19 +416,36 @@ int GameState::events(SDL_Window *window)
       this->get_player_attack()->run_shotMovement(*this->all_players.at(PLAYER_1));
    }
 
-   if (state[SDL_SCANCODE_UP])
+   if (state[SDL_SCANCODE_UP] && notMovingHorizontally(state))
    {
       this->all_players.at(PLAYER_1)->up_movement(2);
    }
-   else if (state[SDL_SCANCODE_LEFT])
+   else if (state[SDL_SCANCODE_LEFT] && notMovingVertically(state))
    {
       this->all_players.at(PLAYER_1)->left_movement(2);
    }
-   else if (state[SDL_SCANCODE_RIGHT])
+   else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
+   {
+      this->all_players.at(PLAYER_1)->upLeft_movement(2);
+   }
+   else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN])
+   {
+      this->all_players.at(PLAYER_1)->downLeft_movement(2);
+   }
+   else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP])
+   {
+      this->all_players.at(PLAYER_1)->upRight_movement(2);
+   }
+   else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN])
+   {
+      this->all_players.at(PLAYER_1)->downRight_movement(2);
+   }
+
+   else if (state[SDL_SCANCODE_RIGHT] && notMovingVertically(state))
    {
       this->all_players.at(PLAYER_1)->right_movement(2);
    }
-   else if (state[SDL_SCANCODE_DOWN])
+   else if (state[SDL_SCANCODE_DOWN] && notMovingHorizontally(state))
    {
       this->all_players.at(PLAYER_1)->down_movement(2);
    }

@@ -32,8 +32,14 @@ using std::vector;
 enum state {
    MOVED_LEFT = 1,
    MOVED_RIGHT = 2,
+
    MOVED_UP = 4,
-   MOVED_DOWN = 8
+   MOVED_UPRIGHT = 5,
+   MOVED_UPLEFT = 6,
+
+   MOVED_DOWN = 8,
+   MOVED_DOWNLEFT = 9,
+   MOVED_DOWNRIGHT = 10
 };
 
 // Utilies bit operations to save of space.
@@ -52,11 +58,23 @@ namespace bitset
    {
       value &= ~(1 << pos);
    }
+
+
 }
 
 int collide2d(float x1, float x2, float y1, float y2, float ht1, float wt1, float wt2, float ht2)
 {
    return (!((x1 > (x2+wt2)) || (x2 > (x1+wt1)) || (y1 > (y2+ht2)) || (y2 > (y1+ht1))));
+}
+
+bool notMovingHorizontally(const Uint8 *state)
+{
+   return (!state[SDL_SCANCODE_LEFT] && !state[SDL_SCANCODE_RIGHT]);
+}
+
+bool notMovingVertically(const Uint8 *state)
+{
+   return (!state[SDL_SCANCODE_UP] && !state[SDL_SCANCODE_DOWN]);
 }
 
 

@@ -4,7 +4,7 @@
 #define PLAYER_HEIGHT 20
 #define BLOCK_WIDTH 20
 #define BLOCK_HEIGHT 20
-#define ENTITY_FRAMES 16
+#define ENTITY_FRAMES 32
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -20,6 +20,11 @@
 #define ENEMY_SPEED 1
 
 #define PLAYER_1_AMMO 10
+#define UP_LEFT 9 
+#define UP_RIGHT 5
+#define DOWN_LEFT 3
+#define DOWN_RIGHT 6
+
 
 namespace world_map {
    enum collisions {
