@@ -205,7 +205,7 @@ void GameState::load()
       surface = IMG_Load(path);
       if (surface == NULL)
       {
-         printf("load: No texture %s", path);
+         printf("load: No texture %s\n", path);
          SDL_Quit();
          exit(1);
       }
