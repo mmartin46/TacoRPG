@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "enemy.hpp"
 
 enum id {
    PLAYER_1 = 0
