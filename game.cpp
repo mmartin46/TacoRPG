@@ -10,6 +10,7 @@ GameState::GameState()
    set_time(0);
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
+   water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
    all_players.push_back(player);
 
    enemies.reserve(10);
@@ -33,6 +34,7 @@ GameState::GameState()
    tileMap = Matrix<int> (row_count, vector<int>(col_count));
    blocks = Matrix<Block> (row_count, vector<Block>(col_count));
    ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
+   water = Matrix<Entity> (row_count, vector<Entity>(col_count));
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
@@ -195,6 +197,21 @@ void GameState::load()
    }
    this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
+
+
+   for (int i = 1; i <= 5; i++)
+   {
+      path = ("sprites\\water\\waterblock" + to_string(i) + ".png").c_str();
+      surface = IMG_Load(path);
+      if (surface == NULL)
+      {
+         printf("load: No texture %s", path);
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_water_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
+   }
 
 }
 
@@ -395,6 +412,8 @@ GameState::~GameState()
    {
       SDL_DestroyTexture(this->all_players.at(PLAYER_1)->get_stillFrame(index));
    }
+
+
 
    enemies.clear();
 }

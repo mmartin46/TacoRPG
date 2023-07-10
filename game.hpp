@@ -22,9 +22,13 @@ class GameState
       pair<int, int> scroll;
       Matrix<int> tileMap;
       Matrix<Block> blocks;
+
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
       SDL_Texture* enemy_text;
+      
+
+      vector<SDL_Texture*> water_text;
 
 
       shared_ptr<Attack> player_attack;
@@ -34,6 +38,7 @@ class GameState
       vector<Enemy> enemies;
 
       Matrix<Entity> ground;
+      Matrix<Entity> water;
 
       vector<shared_ptr<Attack> > all_player_attacks;
    public:
@@ -50,12 +55,15 @@ class GameState
       inline void set_enemy_texture(SDL_Texture *e) { enemy_text = e; }
       inline SDL_Texture* get_enemy_texture() { return enemy_text; }
 
+      inline void set_water_texture(int i, SDL_Texture *e) { water_text.at(i) = e;}
+      inline SDL_Texture* get_water_texture(int i) { return water_text.at(i); }
 
       inline void set_block_texture(SDL_Texture *b) { block_text = b; }
       inline SDL_Texture* get_block_texture() { return block_text; }
 
       inline void set_ground_texture(SDL_Texture *g) { ground_text = g; }
       inline SDL_Texture* get_ground_texture() { return ground_text; }      
+
 
       void load();
       void render();
