@@ -13,7 +13,7 @@ GameState::GameState()
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 10; ++i)
+   for (int i = 0; i < 1; ++i)
    {
       try
       {
