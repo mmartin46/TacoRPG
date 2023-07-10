@@ -209,7 +209,6 @@ void Player::animation(int time)
          }
       }
    }
-   std::cout << plyr->get_frame() << " " << plyr->getDirection() << std::endl;
 }
 
 Player::Player(int x, int y)

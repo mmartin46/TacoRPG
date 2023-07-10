@@ -11,10 +11,12 @@ GameState::GameState()
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
+   waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
+   set_waterWalkFrame(4);
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 10; ++i)
+   for (int i = 0; i < 1; ++i)
    {
       try
       {
@@ -113,6 +115,19 @@ void GameState::collisions()
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
+         if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
+                       this->water.at(x).at(y).get_x(),
+                       this->all_players.at(PLAYER_1)->get_y(),
+                       this->water.at(x).at(y).get_y(),
+                       PLAYER_HEIGHT,
+                       this->water.at(x).at(y).get_w(),
+                       PLAYER_WIDTH,
+                       this->water.at(x).at(y).get_h()))
+         {
+            this->get_player_attack()->set_shotStatus(CAN_SHOOT);
+            this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
+         }
+
 
          // Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
@@ -213,6 +228,20 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
+   for (int i = 0; i < (5); i++)
+   {
+      std::string p = ("sprites\\waterwalk\\waterwalk" + to_string(i) + ".png");
+      surface = IMG_Load(p.c_str());
+      if (surface == NULL)
+      {
+         printf("load: No texture %s\n", p.c_str());
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_waterWalkTexture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);     
+   }
+
 }
 
 void GameState::init_tiles()
@@ -263,30 +292,72 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
+   std::cout << waterWalkFrame << std::endl;
+
+   set_waterWalkFrame(4);
+
    for (int row = 0; row < row_count; ++row)
    {
       for (int col = 0; col < col_count; ++col)
       {
-         if ((this->get_time() % 13) < 3.75)
+         if ((this->get_time() % 100) < 20)
          {
             water.at(row).at(col).set_frame(0);
          }
-         else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
+         else if ((this->get_time() % 100) >= 20 && ((this->get_time() % 100) < 40))
          {
             water.at(row).at(col).set_frame(1);
          }
-         else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
+         else if ((this->get_time() % 100) >= 40 && ((this->get_time() % 100) < 60))
          {
             water.at(row).at(col).set_frame(2);
          }
-         else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
+         else if ((this->get_time() % 100) >= 60 && ((this->get_time() % 100) < 80))
          {
             water.at(row).at(col).set_frame(3);
          } 
-         else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
+         else if ((this->get_time() % 100) >= 80 && ((this->get_time() % 100) < 100))
          {
             water.at(row).at(col).set_frame(3);
-         }           
+         }
+
+
+         if (collide2d(plyr->get_x(),
+                       this->water.at(row).at(col).get_x(),
+                       plyr->get_y(),
+                       this->water.at(row).at(col).get_y(),
+                       PLAYER_HEIGHT,
+                       this->water.at(row).at(col).get_w(),
+                       PLAYER_WIDTH,
+                       this->water.at(row).at(col).get_h()))
+         {
+            std::cout << "COLLIDE";
+            if ((this->get_time() % 13) < 3.75)
+            {
+               set_waterWalkFrame(0);
+            }
+            else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
+            {
+               set_waterWalkFrame(1);
+            }
+            else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
+            {
+               set_waterWalkFrame(2);
+            }
+            else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
+            {
+               set_waterWalkFrame(3);
+            } 
+            else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
+            {
+               set_waterWalkFrame(4);
+            }
+         }
+
+         // else
+         // {
+         //    set_waterWalkFrame(4);
+         // } 
       }
    }
 
@@ -327,6 +398,7 @@ void GameState::render()
 
 
 
+
    for (x = 0; x < row_count; ++x)
    {
       for (y = 0; y < col_count; ++y)
@@ -350,14 +422,21 @@ void GameState::render()
    }
    
 
+   /*  PLAYER ATTRIBUTES */
+
    // Player Attack Rect
    SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &parect);
 
+   // Walk On Water Rect
+   SDL_Rect wRect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_waterWalkTexture(waterWalkFrame), NULL, &wRect);
 
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &prect);
+
+   /***********************/
 
    // Enemies
    typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
@@ -416,36 +495,35 @@ int GameState::events(SDL_Window *window)
       this->get_player_attack()->run_shotMovement(*this->all_players.at(PLAYER_1));
    }
 
-   if (state[SDL_SCANCODE_UP] && notMovingHorizontally(state))
+   if (state[SDL_SCANCODE_UP] /* && notMovingHorizontally(state) */)
    {
       this->all_players.at(PLAYER_1)->up_movement(2);
    }
-   else if (state[SDL_SCANCODE_LEFT] && notMovingVertically(state))
+   else if (state[SDL_SCANCODE_LEFT] /* && notMovingVertically(state) */)
    {
       this->all_players.at(PLAYER_1)->left_movement(2);
    }
-   else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
-   {
-      this->all_players.at(PLAYER_1)->upLeft_movement(2);
-   }
-   else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN])
-   {
-      this->all_players.at(PLAYER_1)->downLeft_movement(2);
-   }
-   else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP])
-   {
-      this->all_players.at(PLAYER_1)->upRight_movement(2);
-   }
-   else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN])
-   {
-      this->all_players.at(PLAYER_1)->downRight_movement(2);
-   }
-
-   else if (state[SDL_SCANCODE_RIGHT] && notMovingVertically(state))
+   // else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
+   // {
+   //    this->all_players.at(PLAYER_1)->upLeft_movement(2);
+   // }
+   // else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN])
+   // {
+   //    this->all_players.at(PLAYER_1)->downLeft_movement(2);
+   // }
+   // else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP])
+   // {
+   //    this->all_players.at(PLAYER_1)->upRight_movement(2);
+   // }
+   // else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN])
+   // {
+   //    this->all_players.at(PLAYER_1)->downRight_movement(2);
+   // }
+   else if (state[SDL_SCANCODE_RIGHT]/*&& notMovingVertically(state)*/ )
    {
       this->all_players.at(PLAYER_1)->right_movement(2);
    }
-   else if (state[SDL_SCANCODE_DOWN] && notMovingHorizontally(state))
+   else if (state[SDL_SCANCODE_DOWN] /*&& notMovingHorizontally(state)*/ )
    {
       this->all_players.at(PLAYER_1)->down_movement(2);
    }

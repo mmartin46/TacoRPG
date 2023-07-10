@@ -29,7 +29,8 @@ class GameState
       
 
       vector<SDL_Texture*> water_text;
-
+      vector<SDL_Texture*> waterWalktext;
+      int waterWalkFrame;
 
       shared_ptr<Attack> player_attack;
 
@@ -62,8 +63,13 @@ class GameState
       inline SDL_Texture* get_block_texture() { return block_text; }
 
       inline void set_ground_texture(SDL_Texture *g) { ground_text = g; }
-      inline SDL_Texture* get_ground_texture() { return ground_text; }      
+      inline SDL_Texture* get_ground_texture() { return ground_text; }   
 
+      inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
+      inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   
+
+      inline void set_waterWalkFrame(int i) { waterWalkFrame = i; }
+      inline int get_waterWalkFrame() { return waterWalkFrame; }
 
       void load();
       void render();
