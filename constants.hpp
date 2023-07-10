@@ -25,7 +25,8 @@ namespace world_map {
    enum collisions {
       NO_COLLISION = 0,
       BLOCK_COLLISION = 1,
-      GROUND_COLLISION = 2
+      GROUND_COLLISION = 2,
+      WATER_COLLISION = 3
    };
 
 int map[100][100] = {

@@ -243,7 +243,13 @@ void GameState::init_tiles()
                ground.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                ground.at(x).at(y).set_w(BLOCK_WIDTH);
                ground.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;               
+               break;
+            case world_map::WATER_COLLISION:
+               water.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               water.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               water.at(x).at(y).set_w(BLOCK_WIDTH);
+               water.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
          }
       }
    }
