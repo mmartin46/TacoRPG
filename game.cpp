@@ -257,6 +257,32 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
+   for (int row = 0; row < row_count; ++row)
+   {
+      for (int col = 0; col < col_count; ++col)
+      {
+         if ((this->get_time() % 13) < 3.75)
+         {
+            water.at(row).at(col).set_frame(0);
+         }
+         else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
+         {
+            water.at(row).at(col).set_frame(1);
+         }
+         else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
+         {
+            water.at(row).at(col).set_frame(2);
+         }
+         else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
+         {
+            water.at(row).at(col).set_frame(3);
+         } 
+         else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
+         {
+            water.at(row).at(col).set_frame(3);
+         }           
+      }
+   }
 
    typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
    for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
