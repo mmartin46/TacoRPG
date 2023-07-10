@@ -80,7 +80,7 @@ void Attack::run_shotMovement(Player &e)
 
    double distance = get_distances(d.p1_x, d.p2_x, d.p1_y, d.p2_y);
    // If the distance is too far, reset the position.
-   if (abs(distance) > 500)
+   if (abs(distance) > 200)
    {
       atk->set_shotStatus(CAN_SHOOT);
    }
@@ -90,7 +90,7 @@ void Attack::run_shotMovement(Player &e)
 Attack::Attack(Entity &p)
 {
    set_shotStatus(CAN_SHOOT);
-   stillFrames = std::vector<SDL_Texture*>(1);
+   stillFrames = std::vector<SDL_Texture*>(getDirectorySize("sprites\\attack"));
    set_w(PLAYER_ATTACK_WIDTH);
    set_h(PLAYER_ATTACK_HEIGHT);
    set_x(p.get_x());

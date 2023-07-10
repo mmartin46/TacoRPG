@@ -247,15 +247,10 @@ void GameState::animate()
       en_ptr->movement(*plyr);
    }
 
-
+   // Player Animation
    plyr->animation(this->get_time());
-
-
-
    sX = -plyr->get_x() + SCREEN_WIDTH / 2;
    sY = -plyr->get_y() + SCREEN_HEIGHT / 2;
-
-
    auto t1 = std::async(std::launch::async, &GameState::run_scroller, this, sX, sY);
    t1.wait();
 
