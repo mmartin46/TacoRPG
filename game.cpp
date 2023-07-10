@@ -25,7 +25,6 @@ GameState::GameState()
       }
    }
 
-
    Map dim("files\\try_this.txt");
    row_count = dim.getRowCount();
    col_count = dim.getColumnCount();
