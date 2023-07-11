@@ -16,7 +16,7 @@ GameState::GameState()
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 0; ++i)
+   for (int i = 0; i < 2; ++i)
    {
       try
       {
@@ -117,24 +117,24 @@ void GameState::collisions()
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
-         if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
-                       this->water.at(x).at(y).get_x(),
-                       this->all_players.at(PLAYER_1)->get_y(),
-                       this->water.at(x).at(y).get_y(),
-                       PLAYER_HEIGHT,
-                       this->water.at(x).at(y).get_w(),
-                       PLAYER_WIDTH,
-                       this->water.at(x).at(y).get_h()))
+         if (collide2d(this->get_player_attack()->get_x(),
+                       this->bushes.at(x).at(y).get_x(),
+                       this->get_player_attack()->get_y(),
+                       this->bushes.at(x).at(y).get_y(),
+                       PLAYER_ATTACK_HEIGHT,
+                       this->bushes.at(x).at(y).get_w(),
+                       PLAYER_ATTACK_WIDTH,
+                       this->bushes.at(x).at(y).get_h()))
          {
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
 
-
          // Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
          {
             collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+            collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
          }
 
 
@@ -290,16 +290,16 @@ void GameState::init_tiles()
                ground.at(x).at(y).set_w(BLOCK_WIDTH);
                ground.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
+         }
+
+         switch (layer2.at(x).at(y))
+         {
             case world_map::WATER_COLLISION:
                water.at(x).at(y).set_y(x*BLOCK_WIDTH);
                water.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                water.at(x).at(y).set_w(BLOCK_WIDTH);
                water.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
-         }
-
-         switch (layer2.at(x).at(y))
-         {
             case world_map::BUSH_COLLISION:
                bushes.at(x).at(y).set_y(x*BLOCK_WIDTH);
                bushes.at(x).at(y).set_x(y*BLOCK_HEIGHT);
@@ -312,8 +312,8 @@ void GameState::init_tiles()
 
 }
 
-
-void GameState::waterCollisionAnimation(shared_ptr<Player> plyr, int row, int col)
+template <typename T>
+void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
 {
    if (collide2d(plyr->get_x(),
                  this->water.at(row).at(col).get_x(),
@@ -325,25 +325,28 @@ void GameState::waterCollisionAnimation(shared_ptr<Player> plyr, int row, int co
                  this->water.at(row).at(col).get_h()))
    {
       std::this_thread::sleep_for(std::chrono::microseconds(600));
-      if ((this->get_time() % 13) < 3.75)
+      if (plyr->getDirection() != 0)
       {
-         set_waterWalkFrame(0);
-      }
-      else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
-      {
-         set_waterWalkFrame(1);
-      }
-      else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
-      {
-         set_waterWalkFrame(2);
-      }
-      else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
-      {
-         set_waterWalkFrame(3);
-      } 
-      else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
-      {
-         set_waterWalkFrame(4);
+         if ((this->get_time() % 13) < 3.75)
+         {
+            set_waterWalkFrame(0);
+         }
+         else if ((this->get_time() % 13) >= 3.75 && ((this->get_time() % 13) < 5))
+         {
+            set_waterWalkFrame(1);
+         }
+         else if ((this->get_time() % 13) >= 5 && ((this->get_time() % 13) < 7.75))
+         {
+            set_waterWalkFrame(2);
+         }
+         else if ((this->get_time() % 13) >= 7.75 && ((this->get_time() % 13) < 10))
+         {
+            set_waterWalkFrame(3);
+         } 
+         else if ((this->get_time() % 13) >= 10 && ((this->get_time() % 13) < 13))
+         {
+            set_waterWalkFrame(4);
+         }
       }
    }
 }
@@ -363,30 +366,28 @@ void GameState::animate()
    {
       for (int col = 0; col < col_count; ++col)
       {
-         if ((this->get_time() % 100) < 20)
+         if ((this->get_time() % 15) < 3.75)
          {
             water.at(row).at(col).set_frame(0);
          }
-         else if ((this->get_time() % 100) >= 20 && ((this->get_time() % 100) < 40))
+         else if ((this->get_time() % 15) >= 3.75 && ((this->get_time() % 15) < 5))
          {
             water.at(row).at(col).set_frame(1);
          }
-         else if ((this->get_time() % 100) >= 40 && ((this->get_time() % 100) < 60))
+         else if ((this->get_time() % 15) >= 5 && ((this->get_time() % 15) < 7.25))
          {
             water.at(row).at(col).set_frame(2);
          }
-         else if ((this->get_time() % 100) >= 60 && ((this->get_time() % 100) < 80))
+         else if ((this->get_time() % 15) >= 7.25 && ((this->get_time() % 15) < 12.18))
          {
             water.at(row).at(col).set_frame(3);
          } 
-         else if ((this->get_time() % 100) >= 80 && ((this->get_time() % 100) < 100))
+         else if ((this->get_time() % 15) >= 12.18 && ((this->get_time() % 15) < 15))
          {
             water.at(row).at(col).set_frame(3);
          }
 
          waterCollisionAnimation(plyr, row, col);
-
-
 
          // else
          // {
@@ -449,15 +450,15 @@ void GameState::render()
                SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &groundRect);
                break;
             }
+         }
+
+         switch (layer2.at(x).at(y))
+         {
             case world_map::WATER_COLLISION : {
                SDL_Rect waterRect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &waterRect);
                break;
             }
-         }
-
-         switch (layer2.at(x).at(y))
-         {
             case world_map::BUSH_COLLISION : {
                SDL_Rect bushRect = { static_cast<int>(this->get_scrollX() + bushes.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + bushes.at(x).at(y).get_y()), bushes.at(x).at(y).get_w(), bushes.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &bushRect);

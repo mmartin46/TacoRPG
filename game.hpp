@@ -83,9 +83,10 @@ class GameState
       void render();
       void animate();
       void collisions();
-      void waterCollisionAnimation(shared_ptr<Player> p, int row, int col);
 
-      
+
+      template <typename T>
+      void waterCollisionAnimation(shared_ptr<T> p, int row, int col);
 
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
