@@ -11,6 +11,7 @@ GameState::GameState()
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
+   potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
    set_waterWalkFrame(4);
    all_players.push_back(player);
@@ -39,6 +40,7 @@ GameState::GameState()
    ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
    water = Matrix<Entity> (row_count, vector<Entity>(col_count));
    bushes = Matrix<Entity> (row_count, vector<Entity>(col_count));
+   potions = Matrix<Entity> (row_count, vector<Entity>(col_count));
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
@@ -244,9 +246,9 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
-   for (int i = 1; i <= 5; i++)
+   for (int i = 1; i <= 6; i++)
    {
-      path = ("sprites\\water\\waterblock" + to_string(i) + ".png").c_str();
+      path = ("sprites\\potion\\potion" + to_string(i) + ".png").c_str();
       surface = IMG_Load(path);
       if (surface == NULL)
       {
@@ -254,7 +256,7 @@ void GameState::load()
          SDL_Quit();
          exit(1);
       }
-      this->set_water_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      this->set_potion_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
 
@@ -308,6 +310,12 @@ void GameState::init_tiles()
 
          switch (layer2.at(x).at(y))
          {
+            case world_map::POTION_COLLISION:
+               potions.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               potions.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               potions.at(x).at(y).set_w(BLOCK_WIDTH);
+               potions.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
             case world_map::WATER_COLLISION:
                water.at(x).at(y).set_y(x*BLOCK_WIDTH);
                water.at(x).at(y).set_x(y*BLOCK_HEIGHT);
@@ -383,22 +391,27 @@ void GameState::animate()
          if ((this->get_time() % 15) < 3.75)
          {
             water.at(row).at(col).set_frame(0);
+            potions.at(row).at(col).set_frame(0);
          }
          else if ((this->get_time() % 15) >= 3.75 && ((this->get_time() % 15) < 5))
          {
             water.at(row).at(col).set_frame(1);
+            potions.at(row).at(col).set_frame(1);
          }
          else if ((this->get_time() % 15) >= 5 && ((this->get_time() % 15) < 7.25))
          {
             water.at(row).at(col).set_frame(2);
+            potions.at(row).at(col).set_frame(2);
          }
          else if ((this->get_time() % 15) >= 7.25 && ((this->get_time() % 15) < 12.18))
          {
             water.at(row).at(col).set_frame(3);
+            potions.at(row).at(col).set_frame(3);
          } 
          else if ((this->get_time() % 15) >= 12.18 && ((this->get_time() % 15) < 15))
          {
             water.at(row).at(col).set_frame(3);
+            potions.at(row).at(col).set_frame(3);
          }
 
          waterCollisionAnimation(plyr, row, col);
@@ -468,6 +481,11 @@ void GameState::render()
 
          switch (layer2.at(x).at(y))
          {
+            case world_map::POTION_COLLISION : {
+               SDL_Rect potionRect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->potions.at(x).at(y).get_frame()), NULL, &potionRect);
+               break;
+            }
             case world_map::WATER_COLLISION : {
                SDL_Rect waterRect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &waterRect);
