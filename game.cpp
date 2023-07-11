@@ -14,11 +14,11 @@ GameState::GameState()
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 1; ++i)
+   for (int i = 0; i < 10; ++i)
    {
       try
       {
-         enemies.push_back(*(std::make_shared<Enemy>(i * i + 500, i * i + 70)));
+         enemies.push_back(*(std::make_shared<Enemy>(i * i + 500, i * i + 400)));
       }
       catch (const std::exception &e)
       {

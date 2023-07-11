@@ -14,10 +14,6 @@ void Player::animation(int time)
    if (plyr->getDirection() == 0)
    {
       // If the player isn't moving.
-      if (plyr->get_last_state() == MOVED_LEFT)
-      {
-         plyr->set_frame(12);
-      }
       if (plyr->get_last_state() == MOVED_RIGHT)
       {
          plyr->set_frame(0);
@@ -29,6 +25,26 @@ void Player::animation(int time)
       if (plyr->get_last_state() == MOVED_DOWN)
       {
          plyr->set_frame(8);
+      }
+      if (plyr->get_last_state() == MOVED_LEFT)
+      {
+         plyr->set_frame(12);
+      }
+      if (plyr->get_last_state() == MOVED_DOWNLEFT)
+      {
+         plyr->set_frame(16);
+      }
+      if (plyr->get_last_state() == MOVED_DOWNRIGHT)
+      {
+         plyr->set_frame(20);
+      }
+      if (plyr->get_last_state() == MOVED_UPLEFT)
+      {
+         plyr->set_frame(24);
+      }
+      if (plyr->get_last_state() == MOVED_UPRIGHT)
+      {
+         plyr->set_frame(28);
       }
    }
    else
@@ -206,6 +222,7 @@ void Player::animation(int time)
          }
       }
    }
+   std::cout << plyr->get_frame() << " " << plyr->getDirection() << std::endl;
 }
 
 Player::Player(int x, int y)
@@ -220,30 +237,30 @@ Player::Player(int x, int y)
 
 void Player::set_movingLeft() 
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, LEFT_BIT); 
 }
 void Player::set_movingRight() 
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, RIGHT_BIT); 
 }
 void Player::set_movingDown() 
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, DOWN_BIT); 
 }
 
 void Player::set_movingUp() 
 {
-   direction = 0;    
+   this->setDirection(0);    
    bitset::set_bit(direction, UP_BIT); 
 }
 
 
 void Player::set_movingUpLeft()
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, UP_BIT);
    bitset::set_bit(direction, LEFT_BIT);
 }
@@ -251,13 +268,13 @@ void Player::set_movingUpLeft()
 
 void Player::set_movingUpRight()
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, UP_BIT);
    bitset::set_bit(direction, RIGHT_BIT);
 }
 void Player::set_movingDownLeft()
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, DOWN_BIT);
    bitset::set_bit(direction, LEFT_BIT);
 }
