@@ -1,8 +1,8 @@
 #include "player.hpp"
 Player::Player()
 {
-   this->set_x((SCREEN_WIDTH / 2)-PLAYER_WIDTH);
-   this->set_y((SCREEN_HEIGHT / 2)-PLAYER_HEIGHT);
+   this->set_x((WINDOW_WIDTH / 2)-PLAYER_WIDTH);
+   this->set_y((WINDOW_HEIGHT / 2)-PLAYER_HEIGHT);
    stillFrames = vector<SDL_Texture*>(ENTITY_FRAMES);
    direction = 8;
 }

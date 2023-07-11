@@ -30,6 +30,7 @@ class GameState
       SDL_Texture* ground_text;
       SDL_Texture* enemy_text;
       SDL_Texture* bush_text;
+      vector<SDL_Texture*> potion_text;
       
 
       vector<SDL_Texture*> water_text;
@@ -45,6 +46,7 @@ class GameState
       Matrix<Entity> ground;
       Matrix<Entity> water;
       Matrix<Entity> bushes;
+      Matrix<Entity> potions;
 
       vector<shared_ptr<Attack> > all_player_attacks;
    public:
@@ -72,6 +74,9 @@ class GameState
 
       inline void set_bush_texture(SDL_Texture *b) { bush_text = b; }
       inline SDL_Texture* get_bush_texture() { return bush_text; } 
+
+      inline void set_potion_texture(int i, SDL_Texture *p) { potion_text.at(i) = p; }
+      inline SDL_Texture* get_potion_texture(int i) { return potion_text.at(i); }
 
       inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
       inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   

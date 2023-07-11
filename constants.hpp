@@ -32,7 +32,8 @@ namespace world_map {
       BLOCK_COLLISION = 1,
       GROUND_COLLISION = 2,
       WATER_COLLISION = 3,
-      BUSH_COLLISION = 4
+      BUSH_COLLISION = 4,
+      POTION_COLLISION = 5
    };
 
 

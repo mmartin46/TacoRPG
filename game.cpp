@@ -244,6 +244,20 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
+   for (int i = 1; i <= 5; i++)
+   {
+      path = ("sprites\\water\\waterblock" + to_string(i) + ".png").c_str();
+      surface = IMG_Load(path);
+      if (surface == NULL)
+      {
+         printf("load: No texture %s\n", path);
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_water_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
+   }
+
    for (int i = 0; i < 5; i++)
    {
       std::string p = ("sprites\\waterwalk\\waterwalk" + to_string(i) + ".png");
