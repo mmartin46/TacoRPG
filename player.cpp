@@ -13,38 +13,25 @@ void Player::animation(int time)
    set_time(time);
    if (plyr->getDirection() == 0)
    {
+      vector<state> direct = {
+         MOVED_RIGHT,
+         MOVED_UP,
+         MOVED_DOWN,
+         MOVED_LEFT,
+         MOVED_DOWNLEFT,
+         MOVED_DOWNRIGHT,
+         MOVED_UPLEFT,
+         MOVED_UPRIGHT
+      };
+
       // If the player isn't moving.
-      if (plyr->get_last_state() == MOVED_RIGHT)
+      for (int i = 0; i < direct.size(); ++i)
       {
-         plyr->set_frame(0);
-      }
-      if (plyr->get_last_state() == MOVED_UP)
-      {
-         plyr->set_frame(4);
-      }
-      if (plyr->get_last_state() == MOVED_DOWN)
-      {
-         plyr->set_frame(8);
-      }
-      if (plyr->get_last_state() == MOVED_LEFT)
-      {
-         plyr->set_frame(12);
-      }
-      if (plyr->get_last_state() == MOVED_DOWNLEFT)
-      {
-         plyr->set_frame(16);
-      }
-      if (plyr->get_last_state() == MOVED_DOWNRIGHT)
-      {
-         plyr->set_frame(20);
-      }
-      if (plyr->get_last_state() == MOVED_UPLEFT)
-      {
-         plyr->set_frame(24);
-      }
-      if (plyr->get_last_state() == MOVED_UPRIGHT)
-      {
-         plyr->set_frame(28);
+         if (plyr->get_last_state() == direct.at(i))
+         {
+            plyr->set_frame(i * 4);
+         }
+
       }
    }
    else
@@ -121,7 +108,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(10);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(11);
          }
@@ -140,7 +127,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(14);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(15);
          }
@@ -159,7 +146,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(18);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(19);
          }
@@ -178,7 +165,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(22);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(23);
          }
@@ -197,7 +184,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(26);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(27);
          }
@@ -216,7 +203,7 @@ void Player::animation(int time)
          {
             plyr->set_frame(30);
          }
-         else if ((this->get_time() % 20) >= 15 && (this->get_time() % 20) < 20)
+         else if ((this->get_time() % 20) >= 15)
          {
             plyr->set_frame(31);
          }
@@ -280,7 +267,7 @@ void Player::set_movingDownLeft()
 }
 void Player::set_movingDownRight()
 {
-   direction = 0;
+   this->setDirection(0);
    bitset::set_bit(direction, DOWN_BIT);
    bitset::set_bit(direction, RIGHT_BIT);
 }

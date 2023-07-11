@@ -35,11 +35,11 @@ enum state {
 
    MOVED_UP = 4,
    MOVED_UPRIGHT = 5,
-   MOVED_UPLEFT = 6,
+   MOVED_UPLEFT = 9,
 
    MOVED_DOWN = 8,
-   MOVED_DOWNLEFT = 9,
-   MOVED_DOWNRIGHT = 10
+   MOVED_DOWNLEFT = 3,
+   MOVED_DOWNRIGHT = 6
 };
 
 // Utilies bit operations to save of space.
