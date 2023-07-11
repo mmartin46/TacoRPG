@@ -20,12 +20,16 @@ class GameState
       SDL_Renderer *renderer;
       int time;
       pair<int, int> scroll;
-      Matrix<int> tileMap;
+      Matrix<int> layer1;
+      Matrix<int> layer2;
+
+
       Matrix<Block> blocks;
 
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
       SDL_Texture* enemy_text;
+      SDL_Texture* bush_text;
       
 
       vector<SDL_Texture*> water_text;
@@ -40,6 +44,7 @@ class GameState
 
       Matrix<Entity> ground;
       Matrix<Entity> water;
+      Matrix<Entity> bushes;
 
       vector<shared_ptr<Attack> > all_player_attacks;
    public:
@@ -65,6 +70,9 @@ class GameState
       inline void set_ground_texture(SDL_Texture *g) { ground_text = g; }
       inline SDL_Texture* get_ground_texture() { return ground_text; }   
 
+      inline void set_bush_texture(SDL_Texture *b) { bush_text = b; }
+      inline SDL_Texture* get_bush_texture() { return bush_text; } 
+
       inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
       inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   
 
@@ -79,8 +87,8 @@ class GameState
 
       
 
-      template <typename T> 
-      int collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H);
+      template <typename T, typename U> 
+      int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
 
       int events(SDL_Window *);
 

@@ -16,7 +16,7 @@ GameState::GameState()
    all_players.push_back(player);
 
    enemies.reserve(10);
-   for (int i = 0; i < 1; ++i)
+   for (int i = 0; i < 0; ++i)
    {
       try
       {
@@ -33,10 +33,12 @@ GameState::GameState()
    col_count = dim.getColumnCount();
 
 
-   tileMap = Matrix<int> (row_count, vector<int>(col_count));
+   layer1 = Matrix<int> (row_count, vector<int>(col_count));
+   layer2 = Matrix<int> (row_count, vector<int>(col_count));
    blocks = Matrix<Block> (row_count, vector<Block>(col_count));
    ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
    water = Matrix<Entity> (row_count, vector<Entity>(col_count));
+   bushes = Matrix<Entity> (row_count, vector<Entity>(col_count));
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
@@ -46,8 +48,8 @@ GameState::GameState()
 
 
 
-template <typename T>
-int GameState::collision_in_map(T &plyr, Matrix<Block> &blocks, int i, int j, int P_W, int P_H)
+template <typename T, typename U>
+int GameState::collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H)
 {
    int touched = 0;
    float pw = P_W, ph = P_H;
@@ -137,6 +139,7 @@ void GameState::collisions()
 
 
          collision_in_map(*this->all_players.at(PLAYER_1), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+         collision_in_map(*this->all_players.at(PLAYER_1), this->bushes, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
       }
    }
 }
@@ -214,6 +217,19 @@ void GameState::load()
    SDL_FreeSurface(surface);
 
 
+   path = "sprites\\bush.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_bush_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+
+
    for (int i = 1; i <= 5; i++)
    {
       path = ("sprites\\water\\waterblock" + to_string(i) + ".png").c_str();
@@ -228,7 +244,7 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
-   for (int i = 0; i < (5); i++)
+   for (int i = 0; i < 5; i++)
    {
       std::string p = ("sprites\\waterwalk\\waterwalk" + to_string(i) + ".png");
       surface = IMG_Load(p.c_str());
@@ -251,7 +267,8 @@ void GameState::init_tiles()
    {
       for (y = 0; y < col_count; ++y)
       {
-         tileMap.at(x).at(y) = world_map::map[x][y];
+         layer1.at(x).at(y) = world_map::map[x][y];
+         layer2.at(x).at(y) = world_map::bush_map[x][y];
       }
    }
 
@@ -259,7 +276,7 @@ void GameState::init_tiles()
    {
       for (y = 0; y < col_count; ++y)
       {
-         switch (tileMap.at(x).at(y))
+         switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION:
                blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);               
@@ -280,24 +297,34 @@ void GameState::init_tiles()
                water.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
          }
+
+         switch (layer2.at(x).at(y))
+         {
+            case world_map::BUSH_COLLISION:
+               bushes.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               bushes.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               bushes.at(x).at(y).set_w(BLOCK_WIDTH);
+               bushes.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+         }
       }
    }
 
 }
 
 
-void Player::waterCollisionAnimation(shared_ptr<Player> p, int row, int col)
+void GameState::waterCollisionAnimation(shared_ptr<Player> plyr, int row, int col)
 {
    if (collide2d(plyr->get_x(),
                  this->water.at(row).at(col).get_x(),
-                 plyr->get_y(),
+                 plyr->get_y() - 3,
                  this->water.at(row).at(col).get_y(),
-                 PLAYER_HEIGHT,
+                 PLAYER_HEIGHT - 3,
                  this->water.at(row).at(col).get_w(),
                  PLAYER_WIDTH,
                  this->water.at(row).at(col).get_h()))
    {
-      std::cout << "COLLIDE";
+      std::this_thread::sleep_for(std::chrono::microseconds(600));
       if ((this->get_time() % 13) < 3.75)
       {
          set_waterWalkFrame(0);
@@ -328,7 +355,7 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
-   std::cout << waterWalkFrame << std::endl;
+
 
    set_waterWalkFrame(4);
 
@@ -357,8 +384,9 @@ void GameState::animate()
             water.at(row).at(col).set_frame(3);
          }
 
-
          waterCollisionAnimation(plyr, row, col);
+
+
 
          // else
          // {
@@ -409,19 +437,31 @@ void GameState::render()
    {
       for (y = 0; y < col_count; ++y)
       {
-         switch (tileMap.at(x).at(y))
+         switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION : {
                SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &blockRect);
+               break;
             }
             case world_map::GROUND_COLLISION : {
                SDL_Rect groundRect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &groundRect);
+               break;
             }
             case world_map::WATER_COLLISION : {
                SDL_Rect waterRect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &waterRect);
+               break;
+            }
+         }
+
+         switch (layer2.at(x).at(y))
+         {
+            case world_map::BUSH_COLLISION : {
+               SDL_Rect bushRect = { static_cast<int>(this->get_scrollX() + bushes.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + bushes.at(x).at(y).get_y()), bushes.at(x).at(y).get_w(), bushes.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &bushRect);
+               break;
             }
          }
       }
