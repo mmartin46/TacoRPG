@@ -125,6 +125,9 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
+    
+
+
    for (int i = 0; i < 5; i++)
    {
       string p = ("sprites\\waterwalk\\waterwalk" + to_string(i) + ".png");

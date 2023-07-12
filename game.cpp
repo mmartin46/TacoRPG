@@ -6,16 +6,20 @@
 
 GameState::GameState()
 {
-
+   // Intializing Vectors
    set_time(0);
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
    potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
+   points_text = vector<SDL_Texture*>(getDirectorySize("sprites\\points"));
+
+   // Intializing Player and Player Frames
    set_waterWalkFrame(4);
    all_players.push_back(player);
 
+   // Setting Enemy Positions
    enemies.reserve(10);
    for (int i = 0; i < 2; ++i)
    {
@@ -29,10 +33,10 @@ GameState::GameState()
       }
    }
 
+   // World Dimensions and Coordinates
    Map dim("files\\try_this.txt");
    row_count = dim.getRowCount();
    col_count = dim.getColumnCount();
-
 
    layer1 = Matrix<int> (row_count, vector<int>(col_count));
    layer2 = Matrix<int> (row_count, vector<int>(col_count));
