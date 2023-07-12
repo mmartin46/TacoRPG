@@ -82,6 +82,20 @@ void GameState::collisions()
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
 
+         if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
+                       this->potions.at(x).at(y).get_x(),
+                       this->all_players.at(PLAYER_1)->get_y(),
+                       this->potions.at(x).at(y).get_y(),
+                       PLAYER_HEIGHT,
+                       PLAYER_WIDTH,
+                       this->potions.at(x).at(y).get_w(),
+                       this->potions.at(x).at(y).get_h()))
+        {
+            SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
+            SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
+            layer2.at(x).at(y) = -1;
+        }
+
          // Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
          {
