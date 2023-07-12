@@ -61,11 +61,12 @@ void GameState::render()
 
 
 
-
+   // Sets rectangles for all the blocks.
    for (x = 0; x < row_count; ++x)
    {
       for (y = 0; y < col_count; ++y)
       {
+         // Layer 1
          switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION : {
@@ -79,7 +80,7 @@ void GameState::render()
                break;
             }
          }
-
+         // Layer 2
          switch (layer2.at(x).at(y))
          {
             case world_map::POTION_COLLISION : {

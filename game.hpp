@@ -37,6 +37,7 @@ class GameState
       vector<SDL_Texture*> water_text;
       vector<SDL_Texture*> waterWalktext;
       int waterWalkFrame;
+      vector<SDL_Texture*> points_text;
 
       shared_ptr<Attack> player_attack;
 
@@ -54,6 +55,7 @@ class GameState
       Matrix<Entity> water;
       Matrix<Entity> bushes;
       Matrix<Entity> potions;
+   
 
       // File Manipulation
       vector<void (GameState::*)(SDL_Texture *)> tSetters;
@@ -71,9 +73,12 @@ class GameState
 
       vector<shared_ptr<Attack> >* get_all_player_attacks() { return &all_player_attacks; }
 
-
+      // Textures
       inline void set_enemy_texture(SDL_Texture *e) { enemy_text = e; }
       inline SDL_Texture* get_enemy_texture() { return enemy_text; }
+
+      inline void set_points_texture(int i, SDL_Texture *p) { points_text.at(i) = p; }
+      inline SDL_Texture* get_points_texture(int i) { return points_text.at(i); }
 
       inline void set_water_texture(int i, SDL_Texture *e) { water_text.at(i) = e;}
       inline SDL_Texture* get_water_texture(int i) { return water_text.at(i); }
@@ -96,21 +101,25 @@ class GameState
       inline void set_waterWalkFrame(int i) { waterWalkFrame = i; }
       inline int get_waterWalkFrame() { return waterWalkFrame; }
 
+      // Essential Functions
       void load();
       void render();
       void animate();
       void collisions();
+      int events(SDL_Window *);
 
+      // Constant Sprites
       void setConstantSpriteTextures(SDL_Surface *);
 
+      // Aniamtions
       template <typename T>
       void waterCollisionAnimation(shared_ptr<T> p, int row, int col);
 
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
 
-      int events(SDL_Window *);
-
+   
+      // Loaders, Renderer, etc.
       void init_tiles();
       void run_scroller(int x, int y);
 
