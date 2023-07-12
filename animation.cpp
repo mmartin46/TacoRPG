@@ -42,12 +42,12 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         else
         {
             set_pointFrame(6);
+            this->potions.at(row).at(col).set_visited();
         }
         SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + potions.at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + potions.at(row).at(col).get_y()), potions.at(row).at(col).get_w(), potions.at(row).at(col).get_h() };
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
         layer2.at(row).at(col) = -1;
      }
-
 
 }
 
@@ -135,11 +135,6 @@ void GameState::animate()
 
          pointsAnimation(plyr, row, col);
          waterCollisionAnimation(plyr, row, col);
-
-         // else
-         // {
-         //    set_waterWalkFrame(4);
-         // } 
       }
    }
 
