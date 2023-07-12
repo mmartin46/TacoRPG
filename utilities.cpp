@@ -26,6 +26,8 @@ using Matrix = std::vector<std::vector<T> >;
 using std::pair;
 using std::shared_ptr;
 using std::vector;
+using std::string;
+using std::unordered_map;
 
 // What was the last movement
 // the player made?
@@ -124,6 +126,9 @@ V mapMin(std::unordered_map<K, V> &mp)
    }
    return min_elem;
 }
+
+
+
 
 // Finds the distance between
 // two points.

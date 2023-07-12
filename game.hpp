@@ -8,7 +8,9 @@
 #include "enemy.hpp"
 #include "enemy.cpp"
 
-
+enum id {
+   PLAYER_1 = 0
+};
 
 class GameState
 {
@@ -16,7 +18,6 @@ class GameState
       int row_count;
       int col_count;
 
-      shared_ptr<Player> player;
       SDL_Renderer *renderer;
       int time;
       pair<int, int> scroll;
@@ -24,31 +25,42 @@ class GameState
       Matrix<int> layer2;
 
 
-      Matrix<Block> blocks;
 
+      // Textures
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
       SDL_Texture* enemy_text;
       SDL_Texture* bush_text;
       vector<SDL_Texture*> potion_text;
-      
-
+   
+      // Player / Player Attributes
       vector<SDL_Texture*> water_text;
       vector<SDL_Texture*> waterWalktext;
       int waterWalkFrame;
 
       shared_ptr<Attack> player_attack;
 
+      // Players
+      shared_ptr<Player> player;
       vector<shared_ptr<Attack> > player_attacks;
       vector<shared_ptr<Player> > all_players;
       vector<Enemy> enemies;
+      vector<shared_ptr<Attack> > all_player_attacks;
 
+
+      // Blocks
+      Matrix<Block> blocks;
       Matrix<Entity> ground;
       Matrix<Entity> water;
       Matrix<Entity> bushes;
       Matrix<Entity> potions;
 
-      vector<shared_ptr<Attack> > all_player_attacks;
+      // File Manipulation
+      vector<void (GameState::*)(SDL_Texture *)> tSetters;
+      vector<void (GameState::*)(SDL_Texture *)>::pointer tSptr, tSend;
+
+
+      std::unordered_map<std::string, std::string> fileMap;
    public:
       GameState();
       virtual ~GameState();
@@ -89,6 +101,7 @@ class GameState
       void animate();
       void collisions();
 
+      void setConstantSpriteTextures(SDL_Surface *);
 
       template <typename T>
       void waterCollisionAnimation(shared_ptr<T> p, int row, int col);
