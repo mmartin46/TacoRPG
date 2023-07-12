@@ -1,4 +1,4 @@
-
+#include "game.hpp"
 // Sets sprites that contain only one frame.
 void GameState::setConstantSpriteTextures(SDL_Surface *surface)
 {
@@ -75,6 +75,16 @@ void GameState::load()
    this->set_enemy_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
+   path = "sprites\\block.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_block_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
 
    path = "sprites\\groundblock.png";
    surface = IMG_Load(path);
@@ -87,14 +97,37 @@ void GameState::load()
    this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
+   // tSetters.push_back(set_ground_texture);
+   // tSetters.push_back(set_bush_texture);
+   // tSetters.push_back(set_block_texture);
 
-   tSetters.push_back(set_bush_texture);
-   tSetters.push_back(set_block_texture);
+   // fileMap.insert("sprites\\groundblock.png", "load groundblock(): No texture");
+   // fileMap.insert("sprites\\bush.png", "load bush(): No texture");
+   // fileMap.insert("sprites\\block.png", "load block(): No texture");
+   //setConstantSpriteTextures(surface);
 
-   fileMap.emplace("sprites\\bush.png", "load bush(): No texture");
-   fileMap.emplace("sprites\\groundblock.png", "load groundblock(): No texture");
-   setConstantSpriteTextures(surface);
 
+   path = "sprites\\groundblock.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+   path = "sprites\\bush.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_bush_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
 
 
    for (int i = 1; i <= 5; i++)
