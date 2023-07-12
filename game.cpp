@@ -274,7 +274,7 @@ void GameState::load()
       SDL_FreeSurface(surface);     
    }
 
-}
+
 
 void GameState::init_tiles()
 {
