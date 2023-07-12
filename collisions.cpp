@@ -95,6 +95,7 @@ void GameState::collisions()
             SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
             layer2.at(x).at(y) = -1;
         }
+        
 
          // Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
