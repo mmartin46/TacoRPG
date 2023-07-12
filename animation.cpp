@@ -12,9 +12,9 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
                    PLAYER_HEIGHT,
                    PLAYER_WIDTH,
                    this->potions.at(row).at(col).get_w(),
-                   this->potions.at(row).at(col).get_h()))
+                   this->potions.at(row).at(col).get_h()) &&
+                   !this->potions.at(row).at(col).get_visited())
      {
-        std::cout << "COLLIDE" << std::endl;
         if ((this->get_time() % 15) < 3.75)
         {
            set_pointFrame(0);
@@ -47,6 +47,7 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
         layer2.at(row).at(col) = -1;
      }
+
 
 }
 

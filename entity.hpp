@@ -14,6 +14,7 @@ class Entity
       int dy, dx;
       std::vector<SDL_Texture*> stillFrames;
       int last_state;
+      bool visited;
    public:
       Entity();
       virtual ~Entity();
@@ -25,6 +26,9 @@ class Entity
       inline virtual int get_y() { return y; } const
       inline virtual void set_y(int val) { y = val; }
 
+      inline void set_visited() { visited = true; }
+      inline void reset_visited() { visited = false; }
+      inline bool get_visited() { return visited; }
 
       inline virtual void set_dx(int d) { dx = d; }
       inline virtual void set_dy(int d) { dy = d; }
@@ -53,6 +57,7 @@ class Entity
 Entity::Entity()
 {
    stillFrames = std::vector<SDL_Texture*>(ENTITY_FRAMES);
+   reset_visited();
 }
 
 Entity::~Entity()
