@@ -38,6 +38,7 @@ class GameState
       vector<SDL_Texture*> waterWalktext;
       int waterWalkFrame;
       vector<SDL_Texture*> points_text;
+      int pointFrame;
 
       shared_ptr<Attack> player_attack;
 
@@ -101,6 +102,9 @@ class GameState
       inline void set_waterWalkFrame(int i) { waterWalkFrame = i; }
       inline int get_waterWalkFrame() { return waterWalkFrame; }
 
+      inline void set_pointFrame(int i) { pointFrame = i; }
+      inline int get_PointFrame() { return pointFrame; }
+
       // Essential Functions
       void load();
       void render();
@@ -114,6 +118,9 @@ class GameState
       // Aniamtions
       template <typename T>
       void waterCollisionAnimation(shared_ptr<T> p, int row, int col);
+
+      template <typename T>
+      void pointsAnimation(shared_ptr<T> p, int row, int col);
 
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);

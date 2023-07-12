@@ -125,7 +125,19 @@ void GameState::load()
       SDL_FreeSurface(surface);
    }
 
-    
+    for (int i = 0; i < 7; i++)
+    {
+        path = ("sprites\\points\\points" + to_string(i) + ".png").c_str();
+        surface = IMG_Load(path);
+        if (surface == NULL)
+        {
+            printf("load points(): No Texture %s\n", path);
+            SDL_Quit();
+            exit(1);
+        }
+        this->set_points_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+        SDL_FreeSurface(surface);
+    }
 
 
    for (int i = 0; i < 5; i++)

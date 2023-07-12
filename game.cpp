@@ -17,6 +17,7 @@ GameState::GameState()
 
    // Intializing Player and Player Frames
    set_waterWalkFrame(4);
+   set_pointFrame(6);
    all_players.push_back(player);
 
    // Setting Enemy Positions
@@ -120,6 +121,11 @@ void GameState::render()
    // Player Rect
    SDL_Rect prect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
    SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &prect);
+
+   // Points Rect
+   SDL_Rect ptRect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_points_texture(pointFrame), NULL, &ptRect);
+
 
    /***********************/
 
