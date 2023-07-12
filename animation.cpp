@@ -97,7 +97,6 @@ void GameState::animate()
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
 
-    std::cout << pointFrame << std::endl;
 
    // Block Animations
    set_waterWalkFrame(4);
