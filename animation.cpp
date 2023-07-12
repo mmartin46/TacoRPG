@@ -1,5 +1,6 @@
 #include "game.hpp"
 
+
 template <typename T>
 void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
 {
