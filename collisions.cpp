@@ -57,6 +57,7 @@ void GameState::collisions()
    {
       for (int y = 0; y < col_count; ++y)
       {
+        
          // Shot detection
          if (collide2d(this->get_player_attack()->get_x(),
                        this->blocks.at(x).at(y).get_x(),
