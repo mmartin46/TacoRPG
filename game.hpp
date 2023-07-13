@@ -43,6 +43,12 @@ class GameState
       SDL_Texture* bb_text_u;
       SDL_Texture* bb_text_d;
 
+      TTF_Font* topBarFont;
+      SDL_Texture* topBarFontTexture;
+
+      // Time
+      system_clock::time_point start_time = high_resolution_clock::now();
+
       // Player / Player Attributes
       vector<SDL_Texture*> water_text;
       vector<SDL_Texture*> waterWalktext;
@@ -58,7 +64,7 @@ class GameState
       vector<shared_ptr<Player> > all_players;
       vector<Enemy> enemies;
       vector<shared_ptr<Attack> > all_player_attacks;
-      int life;
+      double life;
 
 
       // Blocks
@@ -69,6 +75,7 @@ class GameState
       Matrix<Entity> bushes;
       Matrix<Entity> potions;
 
+      shared_ptr<Entity> topBar;
       shared_ptr<Entity> healthBar;
    
 
@@ -112,7 +119,6 @@ class GameState
       inline void set_grass_texture(SDL_Texture *g) { grass_text = g; }
       inline SDL_Texture* get_grass_texture() { return grass_text; } 
 
-
       inline void set_boundBush_Texture(SDL_Texture *b) { bb_text = b; }
       inline SDL_Texture* get_boundBush_Texture() { return bb_text; }
 
@@ -144,9 +150,25 @@ class GameState
       inline void set_pointFrame(int i) { pointFrame = i; }
       inline int get_PointFrame() { return pointFrame; }
 
-      inline void setLife(int i) { life = i; }
-      inline int getLife() { return life; }
-      inline void decLife() { if (getLife() > 0) { setLife(getLife() - 1); } }
+      inline void set_healthFrame(int i) { healthFrame = i; }
+      inline int get_healthFrame() { return healthFrame; }
+
+      // Font
+      inline TTF_Font* getTopBarFont() { return topBarFont; }
+      inline void setTopBarFont(TTF_Font *f) { topBarFont = f; }
+
+      inline SDL_Texture* getTopBarTexture() { return topBarFontTexture; }
+      inline void setTopBarTexture(SDL_Texture *t) { topBarFontTexture = t; }
+
+
+      // Health
+
+      inline void setLife(double i) { life = i; }
+      inline double getLife() { return life; }
+      inline void decLife() { if (getLife() > 0) { setLife(getLife() - 0.15); } }
+
+      void initTopBar();
+      void loadRectTopBar();
 
       // Essential Functions
       void load();
@@ -167,6 +189,8 @@ class GameState
 
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
+
+      void updateHealth();
 
    
       // Loaders, Renderer, etc.

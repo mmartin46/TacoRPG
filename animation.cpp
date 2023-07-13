@@ -1,6 +1,59 @@
 #include "game.hpp"
 
 
+void GameState::updateHealth()
+{
+   if ((abs(getLife()) < ORIGINAL_HEALTH) && (getLife() >= 95))
+   {
+      set_healthFrame(1);
+   }
+   else if ((abs(getLife()) < 90) && (abs(getLife()) >= 85))
+   {
+      set_healthFrame(2);
+   }
+   else if ((abs(getLife()) < 85) && (abs(getLife()) >= 80))
+   {
+      set_healthFrame(3);
+   }
+   else if ((abs(getLife()) < 80) && (abs(getLife()) >= 75))
+   {
+      set_healthFrame(4);
+   }
+   else if ((abs(getLife()) < 75) && (abs(getLife()) >= 70))
+   {
+      set_healthFrame(5);
+   }
+   else if ((abs(getLife()) < 70) && (abs(getLife()) >= 65))
+   {
+      set_healthFrame(6);
+   }
+   else if ((abs(getLife()) < 65) && (abs(getLife()) >= 60))
+   {
+      set_healthFrame(7);
+   }
+   else if ((abs(getLife()) < 60) && (abs(getLife()) >= 40))
+   {
+      set_healthFrame(8);
+   }
+   else if ((abs(getLife()) < 40) && (abs(getLife()) >= 30))
+   {
+      set_healthFrame(9);
+   }
+   else if ((abs(getLife()) < 30) && (abs(getLife()) >= 20))
+   {
+      set_healthFrame(10);
+   }
+   else if ((abs(getLife()) < 20) && (abs(getLife()) >= 5))
+   {
+      set_healthFrame(11);
+   }
+   else if (abs(getLife()) < 5)
+   {
+      set_healthFrame(12);
+   }
+}
+
+
 template <typename T>
 void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 {
@@ -93,11 +146,10 @@ void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
 
 void GameState::animate()
 {
+   initTopBar();
    shared_ptr<Player> plyr = this->all_players.at(PLAYER_1);
    shared_ptr<Attack> atk = this->get_player_attack();
    int sX, sY;
-
-   std::cout << this->getLife() << std::endl;
 
    // Block Animations
    set_waterWalkFrame(4);
@@ -145,6 +197,7 @@ void GameState::animate()
    }
 
    // Player Animation
+   updateHealth();
    plyr->animation(this->get_time());
    sX = -plyr->get_x() + SCREEN_WIDTH / 2;
    sY = -plyr->get_y() + SCREEN_HEIGHT / 2;

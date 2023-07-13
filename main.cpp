@@ -24,6 +24,7 @@ int main(int argc, char **argv)
    game.set_renderer(renderer);
    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
    SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+   TTF_Init();
 
    game.load();
 
@@ -40,6 +41,7 @@ int main(int argc, char **argv)
       game.inc_time();
    }
 
+   TTF_CloseFont(game.getTopBarFont());
    SDL_DestroyWindow(window);
    SDL_DestroyRenderer(renderer);
    return 0;

@@ -1,4 +1,29 @@
 #include "game.hpp"
+
+void GameState::initTopBar()
+{
+   using namespace std::chrono;
+   auto currentTime = high_resolution_clock::now();
+   auto time = std::chrono::duration_cast<std::chrono::seconds>(currentTime - start_time);
+
+   char str[200] = "";
+   sprintf(str, "Life:           Time: %u", (time));
+
+   SDL_Color white = { 255, 255, 255, 255 };
+   SDL_Surface *tmp = TTF_RenderText_Blended(this->getTopBarFont(), str, white);
+   this->topBar->set_w(tmp->w);
+   this->topBar->set_h(tmp->h);
+   this->setTopBarTexture(SDL_CreateTextureFromSurface(this->get_renderer(), tmp));
+   SDL_FreeSurface(tmp);
+}
+
+void GameState::loadRectTopBar()
+{
+   SDL_Rect tbRect = { 0, 0, this->topBar->get_w(), this->topBar->get_h() };
+   SDL_RenderCopy(this->get_renderer(), this->getTopBarTexture(), NULL, &tbRect );
+}
+
+
 // Sets sprites that contain only one frame.
 void GameState::setConstantSpriteTextures(SDL_Surface *surface)
 {
@@ -34,7 +59,16 @@ void GameState::load()
    using std::to_string;
    const char *path;
 
+   // Fonts
+   setTopBarFont(TTF_OpenFont("sprites\\fonts\\font.ttf", 10));
+   if (!this->getTopBarFont())
+   {
+      std::cout << "topbarFont(): Can't find font label";
+      SDL_Quit();
+      exit(1);
+   }
 
+   // Textures
    for (int i = 0; i < ENTITY_FRAMES; ++i)
    {
       string wPath = "sprites\\player\\walking" + to_string(i) + ".png";
@@ -60,7 +94,6 @@ void GameState::load()
       SDL_Quit();
       exit(1);
    }
-
    this->get_player_attack()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 

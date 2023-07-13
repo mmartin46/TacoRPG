@@ -52,11 +52,12 @@ GameState::GameState()
 
    healthBar = std::make_shared<Entity>();
    getHealthBar()->set_x(0);
-   getHealthBar()->set_y(20);
+   getHealthBar()->set_y(10);
    getHealthBar()->set_w(getImageDimensions("sprites\\life\\life0.png").first);
    getHealthBar()->set_h(getImageDimensions("sprites\\life\\life0.png").second);
    healthFrame = 0;
-   setLife(1000000);
+   setLife(ORIGINAL_HEALTH);
+   topBar = std::make_shared<Entity>();
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
@@ -186,6 +187,8 @@ void GameState::render()
                  en_ptr->get_w() };
       SDL_RenderCopy(this->get_renderer(), get_enemy_texture(), NULL, &enRect);
    }
+
+   loadRectTopBar();
 
    SDL_RenderPresent(this->get_renderer());
 }
