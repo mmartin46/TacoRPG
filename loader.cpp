@@ -255,6 +255,19 @@ void GameState::load()
       SDL_FreeSurface(surface);     
    }
 
+   for (int i = 0; i < 13; i++)
+   {
+      string p = ("sprites\\life\\life" + to_string(i) + ".png");
+      surface = IMG_Load(p.c_str());
+      if (surface == NULL)
+      {
+         printf("load: No texture %s\n", p.c_str());
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_health_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);    
+   }
 }
 
 void GameState::init_tiles()

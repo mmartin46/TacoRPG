@@ -84,11 +84,24 @@ void GameState::collisions()
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
 
+
          // Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
          {
             collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
             collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
+
+            if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
+                          en_ptr->get_x(),
+                          this->all_players.at(PLAYER_1)->get_y(),
+                          en_ptr->get_y(),
+                          PLAYER_HEIGHT,
+                          en_ptr->get_w(),
+                          PLAYER_WIDTH,
+                          en_ptr->get_h()))
+            {
+               this->decLife();
+            }
          }
 
 

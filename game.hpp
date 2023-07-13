@@ -34,6 +34,8 @@ class GameState
       SDL_Texture* enemy_text;
       SDL_Texture* bush_text;
       vector<SDL_Texture*> potion_text;
+      vector<SDL_Texture*> health_text;
+      int healthFrame;
    
       SDL_Texture* bb_text;
       SDL_Texture* bb_text_l;
@@ -56,6 +58,7 @@ class GameState
       vector<shared_ptr<Player> > all_players;
       vector<Enemy> enemies;
       vector<shared_ptr<Attack> > all_player_attacks;
+      int life;
 
 
       // Blocks
@@ -65,6 +68,8 @@ class GameState
       Matrix<Entity> water;
       Matrix<Entity> bushes;
       Matrix<Entity> potions;
+
+      shared_ptr<Entity> healthBar;
    
 
       // File Manipulation
@@ -80,6 +85,8 @@ class GameState
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
       shared_ptr<Player> get_player() { return player; }
       shared_ptr<Attack> get_player_attack() { return player_attack; }
+
+      shared_ptr<Entity> getHealthBar() { return healthBar; }
 
       vector<shared_ptr<Attack> >* get_all_player_attacks() { return &all_player_attacks; }
 
@@ -121,6 +128,9 @@ class GameState
       inline void set_boundBushDown_Texture(SDL_Texture *b) { bb_text_d = b; }
       inline SDL_Texture* get_boundBushDown_Texture() { return bb_text_d; }
 
+      inline void set_health_texture(int i, SDL_Texture *h) { health_text.at(i) = h; }
+      inline SDL_Texture* get_health_texture(int i) { return health_text.at(i); }
+
 
       inline void set_potion_texture(int i, SDL_Texture *p) { potion_text.at(i) = p; }
       inline SDL_Texture* get_potion_texture(int i) { return potion_text.at(i); }
@@ -133,6 +143,10 @@ class GameState
 
       inline void set_pointFrame(int i) { pointFrame = i; }
       inline int get_PointFrame() { return pointFrame; }
+
+      inline void setLife(int i) { life = i; }
+      inline int getLife() { return life; }
+      inline void decLife() { if (getLife() > 0) { setLife(getLife() - 1); } }
 
       // Essential Functions
       void load();

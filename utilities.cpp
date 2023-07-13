@@ -127,6 +127,32 @@ V mapMin(std::unordered_map<K, V> &mp)
    return min_elem;
 }
 
+/*
+Gets the image dimensions.
+\param filePath path to the image.
+
+\return pair.first -> width
+
+\return pair.second -> height
+
+
+https://stackoverflow.com/questions/5354459/
+c-how-to-get-the-image-size-of-a-png-file-in-directory
+*/
+pair<int, int> getImageDimensions(const char *filePath)
+{
+   pair<int, int> dim;
+   unsigned char buffer[8];
+
+   std::ifstream input(filePath);
+   input.seekg(16);
+   input.read(reinterpret_cast<char*>(&buffer), 8);
+
+   dim.first = (buffer[4] << 24) + (buffer[5] << 16) + (buffer[6] << 8) + (buffer[7] << 0);
+   dim.second = (buffer[0] << 24) + (buffer[1] << 16) + (buffer[2] << 8) + (buffer[3] << 0);
+
+   return dim;
+}
 
 
 

@@ -14,6 +14,7 @@ GameState::GameState()
    potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
    points_text = vector<SDL_Texture*>(getDirectorySize("sprites\\points"));
+   health_text = vector<SDL_Texture*>(getDirectorySize("sprites\\life"));
 
    // Intializing Player and Player Frames
    set_waterWalkFrame(4);
@@ -22,7 +23,7 @@ GameState::GameState()
 
    // Setting Enemy Positions
    enemies.reserve(10);
-   for (int i = 0; i < 2; ++i)
+   for (int i = 0; i < 1; ++i)
    {
       try
       {
@@ -48,6 +49,14 @@ GameState::GameState()
    bushes = Matrix<Entity> (row_count, vector<Entity>(col_count));
    potions = Matrix<Entity> (row_count, vector<Entity>(col_count));
    grass = Matrix<Entity> (row_count, vector<Entity>(col_count));
+
+   healthBar = std::make_shared<Entity>();
+   getHealthBar()->set_x(0);
+   getHealthBar()->set_y(20);
+   getHealthBar()->set_w(getImageDimensions("sprites\\life\\life0.png").first);
+   getHealthBar()->set_h(getImageDimensions("sprites\\life\\life0.png").second);
+   healthFrame = 0;
+   setLife(1000000);
 
    player->set_id(PLAYER_1);
    set_scrollX(0);
@@ -141,6 +150,11 @@ void GameState::render()
    
 
    /*  PLAYER ATTRIBUTES */
+
+   // Health Bar
+   SDL_Rect hrect = { this->getHealthBar()->get_x(), this->getHealthBar()->get_y(), this->getHealthBar()->get_h(), this->getHealthBar()->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_health_texture(healthFrame), NULL, &hrect);
+  
 
    // Player Attack Rect
    SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
