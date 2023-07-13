@@ -65,6 +65,7 @@ class GameState
       vector<Enemy> enemies;
       vector<shared_ptr<Attack> > all_player_attacks;
       double life;
+      int score;
 
 
       // Blocks
@@ -166,6 +167,10 @@ class GameState
       inline void setLife(double i) { life = i; }
       inline double getLife() { return life; }
       inline void decLife() { if (getLife() > 0) { setLife(getLife() - 0.15); } }
+
+      inline void setScore(int s) { score = s; }
+      inline int getScore() { return score; }
+
 
       void initTopBar();
       void loadRectTopBar();

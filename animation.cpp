@@ -95,6 +95,7 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         else
         {
             set_pointFrame(6);
+            this->setScore(this->getScore() + 100);
             this->potions.at(row).at(col).set_visited();
         }
         SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + potions.at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + potions.at(row).at(col).get_y()), potions.at(row).at(col).get_w(), potions.at(row).at(col).get_h() };

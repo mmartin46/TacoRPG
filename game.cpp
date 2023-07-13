@@ -57,6 +57,7 @@ GameState::GameState()
    getHealthBar()->set_h(getImageDimensions("sprites\\life\\life0.png").second);
    healthFrame = 0;
    setLife(ORIGINAL_HEALTH);
+   setScore(0);
    topBar = std::make_shared<Entity>();
 
    player->set_id(PLAYER_1);

@@ -7,7 +7,7 @@ void GameState::initTopBar()
    auto time = std::chrono::duration_cast<std::chrono::seconds>(currentTime - start_time);
 
    char str[200] = "";
-   sprintf(str, "Life:           Time: %u", (time));
+   sprintf(str, "Life:           Time: %u             Score: %u", (time), score);
 
    SDL_Color white = { 255, 255, 255, 255 };
    SDL_Surface *tmp = TTF_RenderText_Blended(this->getTopBarFont(), str, white);
