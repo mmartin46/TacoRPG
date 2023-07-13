@@ -86,6 +86,18 @@ void GameState::load()
    this->set_block_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
+   path = "sprites\\landscape\\grass.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_grass_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+
    path = "sprites\\groundblock.png";
    surface = IMG_Load(path);
    if (surface == NULL)
@@ -128,6 +140,40 @@ void GameState::load()
    }
    this->set_bush_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
+
+   path = "sprites\\landscape\\boundary_bush.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_boundBush_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+   path = "sprites\\landscape\\boundary_bush_left.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_boundBushLeft_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+   path = "sprites\\landscape\\boundary_bush_right.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load: No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_boundBushRight_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
 
 
    for (int i = 1; i <= 5; i++)
@@ -219,10 +265,36 @@ void GameState::init_tiles()
                ground.at(x).at(y).set_w(BLOCK_WIDTH);
                ground.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
+            case world_map::GRASS_COLLISION:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+
+
          }
 
          switch (layer2.at(x).at(y))
          {
+            case world_map::BOUNDARY_BUSH_COLLISION:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::BOUNDARY_BUSH_LEFT:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::BOUNDARY_BUSH_RIGHT:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
             case world_map::POTION_COLLISION:
                potions.at(x).at(y).set_y(x*BLOCK_WIDTH);
                potions.at(x).at(y).set_x(y*BLOCK_HEIGHT);

@@ -23,16 +23,22 @@ class GameState
       pair<int, int> scroll;
       Matrix<int> layer1;
       Matrix<int> layer2;
+      Matrix<int> layer3;
 
 
 
       // Textures
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
+      SDL_Texture* grass_text;
       SDL_Texture* enemy_text;
       SDL_Texture* bush_text;
       vector<SDL_Texture*> potion_text;
    
+      SDL_Texture* bb_text;
+      SDL_Texture* bb_text_l;
+      SDL_Texture* bb_text_r;
+
       // Player / Player Attributes
       vector<SDL_Texture*> water_text;
       vector<SDL_Texture*> waterWalktext;
@@ -52,6 +58,7 @@ class GameState
 
       // Blocks
       Matrix<Block> blocks;
+      Matrix<Entity> grass;
       Matrix<Entity> ground;
       Matrix<Entity> water;
       Matrix<Entity> bushes;
@@ -92,6 +99,20 @@ class GameState
 
       inline void set_bush_texture(SDL_Texture *b) { bush_text = b; }
       inline SDL_Texture* get_bush_texture() { return bush_text; } 
+
+      inline void set_grass_texture(SDL_Texture *g) { grass_text = g; }
+      inline SDL_Texture* get_grass_texture() { return grass_text; } 
+
+
+      inline void set_boundBush_Texture(SDL_Texture *b) { bb_text = b; }
+      inline SDL_Texture* get_boundBush_Texture() { return bb_text; }
+
+      inline void set_boundBushLeft_Texture(SDL_Texture *b) { bb_text_l = b; }
+      inline SDL_Texture* get_boundBushLeft_Texture() { return bb_text_l; }
+
+      inline void set_boundBushRight_Texture(SDL_Texture *b) { bb_text_r = b; }
+      inline SDL_Texture* get_boundBushRight_Texture() { return bb_text_r; }
+
 
       inline void set_potion_texture(int i, SDL_Texture *p) { potion_text.at(i) = p; }
       inline SDL_Texture* get_potion_texture(int i) { return potion_text.at(i); }
