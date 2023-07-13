@@ -38,6 +38,8 @@ class GameState
       SDL_Texture* bb_text;
       SDL_Texture* bb_text_l;
       SDL_Texture* bb_text_r;
+      SDL_Texture* bb_text_u;
+      SDL_Texture* bb_text_d;
 
       // Player / Player Attributes
       vector<SDL_Texture*> water_text;
@@ -112,6 +114,12 @@ class GameState
 
       inline void set_boundBushRight_Texture(SDL_Texture *b) { bb_text_r = b; }
       inline SDL_Texture* get_boundBushRight_Texture() { return bb_text_r; }
+
+      inline void set_boundBushUp_Texture(SDL_Texture *b) { bb_text_u = b; }
+      inline SDL_Texture* get_boundBushUp_Texture() { return bb_text_u; }
+
+      inline void set_boundBushDown_Texture(SDL_Texture *b) { bb_text_d = b; }
+      inline SDL_Texture* get_boundBushDown_Texture() { return bb_text_d; }
 
 
       inline void set_potion_texture(int i, SDL_Texture *p) { potion_text.at(i) = p; }

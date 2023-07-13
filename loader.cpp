@@ -123,7 +123,7 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load groundblock(): No texture");
       SDL_Quit();
       exit(1);      
    }
@@ -134,7 +134,7 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load bush(): No texture");
       SDL_Quit();
       exit(1);      
    }
@@ -145,7 +145,7 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load bb(): No texture");
       SDL_Quit();
       exit(1);      
    }
@@ -156,7 +156,7 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load bb_l(): No texture");
       SDL_Quit();
       exit(1);      
    }
@@ -167,11 +167,33 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load bb_r(): No texture");
       SDL_Quit();
       exit(1);      
    }
    this->set_boundBushRight_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+   path = "sprites\\landscape\\boundary_bush_up.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load bb_u(): No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_boundBushUp_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   SDL_FreeSurface(surface);
+
+   path = "sprites\\landscape\\boundary_bush_down.png";
+   surface = IMG_Load(path);
+   if (surface == NULL)
+   {
+      printf("load bb_d(): No texture");
+      SDL_Quit();
+      exit(1);      
+   }
+   this->set_boundBushDown_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
 
@@ -290,6 +312,18 @@ void GameState::init_tiles()
                blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
             case world_map::BOUNDARY_BUSH_RIGHT:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::BOUNDARY_BUSH_UP:
+               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
+               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::BOUNDARY_BUSH_DOWN:
                blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
                blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                blocks.at(x).at(y).set_w(BLOCK_WIDTH);

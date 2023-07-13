@@ -110,6 +110,16 @@ void GameState::render()
                SDL_RenderCopy(this->get_renderer(), this->get_boundBushRight_Texture(), NULL, &bbRect);
                break;
             }
+            case world_map::BOUNDARY_BUSH_UP : {
+               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBushUp_Texture(), NULL, &bbRect);
+               break;
+            }
+            case world_map::BOUNDARY_BUSH_DOWN : {
+               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBushDown_Texture(), NULL, &bbRect);
+               break;
+            }
             case world_map::POTION_COLLISION : {
                SDL_Rect potionRect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->potions.at(x).at(y).get_frame()), NULL, &potionRect);
