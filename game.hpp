@@ -39,6 +39,7 @@ class GameState
       int healthFrame;
    
       vector<SDL_Texture*> bb_textures = vector<SDL_Texture*>(10);
+      vector<SDL_Texture*> dirt_textures = vector<SDL_Texture*>(10);
 
       TTF_Font* topBarFont;
       SDL_Texture* topBarFontTexture;
@@ -120,34 +121,6 @@ class GameState
 
       inline void set_boundBush_Texture(int i, SDL_Texture *b) { bb_textures.at(i) = b; }
       inline SDL_Texture* get_boundBush_Texture(int i) { return bb_textures.at(i); }
-
-
-      inline void set_boundBush_Texture(SDL_Texture *b) { bb_textures.at(0) = b; } 
-      inline SDL_Texture* get_boundBush_Texture() { return bb_textures.at(0); }
-
-      inline void set_boundBushLeft_Texture(SDL_Texture *b) { bb_textures.at(1) = b; }
-      inline SDL_Texture* get_boundBushLeft_Texture() { return bb_textures.at(1); }
-
-      inline void set_boundBushRight_Texture(SDL_Texture *b) { bb_textures.at(2) = b; }
-      inline SDL_Texture* get_boundBushRight_Texture() { return bb_textures.at(2); }
-
-      inline void set_boundBushUp_Texture(SDL_Texture *b) { bb_textures.at(3) = b; }
-      inline SDL_Texture* get_boundBushUp_Texture() { return bb_textures.at(3); }
-
-      inline void set_boundBushDown_Texture(SDL_Texture *b) { bb_textures.at(4) = b; }
-      inline SDL_Texture* get_boundBushDown_Texture() { return bb_textures.at(4); }
-
-      inline void set_boundBushUpLeft_Texture(SDL_Texture *b) { bb_textures.at(5) = b; }
-      inline SDL_Texture* get_boundBushUpLeft_Texture() { return bb_textures.at(5); }
-
-      inline void set_boundBushDownLeft_Texture(SDL_Texture *b) { bb_textures.at(6) = b; }
-      inline SDL_Texture* get_boundBushDownLeft_Texture() { return bb_textures.at(6); }
-
-      inline void set_boundBushUpRight_Texture(SDL_Texture *b) { bb_textures.at(7) = b; }
-      inline SDL_Texture* get_boundBushUpRight_Texture() { return bb_textures.at(7); }
-
-      inline void set_boundBushDownRight_Texture(SDL_Texture *b) { bb_textures.at(8) = b; }
-      inline SDL_Texture* get_boundBushDownRight_Texture() { return bb_textures.at(8); }
 
 
 
