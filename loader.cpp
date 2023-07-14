@@ -108,28 +108,6 @@ void GameState::load()
    this->set_enemy_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
-   // path = "sprites\\block.png";
-   // surface = IMG_Load(path);
-   // if (surface == NULL)
-   // {
-   //    printf("load: No texture");
-   //    SDL_Quit();
-   //    exit(1);      
-   // }
-   // this->set_block_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   // SDL_FreeSurface(surface);
-
-   path = "sprites\\landscape\\grass.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load: No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_grass_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
-
 
    tSetters.push_back(set_ground_texture);
    
@@ -140,7 +118,9 @@ void GameState::load()
    tSetters.push_back(set_boundBush_Texture);
    tSetters.push_back(set_bush_texture);
    tSetters.push_back(set_block_texture);
+   tSetters.push_back(set_grass_texture);
 
+   fileMap.insert({"sprites\\landscape\\grass.png", "load grass(): No texture"});
    fileMap.insert({"sprites\\block.png", "load block(): No texture"});
    fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
    fileMap.insert({"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"});
