@@ -23,7 +23,7 @@ GameState::GameState()
 
    // Setting Enemy Positions
    enemies.reserve(10);
-   for (int i = 0; i < 1; ++i)
+   for (int i = 0; i < 10; ++i)
    {
       try
       {
