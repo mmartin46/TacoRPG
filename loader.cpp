@@ -121,6 +121,8 @@ void GameState::load()
    fileMap.push_back({"sprites\\landscape\\grass.png", "load grass(): No texture"});
    setConstantSpriteTextures(surface);
 
+
+   // Background Bush Sprites
    vector<pair<const char*, const char*> > bbPaths = {
       {"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"},
       {"sprites\\landscape\\boundary_bush_left.png" , "load bb_l(): No texture"},
