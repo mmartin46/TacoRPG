@@ -13,3 +13,11 @@ A SDL2 Gaming RPG Project Written in C++. The goal is to avoid enemies and colle
 3. When the Compiler is finished installing, insert the "SDL2" folder within the SDL2 include folder
    inside your mingw64 include folder.
 4. Execute the .exe within the TacoRPG folder.
+
+## Acknowledgements
+
+Learn Video Game Programming in C www.youtube.com/playlist?list=PLT6WFYYZE6uLMcPGS3qfpYm7T_gViYMMt.
+
+## API References
+
+- SDL2
