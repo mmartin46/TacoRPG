@@ -37,7 +37,7 @@ void GameState::setConstantSpriteTextures(SDL_Surface *surface)
    }
 
    tSend = tSetters.data() + tSetters.size();
-   typename unordered_map<const char *, const char *>::iterator fPtr = fileMap.begin();
+   typename vector<pair<const char *, const char *> >::pointer fPtr = fileMap.data();
    for (tSptr = tSetters.data(); tSptr < tSend; ++tSptr, ++fPtr)
    {
       surface = IMG_Load(fPtr->first);
@@ -115,11 +115,10 @@ void GameState::load()
    tSetters.push_back(set_block_texture);
    tSetters.push_back(set_grass_texture);
 
-
-   fileMap.insert({"sprites\\landscape\\grass.png", "load grass(): No texture"});
-   fileMap.insert({"sprites\\block.png", "load block(): No texture"});
-   fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
-   fileMap.insert({"sprites\\groundblock.png", "load groundblock(): No texture"});
+   fileMap.push_back({"sprites\\groundblock.png", "load groundblock(): No texture"});
+   fileMap.push_back({"sprites\\bush.png", "load bush(): No texture"});
+   fileMap.push_back({"sprites\\block.png", "load block(): No texture"});
+   fileMap.push_back({"sprites\\landscape\\grass.png", "load grass(): No texture"});
    setConstantSpriteTextures(surface);
 
    vector<pair<const char*, const char*> > bbPaths = {
