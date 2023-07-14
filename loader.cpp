@@ -232,8 +232,8 @@ void GameState::init_tiles()
    {
       for (y = 0; y < col_count; ++y)
       {
-         layer1.at(x).at(y) = world_map::map[x][y];
-         layer2.at(x).at(y) = world_map::bush_map[x][y];
+         this->layer1.at(x).at(y) = world_map::layer1[x][y];
+         this->layer2.at(x).at(y) = world_map::layer2[x][y];
       }
    }
 
