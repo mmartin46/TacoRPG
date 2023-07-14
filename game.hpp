@@ -122,6 +122,8 @@ class GameState
       inline void set_boundBush_Texture(int i, SDL_Texture *b) { bb_textures.at(i) = b; }
       inline SDL_Texture* get_boundBush_Texture(int i) { return bb_textures.at(i); }
 
+      inline void set_dirt_texture(int i, SDL_Texture *t) { dirt_textures.at(i) = t;}
+      inline SDL_Texture* get_dirt_texture(int i) { return dirt_textures.at(i); }
 
 
       inline void set_health_texture(int i, SDL_Texture *h) { health_text.at(i) = h; }

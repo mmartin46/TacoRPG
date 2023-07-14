@@ -102,6 +102,14 @@ void GameState::render()
                SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &grassRect);
                break;            
             }
+            default: {
+               if (layer1.at(x).at(y) >= 16 && layer1.at(x).at(y) <= 24)
+               {
+                  SDL_Rect dirtRect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
+                  SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer1.at(x).at(y) - 16), NULL, &dirtRect);
+               }
+               break;
+            }
          }
          // Layer 2
          switch (layer2.at(x).at(y))

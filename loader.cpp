@@ -135,10 +135,27 @@ void GameState::load()
       {"sprites\\landscape\\boundary_bush_downright.png" , "load bb_dr(): No texture"},
    };
 
+   vector<pair<const char*, const char*> > dirtPaths = {
+      {"sprites\\landscape\\dirt.png", "load dirt(): No textures"},
+      {"sprites\\landscape\\dirt_transleft.png", "load dirttl(): No textures"},
+      {"sprites\\landscape\\dirt_transright.png", "load dirttr(): No textures"},
+      {"sprites\\landscape\\dirt_transup.png", "load dirttu(): No textures"},
+      {"sprites\\landscape\\dirt_transdown.png", "load dirttd(): No textures"},
+      {"sprites\\landscape\\dirt_transupleft.png", "load dirttul(): No textures"},
+      {"sprites\\landscape\\dirt_transdownleft.png", "load dirttdl(): No textures"},
+      {"sprites\\landscape\\dirt_transupright.png", "load dirttur(): No textures"},
+      {"sprites\\landscape\\dirt_transdownright.png", "load dirttdr(): No textures"},
+   };
+
+
    for (int i = 0; i < bbPaths.size(); ++i)
    {
-      path = bbPaths.at(i).first;
-      surface = IMG_Load(path);
+      // Setting the paths
+      const char *bbpath = bbPaths.at(i).first;
+      const char *dpath = dirtPaths.at(i).first;
+
+      // Background Bush
+      surface = IMG_Load(bbpath);
       if (surface == NULL)
       {
          printf(bbPaths.at(i).second);
@@ -146,6 +163,17 @@ void GameState::load()
          exit(1);
       }
       this->set_boundBush_Texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
+
+      // Dirt
+      surface = IMG_Load(dpath);
+      if (surface == NULL)
+      {
+         printf(dirtPaths.at(i).second);
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_dirt_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
 
@@ -261,8 +289,12 @@ void GameState::init_tiles()
                grass.at(x).at(y).set_w(BLOCK_WIDTH);
                grass.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
-
-
+            case 16 ... 24:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;               
          }
 
          switch (layer2.at(x).at(y))
