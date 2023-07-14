@@ -28,7 +28,7 @@ void GameState::loadRectTopBar()
 void GameState::setConstantSpriteTextures(SDL_Surface *surface)
 {
    using std::cout;
-   // Make sure the vector sizes are equal.
+   //Make sure the vector sizes are equal.
    if (tSetters.size() != fileMap.size())
    {
       cout << "Error: tSetters() and fileMap() are of unequal size!\n";
@@ -37,13 +37,13 @@ void GameState::setConstantSpriteTextures(SDL_Surface *surface)
    }
 
    tSend = tSetters.data() + tSetters.size();
-   typename unordered_map<string, string>::iterator fPtr = fileMap.begin();
+   typename unordered_map<const char *, const char *>::iterator fPtr = fileMap.begin();
    for (tSptr = tSetters.data(); tSptr < tSend; ++tSptr, ++fPtr)
    {
-      surface = IMG_Load(fPtr->first.c_str());
+      surface = IMG_Load(fPtr->first);
       if (surface == NULL)
       {
-         printf("%s", fPtr->second.c_str());
+         printf("%s", fPtr->second);
          SDL_Quit();
          exit(1);
       }
@@ -131,59 +131,40 @@ void GameState::load()
    SDL_FreeSurface(surface);
 
 
-   path = "sprites\\groundblock.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load: No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
+   tSetters.push_back(set_ground_texture);
+   tSetters.push_back(set_boundBush_Texture);
+   tSetters.push_back(set_bush_texture);
 
-   // tSetters.push_back(set_ground_texture);
-   // tSetters.push_back(set_bush_texture);
-   // tSetters.push_back(set_block_texture);
+   fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
+   fileMap.insert({"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"});
+   fileMap.insert({"sprites\\groundblock.png", "load groundblock(): No texture"});
 
-   // fileMap.insert("sprites\\groundblock.png", "load groundblock(): No texture");
-   // fileMap.insert("sprites\\bush.png", "load bush(): No texture");
-   // fileMap.insert("sprites\\block.png", "load block(): No texture");
-   //setConstantSpriteTextures(surface);
+   setConstantSpriteTextures(surface);
 
 
-   path = "sprites\\groundblock.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load groundblock(): No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
+   // path = "sprites\\groundblock.png";
+   // surface = IMG_Load(path);
+   // if (surface == NULL)
+   // {
+   //    printf("load groundblock(): No texture");
+   //    SDL_Quit();
+   //    exit(1);      
+   // }
+   // this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   // SDL_FreeSurface(surface);
 
-   path = "sprites\\bush.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load bush(): No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_bush_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
-   path = "sprites\\landscape\\boundary_bush.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load bb(): No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_boundBush_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
+
+   // path = "sprites\\landscape\\boundary_bush.png";
+   // surface = IMG_Load(path);
+   // if (surface == NULL)
+   // {
+   //    printf("load bb(): No texture");
+   //    SDL_Quit();
+   //    exit(1);      
+   // }
+   // this->set_boundBush_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+   // SDL_FreeSurface(surface);
 
    path = "sprites\\landscape\\boundary_bush_left.png";
    surface = IMG_Load(path);

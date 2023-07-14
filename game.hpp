@@ -85,7 +85,7 @@ class GameState
       vector<void (GameState::*)(SDL_Texture *)>::pointer tSptr, tSend;
 
 
-      std::unordered_map<std::string, std::string> fileMap;
+      std::unordered_map<const char*, const char*> fileMap;
    public:
       GameState();
       virtual ~GameState();
