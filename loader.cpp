@@ -110,12 +110,7 @@ void GameState::load()
 
    // Setting the constant textures.
 
-   //tSetters.push_back(set_boundBushLeft_Texture);
-   //tSetters.push_back(set_boundBushRight_Texture);
    tSetters.push_back(set_ground_texture);
-   tSetters.push_back(set_boundBushDown_Texture);
-   tSetters.push_back(set_boundBushUp_Texture);
-   tSetters.push_back(set_boundBush_Texture);
    tSetters.push_back(set_bush_texture);
    tSetters.push_back(set_block_texture);
    tSetters.push_back(set_grass_texture);
@@ -124,36 +119,35 @@ void GameState::load()
    fileMap.insert({"sprites\\landscape\\grass.png", "load grass(): No texture"});
    fileMap.insert({"sprites\\block.png", "load block(): No texture"});
    fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
-   fileMap.insert({"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"});
-   fileMap.insert({"sprites\\landscape\\boundary_bush_up.png", "load bb_u(): No texture"});
-   fileMap.insert({"sprites\\landscape\\boundary_bush_down.png", "load bb_d(): No texture"});
    fileMap.insert({"sprites\\groundblock.png", "load groundblock(): No texture"});
-   //fileMap.insert({"sprites\\landscape\\boundary_bush_right.png", "load bb_r(): No texture"});
-   //fileMap.insert({"sprites\\landscape\\boundary_bush_left.png", "load bb_l(): No texture"});
    setConstantSpriteTextures(surface);
 
+   vector<pair<const char*, const char*> > bbPaths = {
+      {"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"},
+      {"sprites\\landscape\\boundary_bush_left.png" , "load bb_l(): No texture"},
+      {"sprites\\landscape\\boundary_bush_right.png" , "load bb_r(): No texture"},
+      {"sprites\\landscape\\boundary_bush_up.png", "load bb_u(): No texture"},
+      {"sprites\\landscape\\boundary_bush_down.png", "load bb_d(): No texture"},
+      {"sprites\\landscape\\boundary_bush_upleft.png" , "load bb_ul(): No texture"},
+      {"sprites\\landscape\\boundary_bush_downleft.png" , "load bb_dl(): No texture"},
+      {"sprites\\landscape\\boundary_bush_upright.png" , "load bb_ur(): No texture"},
+      {"sprites\\landscape\\boundary_bush_downright.png" , "load bb_dr(): No texture"},
+   };
 
-   path = "sprites\\landscape\\boundary_bush_left.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
+   for (int i = 0; i < bbPaths.size(); ++i)
    {
-      printf("load bb_l(): No texture");
-      SDL_Quit();
-      exit(1);      
+      path = bbPaths.at(i).first;
+      surface = IMG_Load(path);
+      if (surface == NULL)
+      {
+         printf(bbPaths.at(i).second);
+         SDL_Quit();
+         exit(1);
+      }
+      this->set_boundBush_Texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
    }
-   this->set_boundBushLeft_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
-   path = "sprites\\landscape\\boundary_bush_right.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load bb_r(): No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_boundBushRight_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
 
    // Animated Textures
@@ -272,31 +266,7 @@ void GameState::init_tiles()
 
          switch (layer2.at(x).at(y))
          {
-            case world_map::BOUNDARY_BUSH_COLLISION:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;
-            case world_map::BOUNDARY_BUSH_LEFT:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;
-            case world_map::BOUNDARY_BUSH_RIGHT:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;
-            case world_map::BOUNDARY_BUSH_UP:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;
-            case world_map::BOUNDARY_BUSH_DOWN:
+            case 7 ... 15:
                blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
                blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                blocks.at(x).at(y).set_w(BLOCK_WIDTH);

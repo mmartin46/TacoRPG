@@ -21,6 +21,7 @@ class GameState
       SDL_Renderer *renderer;
       int time;
       pair<int, int> scroll;
+      // Layers
       Matrix<int> layer1;
       Matrix<int> layer2;
       Matrix<int> layer3;
@@ -37,11 +38,7 @@ class GameState
       vector<SDL_Texture*> health_text;
       int healthFrame;
    
-      SDL_Texture* bb_text;
-      SDL_Texture* bb_text_l;
-      SDL_Texture* bb_text_r;
-      SDL_Texture* bb_text_u;
-      SDL_Texture* bb_text_d;
+      vector<SDL_Texture*> bb_textures = vector<SDL_Texture*>(10);
 
       TTF_Font* topBarFont;
       SDL_Texture* topBarFontTexture;
@@ -76,6 +73,7 @@ class GameState
       Matrix<Entity> bushes;
       Matrix<Entity> potions;
 
+      // Health Info.
       shared_ptr<Entity> topBar;
       shared_ptr<Entity> healthBar;
    
@@ -120,20 +118,38 @@ class GameState
       inline void set_grass_texture(SDL_Texture *g) { grass_text = g; }
       inline SDL_Texture* get_grass_texture() { return grass_text; } 
 
-      inline void set_boundBush_Texture(SDL_Texture *b) { bb_text = b; }
-      inline SDL_Texture* get_boundBush_Texture() { return bb_text; }
+      inline void set_boundBush_Texture(int i, SDL_Texture *b) { bb_textures.at(i) = b; }
+      inline SDL_Texture* get_boundBush_Texture(int i) { return bb_textures.at(i); }
 
-      inline void set_boundBushLeft_Texture(SDL_Texture *b) { bb_text_l = b; }
-      inline SDL_Texture* get_boundBushLeft_Texture() { return bb_text_l; }
 
-      inline void set_boundBushRight_Texture(SDL_Texture *b) { bb_text_r = b; }
-      inline SDL_Texture* get_boundBushRight_Texture() { return bb_text_r; }
+      inline void set_boundBush_Texture(SDL_Texture *b) { bb_textures.at(0) = b; } 
+      inline SDL_Texture* get_boundBush_Texture() { return bb_textures.at(0); }
 
-      inline void set_boundBushUp_Texture(SDL_Texture *b) { bb_text_u = b; }
-      inline SDL_Texture* get_boundBushUp_Texture() { return bb_text_u; }
+      inline void set_boundBushLeft_Texture(SDL_Texture *b) { bb_textures.at(1) = b; }
+      inline SDL_Texture* get_boundBushLeft_Texture() { return bb_textures.at(1); }
 
-      inline void set_boundBushDown_Texture(SDL_Texture *b) { bb_text_d = b; }
-      inline SDL_Texture* get_boundBushDown_Texture() { return bb_text_d; }
+      inline void set_boundBushRight_Texture(SDL_Texture *b) { bb_textures.at(2) = b; }
+      inline SDL_Texture* get_boundBushRight_Texture() { return bb_textures.at(2); }
+
+      inline void set_boundBushUp_Texture(SDL_Texture *b) { bb_textures.at(3) = b; }
+      inline SDL_Texture* get_boundBushUp_Texture() { return bb_textures.at(3); }
+
+      inline void set_boundBushDown_Texture(SDL_Texture *b) { bb_textures.at(4) = b; }
+      inline SDL_Texture* get_boundBushDown_Texture() { return bb_textures.at(4); }
+
+      inline void set_boundBushUpLeft_Texture(SDL_Texture *b) { bb_textures.at(5) = b; }
+      inline SDL_Texture* get_boundBushUpLeft_Texture() { return bb_textures.at(5); }
+
+      inline void set_boundBushDownLeft_Texture(SDL_Texture *b) { bb_textures.at(6) = b; }
+      inline SDL_Texture* get_boundBushDownLeft_Texture() { return bb_textures.at(6); }
+
+      inline void set_boundBushUpRight_Texture(SDL_Texture *b) { bb_textures.at(7) = b; }
+      inline SDL_Texture* get_boundBushUpRight_Texture() { return bb_textures.at(7); }
+
+      inline void set_boundBushDownRight_Texture(SDL_Texture *b) { bb_textures.at(8) = b; }
+      inline SDL_Texture* get_boundBushDownRight_Texture() { return bb_textures.at(8); }
+
+
 
       inline void set_health_texture(int i, SDL_Texture *h) { health_text.at(i) = h; }
       inline SDL_Texture* get_health_texture(int i) { return health_text.at(i); }
