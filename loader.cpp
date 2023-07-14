@@ -120,6 +120,7 @@ void GameState::load()
    tSetters.push_back(set_block_texture);
    tSetters.push_back(set_grass_texture);
 
+
    fileMap.insert({"sprites\\landscape\\grass.png", "load grass(): No texture"});
    fileMap.insert({"sprites\\block.png", "load block(): No texture"});
    fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
