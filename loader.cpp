@@ -132,39 +132,26 @@ void GameState::load()
 
 
    tSetters.push_back(set_ground_texture);
+   
+   //tSetters.push_back(set_boundBushLeft_Texture);
+   //tSetters.push_back(set_boundBushRight_Texture);
+   tSetters.push_back(set_boundBushDown_Texture);
+   tSetters.push_back(set_boundBushUp_Texture);
    tSetters.push_back(set_boundBush_Texture);
    tSetters.push_back(set_bush_texture);
 
    fileMap.insert({"sprites\\bush.png", "load bush(): No texture"});
    fileMap.insert({"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"});
+   fileMap.insert({"sprites\\landscape\\boundary_bush_up.png", "load bb_u(): No texture"});
+   fileMap.insert({"sprites\\landscape\\boundary_bush_down.png", "load bb_d(): No texture"});
+   //fileMap.insert({"sprites\\landscape\\boundary_bush_right.png", "load bb_r(): No texture"});
+   //fileMap.insert({"sprites\\landscape\\boundary_bush_left.png", "load bb_l(): No texture"});
+
+
    fileMap.insert({"sprites\\groundblock.png", "load groundblock(): No texture"});
 
    setConstantSpriteTextures(surface);
 
-
-   // path = "sprites\\groundblock.png";
-   // surface = IMG_Load(path);
-   // if (surface == NULL)
-   // {
-   //    printf("load groundblock(): No texture");
-   //    SDL_Quit();
-   //    exit(1);      
-   // }
-   // this->set_ground_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   // SDL_FreeSurface(surface);
-
-
-
-   // path = "sprites\\landscape\\boundary_bush.png";
-   // surface = IMG_Load(path);
-   // if (surface == NULL)
-   // {
-   //    printf("load bb(): No texture");
-   //    SDL_Quit();
-   //    exit(1);      
-   // }
-   // this->set_boundBush_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   // SDL_FreeSurface(surface);
 
    path = "sprites\\landscape\\boundary_bush_left.png";
    surface = IMG_Load(path);
@@ -199,16 +186,6 @@ void GameState::load()
    this->set_boundBushUp_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
-   path = "sprites\\landscape\\boundary_bush_down.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load bb_d(): No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_boundBushDown_Texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
 
 
