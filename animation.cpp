@@ -224,6 +224,10 @@ void GameState::animate()
    atk->run_shotMovement(*plyr);
 }
 
+/*
+Controls the scrolling movement
+within the GameState.
+*/
 void GameState::run_scroller(int x, int y)
 { 
    std::this_thread::sleep_for(std::chrono::microseconds(1));
