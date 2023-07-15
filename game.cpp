@@ -215,7 +215,7 @@ void GameState::render()
 
    // Enemies
    typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
-   SDL_Rect enRect;
+   SDL_Rect enRect, hbRect;
    for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
    {
       enRect = { this->get_scrollX() + en_ptr->get_x(), 
@@ -223,13 +223,14 @@ void GameState::render()
                  en_ptr->get_h(),
                  en_ptr->get_w() };
       SDL_RenderCopy(this->get_renderer(), en_ptr->get_stillFrame(en_ptr->get_frame()), NULL, &enRect);
-   
-      enRect = { this->get_scrollX() + en_ptr->get_x(), 
+
+      hbRect = { this->get_scrollX() + en_ptr->get_x(), 
                  this->get_scrollY() + (en_ptr->get_y() - 12),
                  en_ptr->get_h(),
                  en_ptr->get_w() };
-      SDL_RenderCopy(this->get_renderer(), en_ptr->get_healthBarTexture(en_ptr->get_healthFrame()), NULL, &enRect);
+      SDL_RenderCopy(this->get_renderer(), en_ptr->get_healthBarTexture(en_ptr->get_healthFrame()), NULL, &hbRect);
    }
+
 
    loadRectTopBar();
 

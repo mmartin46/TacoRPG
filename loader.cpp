@@ -115,18 +115,22 @@ void GameState::load()
       }
    }
 
-   for (int i = 0; i < 3; ++i)
+   for (int i = 0; i < enemies.size(); ++i)
    {
-      path = ("sprites\\enemybar\\enemybar" + to_string(i) + ".png").c_str();
-      surface = IMG_Load(path);
-      if (surface == NULL)
+      for (int j = 0; j < 3; ++j)
       {
-         printf("load enemybar(): No texture");
-         SDL_Quit();
-         exit(1);      
+         path = ("sprites\\enemybar\\enemybar" + to_string(i) + ".png").c_str();
+         surface = IMG_Load(path);
+         if (surface == NULL)
+         {
+            printf("load enemybar(): No texture");
+            SDL_Quit();
+            exit(1);      
+         }
+         std::cout << path << std::endl;
+         this->enemies.at(i).set_healthBarTexture(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+         SDL_FreeSurface(surface);
       }
-      this->enemies.at(i).set_healthBarTexture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-      SDL_FreeSurface(surface);
    }
 
    // Setting the constant textures.
