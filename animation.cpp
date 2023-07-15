@@ -196,6 +196,7 @@ void GameState::animate()
    {
       en_ptr->movement(*plyr);
       en_ptr->animation(this->get_time());
+      std::cout << en_ptr->getDirection() << std::endl;
    }
 
    // Player Animation

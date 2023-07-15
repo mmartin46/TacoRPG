@@ -18,10 +18,6 @@ void Player::animation(int time)
          MOVED_UP,
          MOVED_DOWN,
          MOVED_LEFT,
-         MOVED_DOWNLEFT,
-         MOVED_DOWNRIGHT,
-         MOVED_UPLEFT,
-         MOVED_UPRIGHT
       };
 
       // If the player isn't moving.
