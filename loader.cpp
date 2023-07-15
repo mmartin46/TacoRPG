@@ -114,7 +114,7 @@ void GameState::load()
          SDL_FreeSurface(surface);
       }
    }
-
+   
    for (int i = 0; i < enemies.size(); ++i)
    {
       for (int j = 0; j < 5; ++j)
