@@ -23,7 +23,7 @@ void Enemy::movement(Player &p)
 
    // Evaluating all states
    std::unordered_map<std::string, double> states;
-   states["LEFT"] = get_distances(h.p1_x - 1, h.p2_x, h.p1_y, h.p2_y);
+   states["LEFT"] = get_distances(h.p1_x - 20, h.p2_x, h.p1_y, h.p2_y);
    states["RIGHT"] = get_distances(h.p1_x + 1, h.p2_x, h.p1_y, h.p2_y);
    states["DOWN"] = get_distances(h.p1_x, h.p2_x, h.p1_y + 1, h.p2_y);
    states["UP"] = get_distances(h.p1_x, h.p2_x, h.p1_y - 1, h.p2_y);
@@ -38,38 +38,42 @@ void Enemy::movement(Player &p)
 
    if (heuristic.first == "LEFT")
    {
+      this->set_movingLeft();
       this->move_left(ENEMY_SPEED);
    }
    else if (heuristic.first == "RIGHT")
    {
+      this->set_movingRight();
       this->move_right(ENEMY_SPEED);
    }
    else if (heuristic.first == "DOWN")
    {
+      this->set_movingDown();
       this->move_down(ENEMY_SPEED);
    } 
    else if (heuristic.first == "UP")
    {
+      this->set_movingUp();
       this->move_up(ENEMY_SPEED);
    }
    else if (heuristic.first == "UP_LEFT")
    {
+      this->set_movingLeft();
       this->move_left(ENEMY_SPEED);
-      this->move_up(ENEMY_SPEED);
    }
    else if (heuristic.first == "UP_RIGHT")
    {
+      this->set_movingRight();
       this->move_right(ENEMY_SPEED);
-      this->move_up(ENEMY_SPEED);
    }
    else if (heuristic.first == "DOWN_RIGHT")
    {
+      this->set_movingRight();
       this->move_right(ENEMY_SPEED);
-      this->move_down(ENEMY_SPEED);
    }
    else if (heuristic.first == "DOWN_LEFT")
    {
+      this->set_movingLeft();
       this->move_left(ENEMY_SPEED);
-      this->move_down(ENEMY_SPEED);
    }
 }

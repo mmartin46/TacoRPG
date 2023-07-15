@@ -25,8 +25,9 @@ GameState::GameState()
    // Setting Enemy Positions
    enemies.reserve(10);
    set_enemyFrame(0);
-   for (int i = 0; i < 1; ++i)
+   for (int i = 0; i < 3; ++i)
    {
+      srand((unsigned)) time(NULL);
       try
       {
          enemies.push_back(*(std::make_shared<Enemy>(i * i + 500, i * i + 400)));
