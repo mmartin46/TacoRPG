@@ -27,10 +27,9 @@ GameState::GameState()
    set_enemyFrame(0);
    for (int i = 0; i < 3; ++i)
    {
-      srand((unsigned)) time(NULL);
       try
       {
-         enemies.push_back(*(std::make_shared<Enemy>(i * i + 500, i * i + 400)));
+         enemies.push_back(*(std::make_shared<Enemy>(i * rand() % 2000, i * rand() % 2000)));
       }
       catch (const std::exception &e)
       {

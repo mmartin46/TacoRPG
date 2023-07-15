@@ -14,6 +14,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <utility>
+#include <cstdlib>
 #include <unordered_map>
 #include <algorithm>
 #include <future>
