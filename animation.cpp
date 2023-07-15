@@ -1,6 +1,10 @@
 #include "game.hpp"
 
-
+/*
+Update the health based
+on if the player has collided with
+anything that could increase/decrease its health.
+*/
 void GameState::updateHealth()
 {
    if ((abs(getLife()) < ORIGINAL_HEALTH) && (getLife() >= 95))
@@ -53,7 +57,10 @@ void GameState::updateHealth()
    }
 }
 
-
+/*
+Controls the animation of the player
+based on the points.
+*/
 template <typename T>
 void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 {
@@ -105,6 +112,10 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 
 }
 
+/*
+Controls the animation of the player
+based on the water.
+*/
 template <typename T>
 void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
 {
@@ -144,7 +155,11 @@ void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
    }
 }
 
-
+/*
+Controls the overall animation
+of all the entities within
+the GameState.
+*/
 void GameState::animate()
 {
    initTopBar();

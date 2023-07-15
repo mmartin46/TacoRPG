@@ -1,5 +1,13 @@
 #include "game.hpp"
 
+/*
+Detects a collision between an entity
+and any of the blocks within the map.
+\param i row
+\param j col
+\param P_W player width
+\param P_H player height
+*/
 template <typename T, typename U>
 int GameState::collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H)
 {
@@ -48,6 +56,11 @@ int GameState::collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_
    return touched;
 }
 
+/*
+Controls the collision detection
+with all the entities within the 
+gamestate.
+*/
 void GameState::collisions()
 {
 
@@ -102,12 +115,28 @@ void GameState::collisions()
                ENEMY_HEIGHT
             ))
             {
+               /*
+               If the enemy's health bar frame is less than 4 and the player
+               isn't able to shoot, the enemy's health bar frame will decrease.
+               */
                if (en_ptr->get_healthFrame() < 4 && 
                (!this->get_player_attack()->get_shotStatus() == CAN_SHOOT))
                {
                   en_ptr->set_healthFrame(en_ptr->get_healthFrame() + 1);
                   this->get_player_attack()->set_shotStatus(CAN_SHOOT);
                   this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
+               }
+
+               /* Relocate the enemy to a random location due
+                  to the slowdown depending on the number of
+                  enemies, reset the health bar, and give the player
+                  100 points */
+               if (en_ptr->get_healthFrame() == 4)
+               {
+                  this->setScore(this->getScore() + 100);
+                  en_ptr->set_x(rand() % 3000);
+                  en_ptr->set_y(rand() % 3000);
+                  en_ptr->set_healthFrame(0);
                }
             }
          }
