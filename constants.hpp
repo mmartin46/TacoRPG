@@ -1,10 +1,21 @@
 #pragma once
 
+// Player Settings
+
+
 #define PLAYER_WIDTH 20
 #define PLAYER_HEIGHT 20
+#define PLAYER_1_AMMO 10
+#define PLAYER_ATTACK_WIDTH 20
+#define PLAYER_ATTACK_HEIGHT 20
+
+// Entity Settings
+
 #define BLOCK_WIDTH 20
 #define BLOCK_HEIGHT 20
 #define ENTITY_FRAMES 32
+
+// Screen Settings
 
 #define WINDOW_WIDTH 420
 #define WINDOW_HEIGHT 236
@@ -14,20 +25,18 @@
 
 #define ORIGINAL_HEALTH 100
 
-#define PLAYER_ATTACK_WIDTH 20
-#define PLAYER_ATTACK_HEIGHT 20
+// Enemy Settings
 
 #define ENEMY_WIDTH 20
 #define ENEMY_HEIGHT 20
 #define ENEMY_SPEED 1
 
-#define PLAYER_1_AMMO 10
-#define UP_LEFT 9 
-#define UP_RIGHT 5
-#define DOWN_LEFT 3
-#define DOWN_RIGHT 6
 
-
+/*
+Handles all the maps and which
+textures and blocks should be set
+in specified positions.
+*/
 namespace world_map {
    enum collisions {
       NO_COLLISION = 0,

@@ -1,5 +1,10 @@
 #include "game.hpp"
 
+/*
+Intializes the the topBar.
+The topBar contains the health, time, and
+other features for the GameState.
+*/
 void GameState::initTopBar()
 {
    using namespace std::chrono;
@@ -17,6 +22,10 @@ void GameState::initTopBar()
    SDL_FreeSurface(tmp);
 }
 
+/*
+Loads the rectangle and sets the texture
+for the topBar within the GameState.
+*/
 void GameState::loadRectTopBar()
 {
    SDL_Rect tbRect = { 0, 0, this->topBar->get_w(), this->topBar->get_h() };
@@ -52,6 +61,11 @@ void GameState::setConstantSpriteTextures(SDL_Surface *surface)
    }
 }
 
+/*
+This method is used to load
+all the textures to each entity within the
+GameState.
+*/
 void GameState::load()
 {
    SDL_Surface *surface;
@@ -133,7 +147,6 @@ void GameState::load()
    }
 
    // Setting the constant textures.
-
    tSetters.push_back(set_ground_texture);
    tSetters.push_back(set_bush_texture);
    tSetters.push_back(set_block_texture);
@@ -146,7 +159,7 @@ void GameState::load()
    setConstantSpriteTextures(surface);
 
 
-   // Background Bush Sprites
+   // Background Bush Sprite Paths
    vector<pair<const char*, const char*> > bbPaths = {
       {"sprites\\landscape\\boundary_bush.png", "load bb(): No texture"},
       {"sprites\\landscape\\boundary_bush_left.png" , "load bb_l(): No texture"},
@@ -159,6 +172,7 @@ void GameState::load()
       {"sprites\\landscape\\boundary_bush_downright.png" , "load bb_dr(): No texture"},
    };
 
+   // Dirt and Dirt/Grass Transitional Sprite Paths
    vector<pair<const char*, const char*> > dirtPaths = {
       {"sprites\\landscape\\dirt.png", "load dirt(): No textures"},
       {"sprites\\landscape\\dirt_transleft.png", "load dirttl(): No textures"},
@@ -205,6 +219,7 @@ void GameState::load()
 
    // Animated Textures
 
+   // Water Block
    for (int i = 1; i <= 5; i++)
    {
       path = ("sprites\\water\\waterblock" + to_string(i) + ".png").c_str();
@@ -218,7 +233,7 @@ void GameState::load()
       this->set_water_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
-
+   // Potion
    for (int i = 1; i <= 6; i++)
    {
       path = ("sprites\\potion\\potion" + to_string(i) + ".png").c_str();
@@ -232,22 +247,24 @@ void GameState::load()
       this->set_potion_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
+   
+   // Points
+   for (int i = 0; i < 7; i++)
+   {
+       path = ("sprites\\points\\points" + to_string(i) + ".png").c_str();
+       surface = IMG_Load(path);
+       if (surface == NULL)
+       {
+           printf("load points(): No Texture %s\n", path);
+           SDL_Quit();
+           exit(1);
+       }
+       this->set_points_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+       SDL_FreeSurface(surface);
+   }
 
-    for (int i = 0; i < 7; i++)
-    {
-        path = ("sprites\\points\\points" + to_string(i) + ".png").c_str();
-        surface = IMG_Load(path);
-        if (surface == NULL)
-        {
-            printf("load points(): No Texture %s\n", path);
-            SDL_Quit();
-            exit(1);
-        }
-        this->set_points_texture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-        SDL_FreeSurface(surface);
-    }
-
-
+   // Texture for the player when they are walking in
+   // water.
    for (int i = 0; i < 5; i++)
    {
       string p = ("sprites\\waterwalk\\waterwalk" + to_string(i) + ".png");
@@ -261,7 +278,7 @@ void GameState::load()
       this->set_waterWalkTexture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);     
    }
-
+   // Life
    for (int i = 0; i < 13; i++)
    {
       string p = ("sprites\\life\\life" + to_string(i) + ".png");
@@ -293,6 +310,7 @@ void GameState::init_tiles()
    {
       for (y = 0; y < col_count; ++y)
       {
+         // Background Layer
          switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION:
@@ -320,7 +338,7 @@ void GameState::init_tiles()
                grass.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;               
          }
-
+         // Second Layer
          switch (layer2.at(x).at(y))
          {
             case 7 ... 15:
