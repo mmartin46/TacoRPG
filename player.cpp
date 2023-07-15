@@ -132,82 +132,6 @@ void Player::animation(int time)
             plyr->set_frame(15);
          }
       }
-      if (plyr->is_movingDownLeft() && (this->get_time() % 20 < 20))
-      {
-         if ((this->get_time() % 20) < 5)
-         {
-            plyr->set_frame(16);
-         }
-         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-         {
-            plyr->set_frame(17);
-         }
-         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-         {
-            plyr->set_frame(18);
-         }
-         else if ((this->get_time() % 20) >= 15)
-         {
-            plyr->set_frame(19);
-         }
-      }
-      if (plyr->is_movingDownRight() && (this->get_time() % 20 < 20))
-      {
-         if ((this->get_time() % 20) < 5)
-         {
-            plyr->set_frame(20);
-         }
-         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-         {
-            plyr->set_frame(21);
-         }
-         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-         {
-            plyr->set_frame(22);
-         }
-         else if ((this->get_time() % 20) >= 15)
-         {
-            plyr->set_frame(23);
-         }
-      }
-      if (plyr->is_movingUpLeft() && (this->get_time() % 20 < 20))
-      {
-         if ((this->get_time() % 20) < 5)
-         {
-            plyr->set_frame(24);
-         }
-         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-         {
-            plyr->set_frame(25);
-         }
-         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-         {
-            plyr->set_frame(26);
-         }
-         else if ((this->get_time() % 20) >= 15)
-         {
-            plyr->set_frame(27);
-         }
-      }
-      if (plyr->is_movingUpRight() && (this->get_time() % 20 < 20))
-      {
-         if ((this->get_time() % 20) < 5)
-         {
-            plyr->set_frame(28);
-         }
-         else if ((this->get_time() % 20) >= 5 && (this->get_time() % 20) < 10)
-         {
-            plyr->set_frame(29);
-         }
-         else if ((this->get_time() % 20) >= 10 && (this->get_time() % 20) < 15)
-         {
-            plyr->set_frame(30);
-         }
-         else if ((this->get_time() % 20) >= 15)
-         {
-            plyr->set_frame(31);
-         }
-      }
    }
 }
 
@@ -244,35 +168,6 @@ void Player::set_movingUp()
 }
 
 
-void Player::set_movingUpLeft()
-{
-   this->setDirection(0);
-   bitset::set_bit(direction, UP_BIT);
-   bitset::set_bit(direction, LEFT_BIT);
-}
-
-
-void Player::set_movingUpRight()
-{
-   this->setDirection(0);
-   bitset::set_bit(direction, UP_BIT);
-   bitset::set_bit(direction, RIGHT_BIT);
-}
-void Player::set_movingDownLeft()
-{
-   this->setDirection(0);
-   bitset::set_bit(direction, DOWN_BIT);
-   bitset::set_bit(direction, LEFT_BIT);
-}
-void Player::set_movingDownRight()
-{
-   this->setDirection(0);
-   bitset::set_bit(direction, DOWN_BIT);
-   bitset::set_bit(direction, RIGHT_BIT);
-}
-
-
-
 
 bool Player::is_movingLeft()
 {
@@ -297,22 +192,6 @@ bool Player::is_movingUp()
    return (bitset::get_bit(getDirection(), UP_BIT) && 
            !bitset::get_bit(getDirection(), RIGHT_BIT) &&
            !bitset::get_bit(getDirection(), LEFT_BIT));
-}
-bool Player::is_movingUpLeft()
-{
-   return (getDirection() == UP_LEFT);
-}
-bool Player::is_movingUpRight()
-{
-   return (getDirection() == UP_RIGHT);
-}
-bool Player::is_movingDownLeft()
-{
-   return (getDirection() == DOWN_LEFT);
-}
-bool Player::is_movingDownRight()
-{
-   return (getDirection() == DOWN_RIGHT);
 }
 
 
@@ -347,41 +226,4 @@ void Player::right_movement(const int &dist)
    this->set_last_state(this->getDirection());
    this->move_right(dist);
    this->set_dx(dist);   
-}
-
-void Player::upLeft_movement(const int &dist)
-{
-   this->set_movingUpLeft();
-   this->set_last_state(MOVED_UPLEFT);
-   this->move_left(dist);
-   this->move_up(dist);
-   this->set_dx(-dist);
-   this->set_dy(-dist);
-}
-void Player::upRight_movement(const int &dist)
-{
-   this->set_movingUpRight();
-   this->set_last_state(MOVED_UPRIGHT);
-   this->move_right(dist);
-   this->move_up(dist);
-   this->set_dx(dist);
-   this->set_dy(-dist);
-}
-void Player::downLeft_movement(const int &dist)
-{
-   this->set_movingDownLeft();
-   this->set_last_state(MOVED_DOWNLEFT);
-   this->move_left(dist);
-   this->move_down(dist);
-   this->set_dx(-dist);
-   this->set_dy(dist);
-}
-void Player::downRight_movement(const int &dist)
-{
-   this->set_movingDownRight();
-   this->set_last_state(MOVED_DOWNRIGHT);
-   this->move_right(dist);
-   this->move_down(dist);
-   this->set_dx(dist);
-   this->set_dy(dist);
 }

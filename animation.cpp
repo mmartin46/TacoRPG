@@ -195,6 +195,7 @@ void GameState::animate()
    for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
    {
       en_ptr->movement(*plyr);
+      en_ptr->animation(this->get_time());
    }
 
    // Player Animation

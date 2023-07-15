@@ -97,17 +97,23 @@ void GameState::load()
    this->get_player_attack()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
-   path = "sprites\\enemy\\enemy.png";
-   surface = IMG_Load(path);
-   if (surface == NULL)
-   {
-      printf("load: No texture");
-      SDL_Quit();
-      exit(1);      
-   }
-   this->set_enemy_texture(SDL_CreateTextureFromSurface(this->get_renderer(), surface));
-   SDL_FreeSurface(surface);
 
+   for (int i = 0; i < enemies.size(); ++i)
+   {
+      for (int j = 0; j < 16; ++j)
+      {
+         path = ("sprites\\enemy\\enemy" + to_string(j) + ".png").c_str();
+         surface = IMG_Load(path);
+         if (surface == NULL)
+         {
+            printf("load: No texture");
+            SDL_Quit();
+            exit(1);      
+         }
+         this->enemies.at(i).set_stillFrame(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+         SDL_FreeSurface(surface);
+      }
+   }
    // Setting the constant textures.
 
    tSetters.push_back(set_ground_texture);

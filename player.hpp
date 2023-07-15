@@ -40,21 +40,10 @@ class Player : public Entity
       bool is_movingDown();
       bool is_movingUp();
 
-      bool is_movingUpLeft();
-      bool is_movingUpRight();
-      bool is_movingDownLeft();
-      bool is_movingDownRight();
-
-
       void set_movingLeft();
       void set_movingRight();
       void set_movingDown();
       void set_movingUp(); 
-
-      void set_movingUpLeft();
-      void set_movingUpRight();
-      void set_movingDownLeft();
-      void set_movingDownRight();
 
 
       inline int getDirection() { return direction; }
@@ -64,12 +53,6 @@ class Player : public Entity
       void down_movement(const int &);
       void left_movement(const int &);
       void right_movement(const int &);
-
-      void upLeft_movement(const int &);
-      void upRight_movement(const int &);
-      void downLeft_movement(const int &);
-      void downRight_movement(const int &);
-
 
       void animation(int);
 };

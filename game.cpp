@@ -12,6 +12,7 @@ GameState::GameState()
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
    potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
+   enemy_text = vector<SDL_Texture*>(getDirectorySize("sprites\\enemy"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
    points_text = vector<SDL_Texture*>(getDirectorySize("sprites\\points"));
    health_text = vector<SDL_Texture*>(getDirectorySize("sprites\\life"));
@@ -23,6 +24,7 @@ GameState::GameState()
 
    // Setting Enemy Positions
    enemies.reserve(10);
+   set_enemyFrame(0);
    for (int i = 0; i < 1; ++i)
    {
       try
@@ -222,7 +224,7 @@ void GameState::render()
                  this->get_scrollY() + en_ptr->get_y(),
                  en_ptr->get_h(),
                  en_ptr->get_w() };
-      SDL_RenderCopy(this->get_renderer(), get_enemy_texture(), NULL, &enRect);
+      SDL_RenderCopy(this->get_renderer(), en_ptr->get_stillFrame(en_ptr->get_frame()), NULL, &enRect);
    }
 
    loadRectTopBar();
@@ -280,22 +282,6 @@ int GameState::events(SDL_Window *window)
    {
       this->all_players.at(PLAYER_1)->left_movement(2);
    }
-   // else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
-   // {
-   //    this->all_players.at(PLAYER_1)->upLeft_movement(2);
-   // }
-   // else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN])
-   // {
-   //    this->all_players.at(PLAYER_1)->downLeft_movement(2);
-   // }
-   // else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP])
-   // {
-   //    this->all_players.at(PLAYER_1)->upRight_movement(2);
-   // }
-   // else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN])
-   // {
-   //    this->all_players.at(PLAYER_1)->downRight_movement(2);
-   // }
    else if (state[SDL_SCANCODE_RIGHT]/*&& notMovingVertically(state)*/ )
    {
       this->all_players.at(PLAYER_1)->right_movement(2);

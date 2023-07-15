@@ -72,7 +72,4 @@ void Enemy::movement(Player &p)
       this->move_left(ENEMY_SPEED);
       this->move_down(ENEMY_SPEED);
    }
-
-
-
 }

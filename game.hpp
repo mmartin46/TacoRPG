@@ -32,7 +32,9 @@ class GameState
       SDL_Texture* block_text;
       SDL_Texture* ground_text;
       SDL_Texture* grass_text;
-      SDL_Texture* enemy_text;
+      vector<SDL_Texture*> enemy_text;
+      int enemyFrame;
+
       SDL_Texture* bush_text;
       vector<SDL_Texture*> potion_text;
       vector<SDL_Texture*> health_text;
@@ -98,8 +100,8 @@ class GameState
       vector<shared_ptr<Attack> >* get_all_player_attacks() { return &all_player_attacks; }
 
       // Textures
-      inline void set_enemy_texture(SDL_Texture *e) { enemy_text = e; }
-      inline SDL_Texture* get_enemy_texture() { return enemy_text; }
+      inline void set_enemy_texture(int i, SDL_Texture *e) { enemy_text.at(i) = e; }
+      inline SDL_Texture* get_enemy_texture(int i) { return enemy_text.at(i); }
 
       inline void set_points_texture(int i, SDL_Texture *p) { points_text.at(i) = p; }
       inline SDL_Texture* get_points_texture(int i) { return points_text.at(i); }
@@ -136,6 +138,7 @@ class GameState
       inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
       inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   
 
+      // Frames
       inline void set_waterWalkFrame(int i) { waterWalkFrame = i; }
       inline int get_waterWalkFrame() { return waterWalkFrame; }
 
@@ -144,6 +147,9 @@ class GameState
 
       inline void set_healthFrame(int i) { healthFrame = i; }
       inline int get_healthFrame() { return healthFrame; }
+
+      inline void set_enemyFrame(int i) { enemyFrame = i; }
+      inline int get_enemyFrame() { return enemyFrame; }
 
       // Font
       inline TTF_Font* getTopBarFont() { return topBarFont; }

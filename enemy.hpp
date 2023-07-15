@@ -8,6 +8,7 @@ class Enemy : public Player
       int id;
       int x, y, w, h;
       int frame;
+      int time;
 
       int direction;
       vector<SDL_Texture*> stillFrames;
@@ -15,3 +16,5 @@ class Enemy : public Player
       Enemy(int x, int y);
       void movement(Player &p);
 };
+
+
