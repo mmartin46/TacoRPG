@@ -12,7 +12,6 @@ GameState::GameState()
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
    potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
-   enemy_text = vector<SDL_Texture*>(getDirectorySize("sprites\\enemy"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
    points_text = vector<SDL_Texture*>(getDirectorySize("sprites\\points"));
    health_text = vector<SDL_Texture*>(getDirectorySize("sprites\\life"));
@@ -24,7 +23,6 @@ GameState::GameState()
 
    // Setting Enemy Positions
    enemies.reserve(10);
-   set_enemyFrame(0);
    for (int i = 0; i < 3; ++i)
    {
       try

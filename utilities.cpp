@@ -23,8 +23,6 @@
 using std::unordered_map;
 using namespace std::chrono;
 
-
-
 template <typename T>
 using Matrix = std::vector<std::vector<T> >;
 using std::pair;
