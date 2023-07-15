@@ -114,7 +114,7 @@ void GameState::load()
          SDL_FreeSurface(surface);
       }
    }
-   
+
    for (int i = 0; i < enemies.size(); ++i)
    {
       for (int j = 0; j < 5; ++j)
@@ -127,7 +127,6 @@ void GameState::load()
             SDL_Quit();
             exit(1);      
          }
-         std::cout << path << std::endl;
          this->enemies.at(i).set_healthBarTexture(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
          SDL_FreeSurface(surface);
       }

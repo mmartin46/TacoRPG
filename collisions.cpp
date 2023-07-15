@@ -92,19 +92,20 @@ void GameState::collisions()
             collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
 
             if (collide2d(
-               en_ptr->get_x(),
                this->get_player_attack()->get_x(),
                en_ptr->get_x(),
-               this->get_player_attack()->get_x(),
+               this->get_player_attack()->get_y(),
+               en_ptr->get_y(),
                PLAYER_ATTACK_HEIGHT,
                ENEMY_WIDTH,
                PLAYER_ATTACK_WIDTH,
                ENEMY_HEIGHT
             ))
             {
-               if (en_ptr->get_frame() < 3)
+               if (en_ptr->get_healthFrame() < 4 && 
+               (!this->get_player_attack()->get_shotStatus() == CAN_SHOOT))
                {
-                  en_ptr->set_frame(en_ptr->get_frame() + 1);
+                  en_ptr->set_healthFrame(en_ptr->get_healthFrame() + 1);
                   this->get_player_attack()->set_shotStatus(CAN_SHOOT);
                   this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
                }
