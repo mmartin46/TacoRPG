@@ -106,7 +106,7 @@ void GameState::load()
          surface = IMG_Load(path);
          if (surface == NULL)
          {
-            printf("load: No texture");
+            printf("load enemy(): No texture");
             SDL_Quit();
             exit(1);      
          }
@@ -114,6 +114,21 @@ void GameState::load()
          SDL_FreeSurface(surface);
       }
    }
+
+   for (int i = 0; i < 3; ++i)
+   {
+      path = ("sprites\\enemybar\\enemybar" + to_string(i) + ".png").c_str();
+      surface = IMG_Load(path);
+      if (surface == NULL)
+      {
+         printf("load enemybar(): No texture");
+         SDL_Quit();
+         exit(1);      
+      }
+      this->enemies.at(i).set_healthBarTexture(i, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      SDL_FreeSurface(surface);
+   }
+
    // Setting the constant textures.
 
    tSetters.push_back(set_ground_texture);

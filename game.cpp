@@ -223,6 +223,12 @@ void GameState::render()
                  en_ptr->get_h(),
                  en_ptr->get_w() };
       SDL_RenderCopy(this->get_renderer(), en_ptr->get_stillFrame(en_ptr->get_frame()), NULL, &enRect);
+   
+      enRect = { this->get_scrollX() + en_ptr->get_x(), 
+                 this->get_scrollY() + (en_ptr->get_y() - 12),
+                 en_ptr->get_h(),
+                 en_ptr->get_w() };
+      SDL_RenderCopy(this->get_renderer(), en_ptr->get_healthBarTexture(en_ptr->get_healthFrame()), NULL, &enRect);
    }
 
    loadRectTopBar();

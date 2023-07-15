@@ -7,6 +7,9 @@ Enemy::Enemy(int x, int y)
    this->set_w(ENEMY_WIDTH);
 
    stillFrames = vector<SDL_Texture*>(getDirectorySize("sprites\\enemy"));
+   healthBartext = vector<SDL_Texture*>(getDirectorySize("sprites\\enemybar"));
+   
+   set_healthFrame(0);
    direction = 8;
 };
 

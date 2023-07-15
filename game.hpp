@@ -186,6 +186,8 @@ class GameState
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
 
+      void bulletCollisionAnimation();
+
       void updateHealth();
 
    

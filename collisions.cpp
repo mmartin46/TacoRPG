@@ -85,11 +85,30 @@ void GameState::collisions()
          }
 
 
-         // Enemy Collision
+         //Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
          {
             collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
             collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
+
+            if (collide2d(
+               en_ptr->get_x(),
+               this->get_player_attack()->get_x(),
+               en_ptr->get_x(),
+               this->get_player_attack()->get_x(),
+               PLAYER_ATTACK_HEIGHT,
+               ENEMY_WIDTH,
+               PLAYER_ATTACK_WIDTH,
+               ENEMY_HEIGHT
+            ))
+            {
+               if (en_ptr->get_frame() < 3)
+               {
+                  en_ptr->set_frame(en_ptr->get_frame() + 1);
+                  this->get_player_attack()->set_shotStatus(CAN_SHOOT);
+                  this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
+               }
+            }
          }
 
 
