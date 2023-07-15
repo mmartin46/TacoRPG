@@ -26,10 +26,10 @@ void GameState::initTopBar()
 Loads the rectangle and sets the texture
 for the topBar within the GameState.
 */
-void GameState::loadRectTopBar()
+void GameState::loadRectTopBar(SDL_Rect &rect)
 {
-   SDL_Rect tbRect = { 0, 0, this->topBar->get_w(), this->topBar->get_h() };
-   SDL_RenderCopy(this->get_renderer(), this->getTopBarTexture(), NULL, &tbRect );
+   rect = { 0, 0, this->topBar->get_w(), this->topBar->get_h() };
+   SDL_RenderCopy(this->get_renderer(), this->getTopBarTexture(), NULL, &rect );
 }
 
 

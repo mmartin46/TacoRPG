@@ -164,7 +164,7 @@ class GameState
 
 
       void initTopBar();
-      void loadRectTopBar();
+      void loadRectTopBar(SDL_Rect &);
 
       // Essential Functions
       void load();

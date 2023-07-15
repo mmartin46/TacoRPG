@@ -77,7 +77,7 @@ void GameState::render()
 
    int x, y;
 
-
+   SDL_Rect rect;
 
    // Sets rectangles for all the blocks.
    for (x = 0; x < row_count; ++x)
@@ -88,25 +88,25 @@ void GameState::render()
          switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION : {
-               SDL_Rect blockRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &blockRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &rect);
                break;
             }
             case world_map::GROUND_COLLISION : {
-               SDL_Rect groundRect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &groundRect);
+               rect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &rect);
                break;
             }
             case world_map::GRASS_COLLISION : {
-               SDL_Rect grassRect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &grassRect);
+               rect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &rect);
                break;            
             }
             default: {
                if (layer1.at(x).at(y) >= 16 && layer1.at(x).at(y) <= 24)
                {
-                  SDL_Rect dirtRect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
-                  SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer1.at(x).at(y) - 16), NULL, &dirtRect);
+                  rect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
+                  SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer1.at(x).at(y) - 16), NULL, &rect);
                }
                break;
             }
@@ -115,52 +115,52 @@ void GameState::render()
          switch (layer2.at(x).at(y))
          {
             case world_map::BOUNDARY_BUSH_COLLISION : {
-               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(0), NULL, &bbRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(0), NULL, &rect);
                break;
             }
             case world_map::BOUNDARY_BUSH_LEFT : {
-               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(1), NULL, &bbRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(1), NULL, &rect);
                break;
             }
             case world_map::BOUNDARY_BUSH_RIGHT : {
-               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(2), NULL, &bbRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(2), NULL, &rect);
                break;
             }
             case world_map::BOUNDARY_BUSH_UP : {
-               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(3), NULL, &bbRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(3), NULL, &rect);
                break;
             }
             case world_map::BOUNDARY_BUSH_DOWN : {
-               SDL_Rect bbRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(4), NULL, &bbRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(4), NULL, &rect);
                break;
             }
 
             case world_map::BOUNDARY_BUSH_UPLEFT: {
-               SDL_Rect bbulRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(5), NULL, &bbulRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(5), NULL, &rect);
                break;
             }  
 
             case world_map::BOUNDARY_BUSH_DOWNLEFT: {
-               SDL_Rect bbdlRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(6), NULL, &bbdlRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(6), NULL, &rect);
                break;
             } 
 
             case world_map::BOUNDARY_BUSH_UPRIGHT: {
-               SDL_Rect bburRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(7), NULL, &bburRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(7), NULL, &rect);
                break;
             }          
 
             case world_map::BOUNDARY_BUSH_DOWNRIGHT: { 
-               SDL_Rect bbdrRect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(8), NULL, &bbdrRect);
+               rect = { static_cast<int>(this->get_scrollX() + blocks.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + blocks.at(x).at(y).get_y()), blocks.at(x).at(y).get_w(), blocks.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(8), NULL, &rect);
                break;
             }                                         
                                                  
@@ -168,18 +168,18 @@ void GameState::render()
 
 
             case world_map::POTION_COLLISION : {
-               SDL_Rect potionRect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->potions.at(x).at(y).get_frame()), NULL, &potionRect);
+               rect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->potions.at(x).at(y).get_frame()), NULL, &rect);
                break;
             }
             case world_map::WATER_COLLISION : {
-               SDL_Rect waterRect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &waterRect);
+               rect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &rect);
                break;
             }
             case world_map::BUSH_COLLISION : {
-               SDL_Rect bushRect = { static_cast<int>(this->get_scrollX() + bushes.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + bushes.at(x).at(y).get_y()), bushes.at(x).at(y).get_w(), bushes.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &bushRect);
+               rect = { static_cast<int>(this->get_scrollX() + bushes.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + bushes.at(x).at(y).get_y()), bushes.at(x).at(y).get_w(), bushes.at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &rect);
                break;
             }
          }
@@ -190,25 +190,25 @@ void GameState::render()
    /*  PLAYER ATTRIBUTES */
 
    // Health Bar
-   SDL_Rect hrect = { this->getHealthBar()->get_x(), this->getHealthBar()->get_y(), this->getHealthBar()->get_h(), this->getHealthBar()->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_health_texture(healthFrame), NULL, &hrect);
+   rect = { this->getHealthBar()->get_x(), this->getHealthBar()->get_y(), this->getHealthBar()->get_h(), this->getHealthBar()->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_health_texture(healthFrame), NULL, &rect);
   
 
    // Player Attack Rect
-   SDL_Rect parect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &parect);
+   rect = { this->get_scrollX() + this->get_player_attack()->get_x(), this->get_scrollY() + this->get_player_attack()->get_y(), this->get_player_attack()->get_h(), this->get_player_attack()->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_player_attack()->get_stillFrame(0), NULL, &rect);
 
    // Walk On Water Rect
-   SDL_Rect wRect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_waterWalkTexture(waterWalkFrame), NULL, &wRect);
+   rect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_waterWalkTexture(waterWalkFrame), NULL, &rect);
 
    // Player Rect
-   SDL_Rect prect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &prect);
+   rect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->all_players.at(PLAYER_1)->get_stillFrame(this->all_players.at(PLAYER_1)->get_frame()), NULL, &rect);
 
    // Points Rect
-   SDL_Rect ptRect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
-   SDL_RenderCopy(this->get_renderer(), this->get_points_texture(pointFrame), NULL, &ptRect);
+   rect = { this->get_scrollX() + this->all_players.at(PLAYER_1)->get_x(), this->get_scrollY() + this->all_players.at(PLAYER_1)->get_y(), this->all_players.at(PLAYER_1)->get_h(), this->all_players.at(PLAYER_1)->get_w() };
+   SDL_RenderCopy(this->get_renderer(), this->get_points_texture(pointFrame), NULL, &rect);
 
 
    /***********************/
@@ -232,7 +232,7 @@ void GameState::render()
    }
 
 
-   loadRectTopBar();
+   loadRectTopBar(rect);
 
    SDL_RenderPresent(this->get_renderer());
 }

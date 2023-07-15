@@ -116,7 +116,9 @@ double get_distances(double x_1, double x_2, double y_1, double y_2)
    return val;
 }
 
-
+/*
+Finds the minimum within an unordered map.
+*/
 template <class K, class V>
 V mapMin(std::unordered_map<K, V> &mp)
 {
