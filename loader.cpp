@@ -89,7 +89,7 @@ void GameState::load()
       surface = IMG_Load(wPath.c_str());
       if (surface == NULL)
       {
-         printf("load: No texture");
+         printf("load walking(): No texture for %s", wPath);
          SDL_Quit();
          exit(1);
       }
@@ -104,7 +104,7 @@ void GameState::load()
    surface = IMG_Load(path);
    if (surface == NULL)
    {
-      printf("load: No texture");
+      printf("load attack(): No texture for %s", path);
       SDL_Quit();
       exit(1);
    }
