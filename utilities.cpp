@@ -106,11 +106,14 @@ int getDirectorySize(const char *directName)
    return fileCount;
 }
 
-
+/*
+Utilizes the Manhattan distance to find
+the distance between two positions.
+*/
 double get_distances(double x_1, double x_2, double y_1, double y_2)
 {
-    double val = sqrt(pow(x_1 - x_2, 2) + pow(y_1 - y_2, 2));
-    return val;
+   double val = abs(x_1 - x_2) + abs(y_1 - y_2);
+   return val;
 }
 
 

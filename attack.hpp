@@ -3,6 +3,10 @@
 #include "player.hpp"
 #include "constants.hpp"
 
+/*
+Controls if a shot can
+or cannot be fired.
+*/
 enum typeShot {
    CAN_SHOOT = 0,
    CANT_SHOOT = 1
