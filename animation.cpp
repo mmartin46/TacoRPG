@@ -101,10 +101,13 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         }
         else
         {
+            // Make sure the potion will not be detected
+            // again.
             set_pointFrame(6);
             this->setScore(this->getScore() + 100);
             this->potions.at(row).at(col).set_visited();
         }
+        // Clear the rect.
         SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + potions.at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + potions.at(row).at(col).get_y()), potions.at(row).at(col).get_w(), potions.at(row).at(col).get_h() };
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
         layer2.at(row).at(col) = -1;
