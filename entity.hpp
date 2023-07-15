@@ -68,6 +68,11 @@ Entity::~Entity()
    }
 }
 
+/*
+Sets the frame for the enemy.
+\param n index
+\param t texture
+*/
 void Entity::set_stillFrame(int n, SDL_Texture* t)
 {
    if (n >= this->stillFrames.size() || n < 0)
