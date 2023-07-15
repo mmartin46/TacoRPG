@@ -147,6 +147,10 @@ void GameState::collisions()
       }
    }
    // Enemy Collision
+   /*
+      If the enemy and the player collide decrease
+      the life of the player.
+   */
    for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
    {
       if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
