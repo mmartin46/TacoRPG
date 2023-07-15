@@ -68,6 +68,7 @@ Entity::~Entity()
    }
 }
 
+
 /*
 Sets the frame for the enemy.
 \param n index
