@@ -185,12 +185,14 @@ void GameState::load()
       {"sprites\\landscape\\dirt_transdownright.png", "load dirttdr(): No textures"},
    };
 
+   char *bbpath;
+   char *dpath;
 
    for (int i = 0; i < bbPaths.size(); ++i)
    {
       // Setting the paths
-      const char *bbpath = bbPaths.at(i).first;
-      const char *dpath = dirtPaths.at(i).first;
+      bbpath = const_cast<char*>(bbPaths.at(i).first);
+      dpath = const_cast<char*>(dirtPaths.at(i).first);
 
       // Background Bush
       surface = IMG_Load(bbpath);
