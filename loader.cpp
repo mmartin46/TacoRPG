@@ -117,9 +117,9 @@ void GameState::load()
 
    for (int i = 0; i < enemies.size(); ++i)
    {
-      for (int j = 0; j < 3; ++j)
+      for (int j = 0; j < 5; ++j)
       {
-         path = ("sprites\\enemybar\\enemybar" + to_string(i) + ".png").c_str();
+         path = ("sprites\\enemybar\\enemybar" + to_string(j) + ".png").c_str();
          surface = IMG_Load(path);
          if (surface == NULL)
          {
