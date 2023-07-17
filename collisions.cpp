@@ -55,7 +55,7 @@ int GameState::collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_
    int touched = 0;
    float pw = P_W, ph = P_H;
    float px = plyr.get_x(), py = plyr.get_y();
-   float bx = blocks.at(i).at(j).get_x(), by = blocks.at(i).at(j).get_y(), bw = blocks.at(i).at(j).get_w(), bh = blocks.at(i).at(j).get_h();
+   float bx = get_blocks()->at(i).at(j).get_x(), by = get_blocks()->at(i).at(j).get_y(), bw = get_blocks()->at(i).at(j).get_w(), bh = get_blocks()->at(i).at(j).get_h();
 
    if (px+pw/2 > bx && px+pw/2 < bx+bw)
    {
@@ -126,13 +126,13 @@ void GameState::collisions()
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
          }
          if (collide2d(this->get_player_attack()->get_x(),
-                       this->bushes.at(x).at(y).get_x(),
+                       this->get_bushes()->at(x).at(y).get_x(),
                        this->get_player_attack()->get_y(),
-                       this->bushes.at(x).at(y).get_y(),
+                       this->get_bushes()->at(x).at(y).get_y(),
                        PLAYER_ATTACK_HEIGHT,
-                       this->bushes.at(x).at(y).get_w(),
+                       this->get_bushes()->at(x).at(y).get_w(),
                        PLAYER_ATTACK_WIDTH,
-                       this->bushes.at(x).at(y).get_h()))
+                       this->get_bushes()->at(x).at(y).get_h()))
          {
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
@@ -142,15 +142,15 @@ void GameState::collisions()
          //Enemy Collision
          for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
          {
-            collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
-            collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
+            collision_in_map(*en_ptr, *this->get_blocks(), x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+            collision_in_map(*en_ptr, *this->get_bushes(), x, y, ENEMY_WIDTH, ENEMY_WIDTH);
 
             bulletCollisionAnimation(en_ptr);
          }
 
 
-         collision_in_map(*this->all_players.at(PLAYER_1), this->blocks, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
-         collision_in_map(*this->all_players.at(PLAYER_1), this->bushes, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+         collision_in_map(*this->all_players.at(PLAYER_1), *this->get_blocks(), x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+         collision_in_map(*this->all_players.at(PLAYER_1), *this->get_bushes(), x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
       }
    }
    // Enemy Collision
