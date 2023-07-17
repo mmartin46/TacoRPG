@@ -178,7 +178,7 @@ void GameState::render()
                break;
             }
             case world_map::BUSH_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + bushes.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + bushes.at(x).at(y).get_y()), bushes.at(x).at(y).get_w(), bushes.at(x).at(y).get_h() };
+               rect = { static_cast<int>(this->get_scrollX() + get_bushes()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_bushes()->at(x).at(y).get_y()), get_bushes()->at(x).at(y).get_w(), get_bushes()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &rect);
                break;
             }

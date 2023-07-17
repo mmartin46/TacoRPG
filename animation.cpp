@@ -66,14 +66,14 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 {
      // Potion Detection
      if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
-                   this->potions.at(row).at(col).get_x(),
+                   this->get_potions()->at(row).at(col).get_x(),
                    this->all_players.at(PLAYER_1)->get_y(),
-                   this->potions.at(row).at(col).get_y(),
+                   this->get_potions()->at(row).at(col).get_y(),
                    PLAYER_HEIGHT,
                    PLAYER_WIDTH,
-                   this->potions.at(row).at(col).get_w(),
-                   this->potions.at(row).at(col).get_h()) &&
-                   !this->potions.at(row).at(col).get_visited())
+                   this->get_potions()->at(row).at(col).get_w(),
+                   this->get_potions()->at(row).at(col).get_h()) &&
+                   !this->get_potions()->at(row).at(col).get_visited())
      {
         if ((this->get_time() % 15) < 3.75)
         {
@@ -105,10 +105,10 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
             // again.
             set_pointFrame(6);
             this->setScore(this->getScore() + 100);
-            this->potions.at(row).at(col).set_visited();
+            this->get_potions()->at(row).at(col).set_visited();
         }
         // Clear the rect.
-        SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + potions.at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + potions.at(row).at(col).get_y()), potions.at(row).at(col).get_w(), potions.at(row).at(col).get_h() };
+        SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + get_potions()->at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + get_potions()->at(row).at(col).get_y()), get_potions()->at(row).at(col).get_w(), get_potions()->at(row).at(col).get_h() };
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
         layer2.at(row).at(col) = -1;
      }
@@ -117,19 +117,19 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 
 /*
 Controls the animation of the player
-based on the water.
+based on the get_water.
 */
 template <typename T>
 void GameState::waterCollisionAnimation(shared_ptr<T> plyr, int row, int col)
 {
    if (collide2d(plyr->get_x(),
-                 this->water.at(row).at(col).get_x(),
+                 this->get_water()->at(row).at(col).get_x(),
                  plyr->get_y() - 3,
-                 this->water.at(row).at(col).get_y(),
+                 this->get_water()->at(row).at(col).get_y(),
                  PLAYER_HEIGHT - 3,
-                 this->water.at(row).at(col).get_w(),
+                 this->get_water()->at(row).at(col).get_w(),
                  PLAYER_WIDTH,
-                 this->water.at(row).at(col).get_h()))
+                 this->get_water()->at(row).at(col).get_h()))
    {
       std::this_thread::sleep_for(std::chrono::microseconds(600));
       if (plyr->getDirection() != 0)
@@ -180,28 +180,28 @@ void GameState::animate()
       {
          if ((this->get_time() % 15) < 3.75)
          {
-            water.at(row).at(col).set_frame(0);
-            potions.at(row).at(col).set_frame(0);
+            get_water()->at(row).at(col).set_frame(0);
+            get_potions()->at(row).at(col).set_frame(0);
          }
          else if ((this->get_time() % 15) >= 3.75 && ((this->get_time() % 15) < 5))
          {
-            water.at(row).at(col).set_frame(1);
-            potions.at(row).at(col).set_frame(1);
+            get_water()->at(row).at(col).set_frame(1);
+            get_potions()->at(row).at(col).set_frame(1);
          }
          else if ((this->get_time() % 15) >= 5 && ((this->get_time() % 15) < 7.25))
          {
-            water.at(row).at(col).set_frame(2);
-            potions.at(row).at(col).set_frame(2);
+            get_water()->at(row).at(col).set_frame(2);
+            get_potions()->at(row).at(col).set_frame(2);
          }
          else if ((this->get_time() % 15) >= 7.25 && ((this->get_time() % 15) < 12.18))
          {
-            water.at(row).at(col).set_frame(3);
-            potions.at(row).at(col).set_frame(3);
+            get_water()->at(row).at(col).set_frame(3);
+            get_potions()->at(row).at(col).set_frame(3);
          } 
          else if ((this->get_time() % 15) >= 12.18 && ((this->get_time() % 15) < 15))
          {
-            water.at(row).at(col).set_frame(3);
-            potions.at(row).at(col).set_frame(3);
+            get_water()->at(row).at(col).set_frame(3);
+            get_potions()->at(row).at(col).set_frame(3);
          }
 
          pointsAnimation(plyr, row, col);
@@ -209,8 +209,8 @@ void GameState::animate()
       }
    }
 
-   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
-   for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
+   typename vector<Enemy>::pointer en_ptr, en_end = this->get_enemies()->data() + this->get_enemies()->size();
+   for (en_ptr = this->get_enemies()->data(); en_ptr < en_end; ++en_ptr)
    {
       en_ptr->movement(*plyr);
       en_ptr->animation(this->get_time());

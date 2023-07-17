@@ -95,6 +95,7 @@ class GameState
       Matrix<Entity>* get_water() { return &water; }
       Matrix<Entity>* get_bushes() { return &bushes; }
       Matrix<Entity>* get_potions() { return &potions; }
+      vector<Enemy>* get_enemies() { return &enemies; }
 
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
       shared_ptr<Player> get_player() { return player; }
