@@ -73,13 +73,13 @@ void GameState::collisions()
 
          // Shot detection
          if (collide2d(this->get_player_attack()->get_x(),
-                       this->blocks.at(x).at(y).get_x(),
+                       this->get_blocks()->at(x).at(y).get_x(),
                        this->get_player_attack()->get_y(),
-                       this->blocks.at(x).at(y).get_y(),
+                       this->get_blocks()->at(x).at(y).get_y(),
                        PLAYER_ATTACK_HEIGHT,
-                       this->blocks.at(x).at(y).get_w(),
+                       this->get_blocks()->at(x).at(y).get_w(),
                        PLAYER_ATTACK_WIDTH,
-                       this->blocks.at(x).at(y).get_h()))
+                       this->get_blocks()->at(x).at(y).get_h()))
          {
             this->get_player_attack()->set_shotStatus(CAN_SHOOT);
             this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
