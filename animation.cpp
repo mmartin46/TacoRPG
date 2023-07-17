@@ -57,24 +57,6 @@ void GameState::updateHealth()
    }
 }
 
-bool GameState::isEnemyKilled(Enemy *en_ptr)
-{
-   if (collide2d(
-       this->get_player_attack()->get_x(),
-       en_ptr->get_x(),
-       this->get_player_attack()->get_y(),
-       en_ptr->get_y(),
-       PLAYER_ATTACK_HEIGHT,
-       ENEMY_WIDTH,
-       PLAYER_ATTACK_WIDTH,
-       ENEMY_HEIGHT
-    ))
-    {
-      return true;
-    }
-    return false;
-}
-
 /*
 Controls the animation of the player
 based on the points.
@@ -82,16 +64,16 @@ based on the points.
 template <typename T>
 void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
 {
-     // Potion Detection
+     // Juice Detection
      if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
-                   this->get_potions()->at(row).at(col).get_x(),
+                   this->get_juices()->at(row).at(col).get_x(),
                    this->all_players.at(PLAYER_1)->get_y(),
-                   this->get_potions()->at(row).at(col).get_y(),
+                   this->get_juices()->at(row).at(col).get_y(),
                    PLAYER_HEIGHT,
                    PLAYER_WIDTH,
-                   this->get_potions()->at(row).at(col).get_w(),
-                   this->get_potions()->at(row).at(col).get_h()) &&
-                   !this->get_potions()->at(row).at(col).get_visited())
+                   this->get_juices()->at(row).at(col).get_w(),
+                   this->get_juices()->at(row).at(col).get_h()) &&
+                   !this->get_juices()->at(row).at(col).get_visited())
      {
         if ((this->get_time() % 15) < 3.75)
         {
@@ -123,10 +105,10 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
             // again.
             set_pointFrame(6);
             this->setScore(this->getScore() + 100);
-            this->get_potions()->at(row).at(col).set_visited();
+            this->get_juices()->at(row).at(col).set_visited();
         }
         // Clear the rect.
-        SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + get_potions()->at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + get_potions()->at(row).at(col).get_y()), get_potions()->at(row).at(col).get_w(), get_potions()->at(row).at(col).get_h() };
+        SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + get_juices()->at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + get_juices()->at(row).at(col).get_y()), get_juices()->at(row).at(col).get_w(), get_juices()->at(row).at(col).get_h() };
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
         layer2.at(row).at(col) = -1;
      }
@@ -199,27 +181,27 @@ void GameState::animate()
          if ((this->get_time() % 15) < 3.75)
          {
             get_water()->at(row).at(col).set_frame(0);
-            get_potions()->at(row).at(col).set_frame(0);
+            get_juices()->at(row).at(col).set_frame(0);
          }
          else if ((this->get_time() % 15) >= 3.75 && ((this->get_time() % 15) < 5))
          {
             get_water()->at(row).at(col).set_frame(1);
-            get_potions()->at(row).at(col).set_frame(1);
+            get_juices()->at(row).at(col).set_frame(1);
          }
          else if ((this->get_time() % 15) >= 5 && ((this->get_time() % 15) < 7.25))
          {
             get_water()->at(row).at(col).set_frame(2);
-            get_potions()->at(row).at(col).set_frame(2);
+            get_juices()->at(row).at(col).set_frame(2);
          }
          else if ((this->get_time() % 15) >= 7.25 && ((this->get_time() % 15) < 12.18))
          {
             get_water()->at(row).at(col).set_frame(3);
-            get_potions()->at(row).at(col).set_frame(3);
+            get_juices()->at(row).at(col).set_frame(3);
          } 
          else if ((this->get_time() % 15) >= 12.18 && ((this->get_time() % 15) < 15))
          {
             get_water()->at(row).at(col).set_frame(3);
-            get_potions()->at(row).at(col).set_frame(3);
+            get_juices()->at(row).at(col).set_frame(3);
          }
 
          pointsAnimation(plyr, row, col);

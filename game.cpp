@@ -11,7 +11,7 @@ GameState::GameState()
    player = std::make_shared<Player>();
    player_attack = std::make_shared<Attack>(*player);
    water_text = vector<SDL_Texture*>(getDirectorySize("sprites\\water"));
-   potion_text = vector<SDL_Texture*>(getDirectorySize("sprites\\potion"));
+   juice_text = vector<SDL_Texture*>(getDirectorySize("sprites\\juice"));
    waterWalktext = vector<SDL_Texture*>(getDirectorySize("sprites\\waterwalk"));
    points_text = vector<SDL_Texture*>(getDirectorySize("sprites\\points"));
    health_text = vector<SDL_Texture*>(getDirectorySize("sprites\\life"));
@@ -47,7 +47,7 @@ GameState::GameState()
    ground = Matrix<Entity> (row_count, vector<Entity>(col_count));
    water = Matrix<Entity> (row_count, vector<Entity>(col_count));
    bushes = Matrix<Entity> (row_count, vector<Entity>(col_count));
-   potions = Matrix<Entity> (row_count, vector<Entity>(col_count));
+   juices = Matrix<Entity> (row_count, vector<Entity>(col_count));
    grass = Matrix<Entity> (row_count, vector<Entity>(col_count));
 
    healthBar = std::make_shared<Entity>();
@@ -64,6 +64,7 @@ GameState::GameState()
    set_scrollX(0);
    set_scrollY(0);
    init_tiles();
+
 }
 
 
@@ -167,9 +168,9 @@ void GameState::render()
                                         
 
 
-            case world_map::POTION_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + get_potions()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_potions()->at(x).at(y).get_y()), get_potions()->at(x).at(y).get_w(), get_potions()->at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->get_potions()->at(x).at(y).get_frame()), NULL, &rect);
+            case world_map::JUICE_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_juices()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_juices()->at(x).at(y).get_y()), get_juices()->at(x).at(y).get_w(), get_juices()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_juice_texture(this->get_juices()->at(x).at(y).get_frame()), NULL, &rect);
                break;
             }
             case world_map::WATER_COLLISION : {

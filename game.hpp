@@ -35,7 +35,7 @@ class GameState
       SDL_Texture* grass_text;
 
       SDL_Texture* bush_text;
-      vector<SDL_Texture*> potion_text;
+      vector<SDL_Texture*> juice_text;
       vector<SDL_Texture*> health_text;
       int healthFrame;
    
@@ -73,7 +73,7 @@ class GameState
       Matrix<Entity> ground;
       Matrix<Entity> water;
       Matrix<Entity> bushes;
-      Matrix<Entity> potions;
+      Matrix<Entity> juices;
 
       // Health Info.
       shared_ptr<Entity> topBar;
@@ -94,12 +94,10 @@ class GameState
       Matrix<Entity>* get_ground() { return &ground; }
       Matrix<Entity>* get_water() { return &water; }
       Matrix<Entity>* get_bushes() { return &bushes; }
-      Matrix<Entity>* get_potions() { return &potions; }
+      Matrix<Entity>* get_juices() { return &juices; }
 
       // Enemies
       vector<Enemy>* get_enemies() { return &enemies; }
-      bool isEnemyKilled(Enemy *en_ptr);
-
 
       // Player Attributes
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
@@ -141,8 +139,8 @@ class GameState
       inline SDL_Texture* get_health_texture(int i) { return health_text.at(i); }
 
 
-      inline void set_potion_texture(int i, SDL_Texture *p) { potion_text.at(i) = p; }
-      inline SDL_Texture* get_potion_texture(int i) { return potion_text.at(i); }
+      inline void set_juice_texture(int i, SDL_Texture *p) { juice_text.at(i) = p; }
+      inline SDL_Texture* get_juice_texture(int i) { return juice_text.at(i); }
 
       inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
       inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   

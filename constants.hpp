@@ -45,7 +45,7 @@ namespace world_map {
       GROUND_COLLISION = 2,
       WATER_COLLISION = 3,
       BUSH_COLLISION = 4,
-      POTION_COLLISION = 5,
+      JUICE_COLLISION = 5,
       GRASS_COLLISION = 6,
       BOUNDARY_BUSH_COLLISION = 7,
       BOUNDARY_BUSH_LEFT = 8,

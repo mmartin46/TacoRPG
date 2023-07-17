@@ -236,10 +236,10 @@ void GameState::load()
       this->set_water_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
-   // Potion
+   // Juice
    for (int i = 1; i <= 6; i++)
    {
-      path = ("sprites\\potion\\potion" + to_string(i) + ".png").c_str();
+      path = ("sprites\\juice\\juice" + to_string(i) + ".png").c_str();
       surface = IMG_Load(path);
       if (surface == NULL)
       {
@@ -247,7 +247,7 @@ void GameState::load()
          SDL_Quit();
          exit(1);
       }
-      this->set_potion_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+      this->set_juice_texture((i - 1), SDL_CreateTextureFromSurface(this->get_renderer(), surface));
       SDL_FreeSurface(surface);
    }
    
@@ -350,11 +350,11 @@ void GameState::init_tiles()
                get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
                get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
-            case world_map::POTION_COLLISION:
-               potions.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               potions.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               potions.at(x).at(y).set_w(BLOCK_WIDTH);
-               potions.at(x).at(y).set_h(BLOCK_HEIGHT);
+            case world_map::JUICE_COLLISION:
+               juices.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               juices.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               juices.at(x).at(y).set_w(BLOCK_WIDTH);
+               juices.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
             case world_map::WATER_COLLISION:
                water.at(x).at(y).set_y(x*BLOCK_WIDTH);
