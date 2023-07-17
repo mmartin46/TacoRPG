@@ -55,7 +55,7 @@ int GameState::collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_
    int touched = 0;
    float pw = P_W, ph = P_H;
    float px = plyr.get_x(), py = plyr.get_y();
-   float bx = get_blocks()->at(i).at(j).get_x(), by = get_blocks()->at(i).at(j).get_y(), bw = get_blocks()->at(i).at(j).get_w(), bh = get_blocks()->at(i).at(j).get_h();
+   float bx = blocks.at(i).at(j).get_x(), by = blocks.at(i).at(j).get_y(), bw = blocks.at(i).at(j).get_w(), bh = blocks.at(i).at(j).get_h();
 
    if (px+pw/2 > bx && px+pw/2 < bx+bw)
    {
