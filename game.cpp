@@ -168,13 +168,13 @@ void GameState::render()
 
 
             case world_map::POTION_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + potions.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + potions.at(x).at(y).get_y()), potions.at(x).at(y).get_w(), potions.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->potions.at(x).at(y).get_frame()), NULL, &rect);
+               rect = { static_cast<int>(this->get_scrollX() + get_potions()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_potions()->at(x).at(y).get_y()), get_potions()->at(x).at(y).get_w(), get_potions()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_potion_texture(this->get_potions()->at(x).at(y).get_frame()), NULL, &rect);
                break;
             }
             case world_map::WATER_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + water.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + water.at(x).at(y).get_y()), water.at(x).at(y).get_w(), water.at(x).at(y).get_h() };
-               SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->water.at(x).at(y).get_frame()), NULL, &rect);
+               rect = { static_cast<int>(this->get_scrollX() + get_water()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_water()->at(x).at(y).get_y()), get_water()->at(x).at(y).get_w(), get_water()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_water_texture(this->get_water()->at(x).at(y).get_frame()), NULL, &rect);
                break;
             }
             case world_map::BUSH_COLLISION : {
