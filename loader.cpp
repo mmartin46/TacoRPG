@@ -112,7 +112,7 @@ void GameState::load()
    SDL_FreeSurface(surface);
 
 
-   for (int i = 0; i < enemies.size(); ++i)
+   for (int i = 0; i < get_enemies()->size(); ++i)
    {
       for (int j = 0; j < 16; ++j)
       {
@@ -124,12 +124,12 @@ void GameState::load()
             SDL_Quit();
             exit(1);      
          }
-         this->enemies.at(i).set_stillFrame(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+         this->get_enemies()->at(i).set_stillFrame(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
          SDL_FreeSurface(surface);
       }
    }
 
-   for (int i = 0; i < enemies.size(); ++i)
+   for (int i = 0; i < get_enemies()->size(); ++i)
    {
       for (int j = 0; j < 5; ++j)
       {
@@ -141,7 +141,7 @@ void GameState::load()
             SDL_Quit();
             exit(1);      
          }
-         this->enemies.at(i).set_healthBarTexture(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
+         this->get_enemies()->at(i).set_healthBarTexture(j, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
          SDL_FreeSurface(surface);
       }
    }
