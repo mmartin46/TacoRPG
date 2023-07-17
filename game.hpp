@@ -90,7 +90,8 @@ class GameState
       virtual ~GameState();
 
       Matrix<Block>* get_blocks() { return &blocks; }
-      
+      Matrix<Entity>* get_grass() { return &grass; }
+
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
       shared_ptr<Player> get_player() { return player; }
       shared_ptr<Attack> get_player_attack() { return player_attack; }
