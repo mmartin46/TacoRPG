@@ -22,12 +22,12 @@ GameState::GameState()
    all_players.push_back(player);
 
    // Setting Enemy Positions
-   enemies.reserve(10);
+   get_enemies()->reserve(10);
    for (int i = 0; i < 3; ++i)
    {
       try
       {
-         enemies.push_back(*(std::make_shared<Enemy>(i * rand() % 2000, i * rand() % 2000)));
+         get_enemies()->push_back(*(std::make_shared<Enemy>(i * rand() % 2000, i * rand() % 2000)));
       }
       catch (const std::exception &e)
       {
@@ -214,9 +214,9 @@ void GameState::render()
    /***********************/
 
    // Enemies
-   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
+   typename vector<Enemy>::pointer en_ptr, en_end = get_enemies()->data() + get_enemies()->size();
    SDL_Rect enRect, hbRect;
-   for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
+   for (en_ptr = get_enemies()->data(); en_ptr < en_end; ++en_ptr)
    {
       enRect = { this->get_scrollX() + en_ptr->get_x(), 
                  this->get_scrollY() + en_ptr->get_y(),
@@ -314,5 +314,5 @@ GameState::~GameState()
 
 
 
-   enemies.clear();
+   get_enemies()->clear();
 }

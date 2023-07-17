@@ -1,5 +1,46 @@
 #include "game.hpp"
 
+
+void GameState::bulletCollisionAnimation(Enemy *en_ptr)
+{
+   if (collide2d(
+       this->get_player_attack()->get_x(),
+       en_ptr->get_x(),
+       this->get_player_attack()->get_y(),
+       en_ptr->get_y(),
+       PLAYER_ATTACK_HEIGHT,
+       ENEMY_WIDTH,
+       PLAYER_ATTACK_WIDTH,
+       ENEMY_HEIGHT
+    ))
+    {
+       /*
+       If the enemy's health bar frame is less than 4 and the player
+       isn't able to shoot, the enemy's health bar frame will decrease.
+       */
+       if (en_ptr->get_healthFrame() < 4 && 
+       (!this->get_player_attack()->get_shotStatus() == CAN_SHOOT))
+       {
+          en_ptr->set_healthFrame(en_ptr->get_healthFrame() + 1);
+          this->get_player_attack()->set_shotStatus(CAN_SHOOT);
+          this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
+       }
+
+       /* Relocate the enemy to a random location due
+          to the slowdown depending on the number of
+          enemies, reset the health bar, and give the player
+          100 points */
+       if (en_ptr->get_healthFrame() == 4)
+       {
+          this->setScore(this->getScore() + 100);
+          en_ptr->set_x(rand() % 3000);
+          en_ptr->set_y(rand() % 3000);
+          en_ptr->set_healthFrame(0);
+       }
+    }
+}
+
+
 /*
 Detects a collision between an entity
 and any of the blocks within the map.
@@ -104,41 +145,7 @@ void GameState::collisions()
             collision_in_map(*en_ptr, this->blocks, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
             collision_in_map(*en_ptr, this->bushes, x, y, ENEMY_WIDTH, ENEMY_WIDTH);
 
-            if (collide2d(
-               this->get_player_attack()->get_x(),
-               en_ptr->get_x(),
-               this->get_player_attack()->get_y(),
-               en_ptr->get_y(),
-               PLAYER_ATTACK_HEIGHT,
-               ENEMY_WIDTH,
-               PLAYER_ATTACK_WIDTH,
-               ENEMY_HEIGHT
-            ))
-            {
-               /*
-               If the enemy's health bar frame is less than 4 and the player
-               isn't able to shoot, the enemy's health bar frame will decrease.
-               */
-               if (en_ptr->get_healthFrame() < 4 && 
-               (!this->get_player_attack()->get_shotStatus() == CAN_SHOOT))
-               {
-                  en_ptr->set_healthFrame(en_ptr->get_healthFrame() + 1);
-                  this->get_player_attack()->set_shotStatus(CAN_SHOOT);
-                  this->get_player_attack()->reset_position(*this->all_players.at(PLAYER_1));
-               }
-
-               /* Relocate the enemy to a random location due
-                  to the slowdown depending on the number of
-                  enemies, reset the health bar, and give the player
-                  100 points */
-               if (en_ptr->get_healthFrame() == 4)
-               {
-                  this->setScore(this->getScore() + 100);
-                  en_ptr->set_x(rand() % 3000);
-                  en_ptr->set_y(rand() % 3000);
-                  en_ptr->set_healthFrame(0);
-               }
-            }
+            bulletCollisionAnimation(en_ptr);
          }
 
 

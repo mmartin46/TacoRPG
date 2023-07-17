@@ -21,6 +21,7 @@ class GameState
       SDL_Renderer *renderer;
       int time;
       pair<int, int> scroll;
+
       // Layers
       Matrix<int> layer1;
       Matrix<int> layer2;
@@ -82,21 +83,24 @@ class GameState
       // File Manipulation
       vector<void (GameState::*)(SDL_Texture *)> tSetters;
       vector<void (GameState::*)(SDL_Texture *)>::pointer tSptr, tSend;
-
-
       vector<pair<const char*, const char*> > fileMap;
    public:
       GameState();
       virtual ~GameState();
 
+      // Blocks
       Matrix<Block>* get_blocks() { return &blocks; }
       Matrix<Entity>* get_grass() { return &grass; }
       Matrix<Entity>* get_ground() { return &ground; }
       Matrix<Entity>* get_water() { return &water; }
       Matrix<Entity>* get_bushes() { return &bushes; }
       Matrix<Entity>* get_potions() { return &potions; }
+
+      // Enemies
       vector<Enemy>* get_enemies() { return &enemies; }
 
+
+      // Player Attributes
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
       shared_ptr<Player> get_player() { return player; }
       shared_ptr<Attack> get_player_attack() { return player_attack; }
@@ -194,8 +198,7 @@ class GameState
       template <typename T, typename U> 
       int collision_in_map(T &plyr, Matrix<U> &blocks, int i, int j, int P_W, int P_H);
 
-      void bulletCollisionAnimation();
-
+      void bulletCollisionAnimation(Enemy *en_ptr);
       void updateHealth();
 
    
