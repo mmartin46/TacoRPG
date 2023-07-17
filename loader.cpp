@@ -111,10 +111,10 @@ void GameState::load()
    this->get_player_attack()->set_stillFrame(0, SDL_CreateTextureFromSurface(this->get_renderer(), surface));
    SDL_FreeSurface(surface);
 
-
+   // All enemies
    for (int i = 0; i < get_enemies()->size(); ++i)
    {
-      for (int j = 0; j < 16; ++j)
+      for (int j = 0; j < ENEMY_COUNT; ++j)
       {
          path = ("sprites\\enemy\\enemy" + to_string(j) + ".png").c_str();
          surface = IMG_Load(path);
@@ -129,9 +129,10 @@ void GameState::load()
       }
    }
 
+   // Enemy Health Bar
    for (int i = 0; i < get_enemies()->size(); ++i)
    {
-      for (int j = 0; j < 5; ++j)
+      for (int j = 0; j < ENEMY_HEALTHBAR_FRAMES; ++j)
       {
          path = ("sprites\\enemybar\\enemybar" + to_string(j) + ".png").c_str();
          surface = IMG_Load(path);

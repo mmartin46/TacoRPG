@@ -30,7 +30,8 @@
 #define ENEMY_WIDTH 20
 #define ENEMY_HEIGHT 20
 #define ENEMY_SPEED 1
-
+#define ENEMY_COUNT 16
+#define ENEMY_HEALTHBAR_FRAMES 5
 
 /*
 Handles all the maps and which
