@@ -316,10 +316,10 @@ void GameState::init_tiles()
          switch (layer1.at(x).at(y))
          {
             case world_map::BLOCK_COLLISION:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);               
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
                break;       
             case world_map::GROUND_COLLISION:
                ground.at(x).at(y).set_y(x*BLOCK_WIDTH);               
@@ -344,10 +344,10 @@ void GameState::init_tiles()
          switch (layer2.at(x).at(y))
          {
             case 7 ... 15:
-               blocks.at(x).at(y).set_y(x*BLOCK_WIDTH);
-               blocks.at(x).at(y).set_x(y*BLOCK_HEIGHT);
-               blocks.at(x).at(y).set_w(BLOCK_WIDTH);
-               blocks.at(x).at(y).set_h(BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
             case world_map::POTION_COLLISION:
                potions.at(x).at(y).set_y(x*BLOCK_WIDTH);
