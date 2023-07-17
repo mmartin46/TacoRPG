@@ -2,6 +2,7 @@
 #include "constants.hpp"
 #include "utilities.cpp"
 #include "entity.hpp"
+#include "entity.cpp"
 
 
 enum whichBit {

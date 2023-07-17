@@ -17,6 +17,9 @@ Enemy::Enemy(int x, int y)
 void Enemy::movement(Player &p)
 {
    // Heuristic
+   //
+   // Used to calculate the distance
+   // from the player and the enemy.
    Distance h;
    h.p1_x = this->get_x();
    h.p1_y = this->get_y();
@@ -24,7 +27,9 @@ void Enemy::movement(Player &p)
    h.p2_y = p.get_y();
 
 
-   // Evaluating all states
+   // Evaluating the all states
+   // and calculating the minimum distance
+   // out of all the states.
    std::unordered_map<std::string, double> states;
    states["LEFT"] = get_distances(h.p1_x - 20, h.p2_x, h.p1_y, h.p2_y);
    states["RIGHT"] = get_distances(h.p1_x + 1, h.p2_x, h.p1_y, h.p2_y);
@@ -36,9 +41,8 @@ void Enemy::movement(Player &p)
    states["UP_LEFT"] = get_distances(h.p1_x - 1, h.p2_x, h.p1_y - 1, h.p2_y);
 
    std::pair<std::string, double> heuristic = *std::min_element(states.begin(), states.end(), comp());
-   // std::cout << heuristic.first << " " << heuristic.second << std::endl;
 
-
+   // Deciding what to do within each state.
    if (heuristic.first == "LEFT")
    {
       this->set_movingLeft();
