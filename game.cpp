@@ -93,7 +93,7 @@ void GameState::render()
                break;
             }
             case world_map::GROUND_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + ground.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + ground.at(x).at(y).get_y()), ground.at(x).at(y).get_w(), ground.at(x).at(y).get_h() };
+               rect = { static_cast<int>(this->get_scrollX() + get_ground()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_ground()->at(x).at(y).get_y()), get_ground()->at(x).at(y).get_w(), get_ground()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &rect);
                break;
             }
