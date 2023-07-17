@@ -105,7 +105,7 @@ gamestate.
 void GameState::collisions()
 {
 
-   typename vector<Enemy>::pointer en_ptr, en_end = enemies.data() + enemies.size();
+   typename vector<Enemy>::pointer en_ptr, en_end = this->get_enemies()->data() + this->get_enemies()->size();
 
    for (int x = 0; x < row_count; ++x)
    {
@@ -140,7 +140,7 @@ void GameState::collisions()
 
 
          //Enemy Collision
-         for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
+         for (en_ptr = this->get_enemies()->data(); en_ptr < en_end; ++en_ptr)
          {
             collision_in_map(*en_ptr, *this->get_blocks(), x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
             collision_in_map(*en_ptr, *this->get_bushes(), x, y, ENEMY_WIDTH, ENEMY_WIDTH);
@@ -158,7 +158,7 @@ void GameState::collisions()
       If the enemy and the player collide decrease
       the life of the player.
    */
-   for (en_ptr = enemies.data(); en_ptr < en_end; ++en_ptr)
+   for (en_ptr = this->get_enemies()->data(); en_ptr < en_end; ++en_ptr)
    {
       if (collide2d(this->all_players.at(PLAYER_1)->get_x(),
                     en_ptr->get_x(),
