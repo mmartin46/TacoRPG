@@ -57,6 +57,24 @@ void GameState::updateHealth()
    }
 }
 
+bool GameState::isEnemyKilled(Enemy *en_ptr)
+{
+   if (collide2d(
+       this->get_player_attack()->get_x(),
+       en_ptr->get_x(),
+       this->get_player_attack()->get_y(),
+       en_ptr->get_y(),
+       PLAYER_ATTACK_HEIGHT,
+       ENEMY_WIDTH,
+       PLAYER_ATTACK_WIDTH,
+       ENEMY_HEIGHT
+    ))
+    {
+      return true;
+    }
+    return false;
+}
+
 /*
 Controls the animation of the player
 based on the points.

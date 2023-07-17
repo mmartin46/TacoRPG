@@ -98,6 +98,7 @@ class GameState
 
       // Enemies
       vector<Enemy>* get_enemies() { return &enemies; }
+      bool isEnemyKilled(Enemy *en_ptr);
 
 
       // Player Attributes
@@ -173,7 +174,6 @@ class GameState
 
       inline void setScore(int s) { score = s; }
       inline int getScore() { return score; }
-
 
       void initTopBar();
       void loadRectTopBar(SDL_Rect &);
