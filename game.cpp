@@ -98,14 +98,14 @@ void GameState::render()
                break;
             }
             case world_map::GRASS_COLLISION : {
-               rect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
+               rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &rect);
                break;            
             }
             default: {
                if (layer1.at(x).at(y) >= 16 && layer1.at(x).at(y) <= 24)
                {
-                  rect = { static_cast<int>(this->get_scrollX() + grass.at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + grass.at(x).at(y).get_y()), grass.at(x).at(y).get_w(), grass.at(x).at(y).get_h() };
+                  rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
                   SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer1.at(x).at(y) - 16), NULL, &rect);
                }
                break;

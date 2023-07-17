@@ -92,6 +92,9 @@ class GameState
       Matrix<Block>* get_blocks() { return &blocks; }
       Matrix<Entity>* get_grass() { return &grass; }
       Matrix<Entity>* get_ground() { return &ground; }
+      Matrix<Entity>* get_water() { return &water; }
+      Matrix<Entity>* get_bushes() { return &bushes; }
+      Matrix<Entity>* get_potions() { return &potions; }
 
       vector<shared_ptr<Player> > getAllPlayers() { return all_players; }
       shared_ptr<Player> get_player() { return player; }
