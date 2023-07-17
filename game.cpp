@@ -279,19 +279,19 @@ int GameState::events(SDL_Window *window)
       this->get_player_attack()->run_shotMovement(*this->all_players.at(PLAYER_1));
    }
 
-   if (state[SDL_SCANCODE_UP] /* && notMovingHorizontally(state) */)
+   if (state[SDL_SCANCODE_UP])
    {
       this->all_players.at(PLAYER_1)->up_movement(2);
    }
-   else if (state[SDL_SCANCODE_LEFT] /* && notMovingVertically(state) */)
+   else if (state[SDL_SCANCODE_LEFT])
    {
       this->all_players.at(PLAYER_1)->left_movement(2);
    }
-   else if (state[SDL_SCANCODE_RIGHT]/*&& notMovingVertically(state)*/ )
+   else if (state[SDL_SCANCODE_RIGHT])
    {
       this->all_players.at(PLAYER_1)->right_movement(2);
    }
-   else if (state[SDL_SCANCODE_DOWN] /*&& notMovingHorizontally(state)*/ )
+   else if (state[SDL_SCANCODE_DOWN])
    {
       this->all_players.at(PLAYER_1)->down_movement(2);
    }
