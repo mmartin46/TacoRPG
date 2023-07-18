@@ -33,8 +33,8 @@ void GameState::bulletCollisionAnimation(Enemy *en_ptr)
        if (en_ptr->get_healthFrame() == 4)
        {
           this->setScore(this->getScore() + 100);
-          en_ptr->set_x(rand() % 3000);
-          en_ptr->set_y(rand() % 3000);
+          en_ptr->set_x(300 + (rand() % 1000));
+          en_ptr->set_y(300 + (rand() % 1000));
           en_ptr->set_healthFrame(0);
        }
     }

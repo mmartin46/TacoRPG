@@ -129,15 +129,6 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         }
         else if (layer2.at(row).at(col) == world_map::JUICE_COLLISION)
         {
-            // switch (layer1.at(row).at(col))
-            // {
-            //    case world_map::GRASS_COLLISION: {
-            //       layer2.at(row).at(col) = -1;
-            //    }
-            //    case world_map::WATER_COLLISION: {
-            //       layer2.at(row).at(col) = world_map::WATER_COLLISION;
-            //    }
-            // }
             layer2.at(row).at(col) = -1;
         }
 

@@ -61,10 +61,12 @@ namespace world_map {
       DIRT_TRANS_RIGHT = 18,
       DIRT_TRANS_UP = 19,
       DIRT_TRANS_DOWN = 20,
-      DIRT_TRANS_DOWNRIGHT = 21,
+
+      DIRT_TRANS_UPLEFT = 21,
       DIRT_TRANS_DOWNLEFT = 22,
       DIRT_TRANS_UPRIGHT = 23,
-      DIRT_TRANS_UPLEFT = 24
+      DIRT_TRANS_DOWNRIGHT = 24
+
    };
 
 int layer3[100][100] = {

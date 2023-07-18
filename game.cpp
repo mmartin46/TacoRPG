@@ -23,11 +23,11 @@ GameState::GameState()
 
    // Setting Enemy Positions
    get_enemies()->reserve(10);
-   for (int i = 0; i < 3; ++i)
+   for (int i = 0; i < 2; ++i)
    {
       try
       {
-         get_enemies()->push_back(*(std::make_shared<Enemy>(i * rand() % 2000, i * rand() % 2000)));
+         get_enemies()->push_back(*(std::make_shared<Enemy>(300 + (rand() % 2000), 300 + (rand() % 2000))));
       }
       catch (const std::exception &e)
       {
