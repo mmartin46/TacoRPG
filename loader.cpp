@@ -180,10 +180,11 @@ void GameState::load()
       {"sprites\\landscape\\dirt_transright.png", "load dirttr(): No textures"},
       {"sprites\\landscape\\dirt_transup.png", "load dirttu(): No textures"},
       {"sprites\\landscape\\dirt_transdown.png", "load dirttd(): No textures"},
-      {"sprites\\landscape\\dirt_transupleft.png", "load dirttul(): No textures"},
+      {"sprites\\landscape\\dirt_transdownright.png", "load dirttdr(): No textures"},
       {"sprites\\landscape\\dirt_transdownleft.png", "load dirttdl(): No textures"},
       {"sprites\\landscape\\dirt_transupright.png", "load dirttur(): No textures"},
-      {"sprites\\landscape\\dirt_transdownright.png", "load dirttdr(): No textures"},
+      {"sprites\\landscape\\dirt_transupleft.png", "load dirttul(): No textures"},
+
    };
 
    char *bbpath;
