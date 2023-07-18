@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "utilities.cpp"
 
 /*
 Update the health based
@@ -60,6 +61,12 @@ void GameState::updateHealth()
 
 void GameState::game_over()
 {
+   std::cout << "_____STATS_____" << std::endl;
+   printf("Life: %f\n", this->getLife());
+   printf("Time: %u\n", (time));
+   printf("Score: %d\n", score);
+
+
    SDL_Quit();
    exit(1);
 }
