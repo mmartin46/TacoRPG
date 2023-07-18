@@ -201,7 +201,7 @@ void GameState::animate()
          else if ((this->get_time() % 15) >= 12.18 && ((this->get_time() % 15) < 15))
          {
             get_water()->at(row).at(col).set_frame(3);
-            get_juices()->at(row).at(col).set_frame(3);
+            get_juices()->at(row).at(col).set_frame(4);
          }
 
          pointsAnimation(plyr, row, col);
