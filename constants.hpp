@@ -17,8 +17,8 @@
 
 // Screen Settings
 
-#define WINDOW_WIDTH 420
-#define WINDOW_HEIGHT 236
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 
 #define SCREEN_WIDTH 420
 #define SCREEN_HEIGHT 236
