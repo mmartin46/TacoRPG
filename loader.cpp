@@ -339,7 +339,7 @@ void GameState::init_tiles()
                grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
                grass.at(x).at(y).set_w(BLOCK_WIDTH);
                grass.at(x).at(y).set_h(BLOCK_HEIGHT);
-               break;               
+               break;           
          }
          // Second Layer
          switch (layer2.at(x).at(y))
