@@ -369,6 +369,34 @@ void GameState::init_tiles()
                bushes.at(x).at(y).set_h(BLOCK_HEIGHT);
                break;
          }
+         // Third Layer
+         switch (layer3.at(x).at(y))
+         {
+            case 7 ... 15:
+               get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::JUICE_COLLISION:
+               juices.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               juices.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               juices.at(x).at(y).set_w(BLOCK_WIDTH);
+               juices.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::WATER_COLLISION:
+               water.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               water.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               water.at(x).at(y).set_w(BLOCK_WIDTH);
+               water.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::BUSH_COLLISION:
+               bushes.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               bushes.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               bushes.at(x).at(y).set_w(BLOCK_WIDTH);
+               bushes.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;            
+         }
       }
    }
 
