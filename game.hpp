@@ -203,6 +203,8 @@ class GameState
       // Loaders, Renderer, etc.
       void init_tiles();
       void run_scroller(int x, int y);
+      
+      void game_over();
 
       inline int get_time() { return time; };
       inline void set_time(int t) { time = t; }

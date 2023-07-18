@@ -54,7 +54,14 @@ void GameState::updateHealth()
    else if (abs(getLife()) < 5)
    {
       set_healthFrame(12);
+      game_over();
    }
+}
+
+void GameState::game_over()
+{
+   SDL_Quit();
+   exit(1);
 }
 
 /*
