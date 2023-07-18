@@ -115,6 +115,22 @@ void GameState::render()
          // Second Layer
          switch (layer2.at(x).at(y))
          {
+            case world_map::BLOCK_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_blocks()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_blocks()->at(x).at(y).get_y()), get_blocks()->at(x).at(y).get_w(), get_blocks()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &rect);
+               break;
+            }
+            case world_map::GROUND_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_ground()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_ground()->at(x).at(y).get_y()), get_ground()->at(x).at(y).get_w(), get_ground()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &rect);
+               break;
+            }
+            case world_map::GRASS_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &rect);
+               break;            
+            }
+
             case world_map::BOUNDARY_BUSH_COLLISION : {
                rect = { static_cast<int>(this->get_scrollX() + get_blocks()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_blocks()->at(x).at(y).get_y()), get_blocks()->at(x).at(y).get_w(), get_blocks()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(0), NULL, &rect);
@@ -165,8 +181,6 @@ void GameState::render()
                break;
             }                                         
                                                  
-                                        
-
 
             case world_map::JUICE_COLLISION : {
                rect = { static_cast<int>(this->get_scrollX() + get_juices()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_juices()->at(x).at(y).get_y()), get_juices()->at(x).at(y).get_w(), get_juices()->at(x).at(y).get_h() };
@@ -181,12 +195,38 @@ void GameState::render()
             case world_map::BUSH_COLLISION : {
                rect = { static_cast<int>(this->get_scrollX() + get_bushes()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_bushes()->at(x).at(y).get_y()), get_bushes()->at(x).at(y).get_w(), get_bushes()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &rect);
+               break;
+            }
+
+            default: {
+               if (layer2.at(x).at(y) >= 16 && layer2.at(x).at(y) <= 24)
+               {
+                  rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
+                  SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer2.at(x).at(y) - 16), NULL, &rect);
+               }
                break;
             }
          }
          // Third Layer
          switch (layer3.at(x).at(y))
          {
+            case world_map::BLOCK_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_blocks()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_blocks()->at(x).at(y).get_y()), get_blocks()->at(x).at(y).get_w(), get_blocks()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_block_texture(), NULL, &rect);
+               break;
+            }
+            case world_map::GROUND_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_ground()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_ground()->at(x).at(y).get_y()), get_ground()->at(x).at(y).get_w(), get_ground()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_ground_texture(), NULL, &rect);
+               break;
+            }
+            case world_map::GRASS_COLLISION : {
+               rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
+               SDL_RenderCopy(this->get_renderer(), this->get_grass_texture(), NULL, &rect);
+               break;            
+            }
+
+
             case world_map::BOUNDARY_BUSH_COLLISION : {
                rect = { static_cast<int>(this->get_scrollX() + get_blocks()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_blocks()->at(x).at(y).get_y()), get_blocks()->at(x).at(y).get_w(), get_blocks()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_boundBush_Texture(0), NULL, &rect);
@@ -253,6 +293,14 @@ void GameState::render()
             case world_map::BUSH_COLLISION : {
                rect = { static_cast<int>(this->get_scrollX() + get_bushes()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_bushes()->at(x).at(y).get_y()), get_bushes()->at(x).at(y).get_w(), get_bushes()->at(x).at(y).get_h() };
                SDL_RenderCopy(this->get_renderer(), this->get_bush_texture(), NULL, &rect);
+               break;
+            }
+            default: {
+               if (layer3.at(x).at(y) >= 16 && layer3.at(x).at(y) <= 24)
+               {
+                  rect = { static_cast<int>(this->get_scrollX() + get_grass()->at(x).at(y).get_x()), static_cast<int>(this->get_scrollY() + get_grass()->at(x).at(y).get_y()), get_grass()->at(x).at(y).get_w(), get_grass()->at(x).at(y).get_h() };
+                  SDL_RenderCopy(this->get_renderer(), this->get_dirt_texture(layer3.at(x).at(y) - 16), NULL, &rect);
+               }
                break;
             }
          }

@@ -120,7 +120,7 @@ void GameState::load()
          surface = IMG_Load(path);
          if (surface == NULL)
          {
-            printf("load enemy(): No texture");
+            printf("load enemy(): No texture %s", path);
             SDL_Quit();
             exit(1);      
          }
@@ -306,6 +306,7 @@ void GameState::init_tiles()
       {
          this->layer1.at(x).at(y) = world_map::layer1[x][y];
          this->layer2.at(x).at(y) = world_map::layer2[x][y];
+         this->layer3.at(x).at(y) = world_map::layer3[x][y];
       }
    }
 
@@ -344,6 +345,32 @@ void GameState::init_tiles()
          // Second Layer
          switch (layer2.at(x).at(y))
          {
+            case world_map::BLOCK_COLLISION:
+               get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;       
+            case world_map::GROUND_COLLISION:
+               ground.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               ground.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               ground.at(x).at(y).set_w(BLOCK_WIDTH);
+               ground.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::GRASS_COLLISION:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case 16 ... 24:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+
+
             case 7 ... 15:
                get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);
                get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
@@ -372,6 +399,32 @@ void GameState::init_tiles()
          // Third Layer
          switch (layer3.at(x).at(y))
          {
+            case world_map::BLOCK_COLLISION:
+               get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               get_blocks()->at(x).at(y).set_w(BLOCK_WIDTH);
+               get_blocks()->at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;       
+            case world_map::GROUND_COLLISION:
+               ground.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               ground.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               ground.at(x).at(y).set_w(BLOCK_WIDTH);
+               ground.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case world_map::GRASS_COLLISION:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+            case 16 ... 24:
+               grass.at(x).at(y).set_y(x*BLOCK_WIDTH);               
+               grass.at(x).at(y).set_x(y*BLOCK_HEIGHT);
+               grass.at(x).at(y).set_w(BLOCK_WIDTH);
+               grass.at(x).at(y).set_h(BLOCK_HEIGHT);
+               break;
+
+
             case 7 ... 15:
                get_blocks()->at(x).at(y).set_y(x*BLOCK_WIDTH);
                get_blocks()->at(x).at(y).set_x(y*BLOCK_HEIGHT);

@@ -117,7 +117,30 @@ void GameState::pointsAnimation(shared_ptr<T> p, int row, int col)
         // Clear the rect.
         SDL_Rect pRect = { static_cast<int>(this->get_scrollX() + get_juices()->at(row).at(col).get_x()), static_cast<int>(this->get_scrollY() + get_juices()->at(row).at(col).get_y()), get_juices()->at(row).at(col).get_w(), get_juices()->at(row).at(col).get_h() };
         SDL_RenderCopy(this->get_renderer(), NULL, NULL, &pRect);
-        layer2.at(row).at(col) = -1;
+        if (layer3.at(row).at(col) != -1)
+        {
+            layer3.at(row).at(col) = -1;
+        }
+
+        if (layer2.at(row).at(col) == world_map::JUICE_COLLISION &&
+            layer1.at(row).at(col) == world_map::WATER_COLLISION)
+        {
+            layer3.at(row).at(col) = world_map::WATER_COLLISION;
+        }
+        else if (layer2.at(row).at(col) == world_map::JUICE_COLLISION)
+        {
+            // switch (layer1.at(row).at(col))
+            // {
+            //    case world_map::GRASS_COLLISION: {
+            //       layer2.at(row).at(col) = -1;
+            //    }
+            //    case world_map::WATER_COLLISION: {
+            //       layer2.at(row).at(col) = world_map::WATER_COLLISION;
+            //    }
+            // }
+            layer2.at(row).at(col) = -1;
+        }
+
      }
 
 }
