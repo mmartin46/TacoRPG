@@ -229,7 +229,7 @@ void GameState::load()
       surface = IMG_Load(path);
       if (surface == NULL)
       {
-         printf("load: No texture %s\n", path);
+         printf("load waterblock(): No texture %s\n", path);
          SDL_Quit();
          exit(1);
       }
@@ -243,7 +243,7 @@ void GameState::load()
       surface = IMG_Load(path);
       if (surface == NULL)
       {
-         printf("load: No texture %s\n", path);
+         printf("load juice(): No texture %s\n", path);
          SDL_Quit();
          exit(1);
       }
@@ -274,7 +274,7 @@ void GameState::load()
       surface = IMG_Load(p.c_str());
       if (surface == NULL)
       {
-         printf("load: No texture %s\n", p.c_str());
+         printf("load waterwalk(): No texture %s\n", p.c_str());
          SDL_Quit();
          exit(1);
       }
@@ -288,7 +288,7 @@ void GameState::load()
       surface = IMG_Load(p.c_str());
       if (surface == NULL)
       {
-         printf("load: No texture %s\n", p.c_str());
+         printf("load life(): No texture %s\n", p.c_str());
          SDL_Quit();
          exit(1);
       }
