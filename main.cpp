@@ -30,6 +30,8 @@ int main(int argc, char **argv)
 
    TTF_Init();
 
+   Mix_OpenAudio(MIX_DEFAULT_FORMAT, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+
    // Loads the textures for the game.
    game.load();
 
@@ -54,6 +56,7 @@ int main(int argc, char **argv)
    }
 
    TTF_CloseFont(game.getTopBarFont());
+   Mix_CloseAudio();
    SDL_DestroyWindow(window);
    SDL_DestroyRenderer(renderer);
    return 0;

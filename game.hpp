@@ -78,6 +78,10 @@ class GameState
       // Health Info.
       shared_ptr<Entity> topBar;
       shared_ptr<Entity> healthBar;
+
+
+      // Sounds
+      Mix_Chunk *shotSound;
    
 
       // File Manipulation
@@ -145,6 +149,7 @@ class GameState
       inline void set_waterWalkTexture(int i, SDL_Texture *e) { waterWalktext.at(i) = e; }
       inline SDL_Texture* get_waterWalkTexture(int i) { return waterWalktext.at(i); }   
 
+
       // Frames
       inline void set_waterWalkFrame(int i) { waterWalkFrame = i; }
       inline int get_waterWalkFrame() { return waterWalkFrame; }
@@ -162,6 +167,10 @@ class GameState
 
       inline SDL_Texture* getTopBarTexture() { return topBarFontTexture; }
       inline void setTopBarTexture(SDL_Texture *t) { topBarFontTexture = t; }
+
+      // Sounds
+      inline void set_shotSound(Mix_Chunk *ss) { shotSound = ss; }
+      inline Mix_Chunk* get_shotSound() { return shotSound; }
 
 
       // Health

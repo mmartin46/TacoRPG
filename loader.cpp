@@ -82,6 +82,15 @@ void GameState::load()
       exit(1);
    }
 
+   // Sounds
+   this->set_shotSound(Mix_LoadWAV("sounds\\shot.wav"));
+   if (!this->get_shotSound())
+   {
+      std::cout << "load shotSound(): No song found!\n";
+      SDL_Quit();
+      exit(1);
+   }
+
    // Textures
    for (int i = 0; i < ENTITY_FRAMES; ++i)
    {

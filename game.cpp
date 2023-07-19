@@ -398,6 +398,7 @@ int GameState::events(SDL_Window *window)
    {
       this->get_player_attack()->set_shotStatus(CANT_SHOOT);
       this->get_player_attack()->run_shotMovement(*this->all_players.at(PLAYER_1));
+      Mix_PlayChannel(-1, this->get_shotSound(), 0);
    }
 
    if (state[SDL_SCANCODE_UP])
