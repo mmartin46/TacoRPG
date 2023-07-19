@@ -3,7 +3,7 @@ A SDL2 Gaming RPG Project Written in C++. The goal is to avoid enemies and colle
 
 ## Screenshots
 <p float="left">
-   <img src="https://i.postimg.cc/wvSrLVwZ/rpg.png width="100" />
+   <img src="https://i.postimg.cc/GhS7zthN/fullss.png width="100" />
 </p>
 
 ## How To Play
