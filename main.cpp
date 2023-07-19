@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-   window = SDL_CreateWindow("RPG Game",
+   window = SDL_CreateWindow("TacoRPG",
                            SDL_WINDOWPOS_UNDEFINED,
                            SDL_WINDOWPOS_UNDEFINED,
                            WINDOW_WIDTH,
