@@ -2,6 +2,8 @@
 #define CONSTANTS_H
 #pragma once
 
+/* FIX THIS (REASON FOR BUG)*/
+
 // Player Settings
 
 
@@ -454,4 +456,5 @@ pair<int, int> Map::calculateMapSize(const char *fileName, const char delim)
 
    return mapSize;
 }
+
 #endif
