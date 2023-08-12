@@ -1,4 +1,7 @@
-#include "utilities.cpp"
+#ifndef BLOCK_H
+#define BLOCK_H
+#pragma once
+
 #include "entity.hpp"
 
 class Block : public Entity
@@ -15,3 +18,5 @@ Block::Block()
 {
    stillFrames = vector<SDL_Texture*>(1);
 }
+
+#endif

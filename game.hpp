@@ -1,12 +1,11 @@
+#ifndef GAME_H
+#define GAME_H
+
 #pragma once
-#include "utilities.cpp"
-#include "constants.hpp"
 #include "player.hpp"
 #include "block.hpp"
 #include "attack.hpp"
-#include "attack.cpp"
 #include "enemy.hpp"
-#include "enemy.cpp"
 
 enum id {
    PLAYER_1 = 0
@@ -228,3 +227,4 @@ class GameState
       inline void set_renderer(SDL_Renderer *rend) { renderer = rend; }
 };
 
+#endif

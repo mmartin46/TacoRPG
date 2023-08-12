@@ -1,50 +1,5 @@
-#pragma once
-#include <SDL2\SDL.h>
-#include <SDL2\SDL_image.h>
-#include <SDL2\SDL_mixer.h>
-#include <SDL2\SDL_ttf.h>
-#include <iostream>
-#include <memory>
-#include <thread>
-#include <chrono>
-#include <math.h>
-#include <vector>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <stdlib.h>
-#include <utility>
-#include <cstdlib>
-#include <unordered_map>
-#include <algorithm>
-#include <future>
-#include <dirent.h>
-#include <sys/types.h>
-using std::unordered_map;
-using namespace std::chrono;
+#include "utilities.hpp"
 
-template <typename T>
-using Matrix = std::vector<std::vector<T> >;
-using std::pair;
-using std::shared_ptr;
-using std::vector;
-using std::string;
-using std::unordered_map;
-
-// What was the last movement
-// the player made?
-enum state {
-   MOVED_LEFT = 1,
-   MOVED_RIGHT = 2,
-
-   MOVED_UP = 4,
-   MOVED_UPRIGHT = 5,
-   MOVED_UPLEFT = 9,
-
-   MOVED_DOWN = 8,
-   MOVED_DOWNLEFT = 3,
-   MOVED_DOWNRIGHT = 6
-};
 
 // Utilies bit operations to save of space.
 namespace bitset
@@ -165,18 +120,8 @@ pair<int, int> getImageDimensions(const char *filePath)
 
 // Finds the distance between
 // two points.
-typedef struct {
-   int p1_x;
-   int p1_y;
-   int p2_x;
-   int p2_y;
-} Distance;
+// Finds the distance between
+// two points.
+struct Distance;
 
-struct comp
-{
-   template <typename T>
-   bool operator() (const T&lhs, const T&rhs)
-   {
-      return lhs.second < rhs.second;
-   }
-};
+struct comp;

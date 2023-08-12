@@ -1,7 +1,5 @@
 #pragma once
-#include "entity.hpp"
 #include "player.hpp"
-#include "constants.hpp"
 
 /*
 Controls if a shot can

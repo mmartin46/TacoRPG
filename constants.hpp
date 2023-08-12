@@ -1,3 +1,5 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 #pragma once
 
 // Player Settings
@@ -452,3 +454,4 @@ pair<int, int> Map::calculateMapSize(const char *fileName, const char delim)
 
    return mapSize;
 }
+#endif

@@ -1,4 +1,10 @@
+#ifndef ENTITY_H
+#define ENTITY_H
 #pragma once
+
+#include "utilities.hpp"
+#include "constants.hpp"
+
 /*
 Entity -
 Object that contains
@@ -54,3 +60,4 @@ class Entity
       inline virtual SDL_Texture* get_stillFrame(int n) { return stillFrames.at(n); }
 };
 
+#endif

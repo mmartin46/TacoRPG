@@ -1,8 +1,8 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 #pragma once
-#include "constants.hpp"
-#include "utilities.cpp"
 #include "entity.hpp"
-#include "entity.cpp"
+
 
 
 enum whichBit {
@@ -57,3 +57,4 @@ class Player : public Entity
 
       void animation(int);
 };
+#endif

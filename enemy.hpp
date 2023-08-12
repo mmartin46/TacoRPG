@@ -1,3 +1,5 @@
+#ifndef ENEMY_H
+#define ENEMY_H
 #pragma once
 #include "player.hpp"
 
@@ -24,5 +26,6 @@ class Enemy : public Player
       inline void set_healthFrame(int i) { healthBarFrame = i; }
       inline int get_healthFrame() { return healthBarFrame; }
 };
+#endif
 
 

@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "utilities.cpp"
 
 /*
 Update the health based
