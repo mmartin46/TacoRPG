@@ -1,3 +1,5 @@
+#ifndef ATTACK_H
+#define ATTACK_H
 #pragma once
 #include "player.hpp"
 
@@ -39,3 +41,4 @@ class Attack : public Entity
       inline void set_shotStatus(int n) { shotStatus = n; }
       inline int get_shotStatus() { return shotStatus; } 
 };
+#endif
