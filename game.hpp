@@ -6,6 +6,7 @@
 #include "block.hpp"
 #include "attack.hpp"
 #include "enemy.hpp"
+#include "map.hpp"
 
 enum id {
    PLAYER_1 = 0

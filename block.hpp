@@ -14,9 +14,4 @@ class Block : public Entity
       Block();
 };
 
-Block::Block()
-{
-   stillFrames = vector<SDL_Texture*>(1);
-}
-
 #endif
