@@ -2,10 +2,10 @@
 #define GAME_H
 
 #pragma once
-#include "player.hpp"
-#include "block.hpp"
-#include "attack.hpp"
-#include "enemy.hpp"
+#include "entities/player.hpp"
+#include "entities/block.hpp"
+#include "entities/attack.hpp"
+#include "entities/enemy.hpp"
 #include "map.hpp"
 
 enum id {

@@ -1,7 +1,7 @@
 #include "game.hpp"
-#include "collisions.cpp"
-#include "loader.cpp"
-#include "animation.cpp"
+#include "utils/collisions.cpp"
+#include "utils/loader.cpp"
+#include "utils/animation.cpp"
 
 
 
